@@ -24,9 +24,9 @@ exports.signup_get = asyncHandler(async (req, res) => {
   const hashedPassword = await bcrypt.hash(password, parseInt(process.env.BCRYPT_SALT))
 
   const user = new User({
-    firstname: firstname,
-    lastname: lastname,
-    username: username,
+    firstname: firstname.toLowerCase(),
+    lastname: lastname.toLowerCase(),
+    username: username.toLowerCase(),
     password: hashedPassword,
     profile: {
       url: '',
