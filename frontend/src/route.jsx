@@ -4,6 +4,7 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import ProtectedRoute from './components/ProtectedRoute';
 import Logout from './pages/Logout';
+import Home from './pages/Home';
 
 export default function Route() {
 	const route = createBrowserRouter([
@@ -14,6 +15,12 @@ export default function Route() {
 					<App />
 				</ProtectedRoute>
 			),
+			children: [
+				{
+					index: true,
+					element: <Home />,
+				},
+			],
 		},
 		{
 			path: '/signup',
