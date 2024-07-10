@@ -1,10 +1,10 @@
 import { navLinks } from '@/constants';
 import SidebarLink from './SidebarLink';
 
-export default function Sidebar() {
+export default function Bottombar() {
 	return (
-		<aside className='transition-all flex flex-col justify-between h-full text-black text-muted-foreground border-r dark:border-gray-800'>
-			<div className='flex flex-col p-2 gap-1'>
+		<aside className='transition-all flex h-full text-black dark:text-muted-foreground border-t w-full dark:border-gray-800'>
+			<div className='flex w-full justify-around p-2 gap-1'>
 				{navLinks.map((link) => (
 					<SidebarLink
 						key={link.name}
@@ -15,9 +15,9 @@ export default function Sidebar() {
 				))}
 			</div>
 
-			<div className='flex flex-col p-2 gap-1'>
+			{/* <div className='flex flex-col p-2 gap-1'>
 				<SidebarLink name='Logout' path='/logout' icon='' />
-			</div>
+			</div> */}
 		</aside>
 	);
 }

@@ -15,8 +15,8 @@ export const navLinks = [
     name: 'Search'
   },
   {
-    path: '/groups',
+    path: '/inbox',
     icon: '',
-    name: 'Groups'
+    name: 'Inbox'
   },
 ];
