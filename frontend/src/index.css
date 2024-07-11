@@ -105,15 +105,16 @@ input:-webkit-autofill:active {
 		/* --muted: 0 0% 11.8%; #1E1E1E */
 		/* --muted-foreground: 0 0% 87.8%;  */
 
-		--accent: 217.2 32.6% 17.5%;
-		--accent-foreground: 210 40% 98%;
+		--accent: 14.5 100% 63.5%; /* #FF6E40 */
+		--accent-foreground: 0 0% 7.1%; /* #121212 */
 
-		--destructive: 0 62.8% 30.6%;
-		--destructive-foreground: 210 40% 98%;
+		--destructive: 345.1 48.9% 62.2%; /* #CF6679 */
+		--destructive-foreground: 0 0% 7.1%; /* #121212 */
 
+		/* --border: 220 26.5% 11.8%; #1E1E1E */
 		--border: 217.2 32.6% 17.5%;
-		--input: 217.2 32.6% 17.5%;
-		--ring: 212.7 26.8% 83.9%;
+		--input: 220 26.5% 11.8%; /* #1E1E1E */
+		--ring: 212.7 26.8% 83.9%; /* #A0A0A0 */
 	}
 }
 
@@ -126,8 +127,25 @@ input:-webkit-autofill:active {
 	}
 }
 
+/* wrap the text with no spaces */
 .text-wrap {
 	word-break: break-word;
 	overflow-wrap: anywhere;
 	hyphens: auto;
+}
+
+/* styling for nav icons when hovered/active */
+.navIconPath {
+	transition: all 0.15s ease;
+}
+
+.navIconPath {
+	stroke: hsl(var(--muted-foreground));
+}
+
+.navIconContainer:hover .navIconPath,
+/* '.active-link' class will be applied when a link is active */
+.navIconContainer.active-link .navIconPath {
+	/* this is where we change the color of the icon svg */
+	stroke: hsl(var(--primary));
 }

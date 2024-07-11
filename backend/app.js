@@ -8,6 +8,7 @@ app.use(cors());
 //controllers
 const authRouter = require('./routes/auth');
 const userRouter = require('./routes/user');
+const postRouter = require('./routes/post');
 
 // connect to mongoDB
 const mongoose = require('mongoose');
@@ -26,6 +27,7 @@ app.use(express.urlencoded({ extended: false }));
 // routes
 app.use('/auth', authRouter);
 app.use('/user', userRouter);
+app.use('/post', postRouter);
 
 // Error handlers
 app.use((req, res, next) => {

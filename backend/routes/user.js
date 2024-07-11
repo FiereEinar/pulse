@@ -10,11 +10,17 @@ const {
 /**
  * GET USERS
  */
-router.get('/', passport.authenticate('jwt', { session: false }), users_get);
+router.get('/',
+  passport.authenticate('jwt', { session: false }),
+  users_get
+);
 
 /**
  * GET USER BY ID
  */
-router.get('/:userID', passport.authenticate('jwt', { session: false }), user_get);
+router.get('/:userID',
+  passport.authenticate('jwt', { session: false }),
+  user_get
+);
 
 module.exports = router;

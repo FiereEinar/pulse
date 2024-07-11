@@ -1,22 +1,23 @@
+
 export const navLinks = [
   {
     path: '/',
-    icon: '',
+    icon: 'home',
     name: 'Home'
   },
   {
     path: '/create',
-    icon: '',
-    name: 'Create'
+    icon: 'plus',
+    name: 'Create Post'
   },
   {
     path: '/search',
-    icon: '',
+    icon: 'search',
     name: 'Search'
   },
   {
-    path: '/inbox',
-    icon: '',
-    name: 'Inbox'
+    path: '/activity',
+    icon: 'heart',
+    name: 'Activity'
   },
 ];

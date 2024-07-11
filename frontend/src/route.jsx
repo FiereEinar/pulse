@@ -5,11 +5,13 @@ import Login from './pages/Login';
 import ProtectedRoute from './components/ProtectedRoute';
 import Logout from './pages/Logout';
 import Home from './pages/Home';
+import NotFound from './pages/NotFound';
 
 export default function Route() {
 	const route = createBrowserRouter([
 		{
 			path: '/',
+			errorElement: <NotFound />,
 			element: (
 				<ProtectedRoute>
 					<App />

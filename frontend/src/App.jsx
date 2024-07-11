@@ -15,7 +15,7 @@ function App() {
 					<Sidebar />
 				</div>
 
-				<div className='flex flex-col h-full w-full p-3 overflow-auto'>
+				<div className='transition-all flex flex-col h-full w-full md:max-w-[50rem] p-2 sm:p-5 overflow-auto bg-background border-x'>
 					<Outlet />
 				</div>
 
