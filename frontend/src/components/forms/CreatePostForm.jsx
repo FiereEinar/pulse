@@ -120,7 +120,7 @@ export default function CreatePostForm({ currentUser }) {
 				<textarea
 					disabled={isSubmitting}
 					{...register('content')}
-					className='w-full bg-card p-1 text-muted-foreground'
+					className='w-full bg-card p-1 text-muted-foreground focus:outline-none px-3'
 					placeholder='Write about something...'
 					name='content'
 					id='content'

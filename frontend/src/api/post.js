@@ -56,3 +56,18 @@ export const togglePostLike = async (postID, userID, isCurrentlyLiked) => {
     throw e;
   }
 };
+
+export const fetchPostByID = async (postID) => {
+  try {
+    const { data } = await axios.get(`${BASE_API_URL}/post/${postID}`, {
+      headers: {
+        Authorization: localStorage.getItem('Token')
+      }
+    });
+
+    return data.data;
+  } catch (e) {
+    console.error('Error fetching post', e);
+    throw e;
+  }
+};

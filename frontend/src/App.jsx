@@ -10,19 +10,18 @@ function App() {
 			{/* 10dvh */}
 			<Header />
 
-			<div className='flex flex-col md:flex-row h-[90dvh]'>
+			<div className='flex flex-col bg-background md:flex-row h-[90dvh]'>
 				<div className='hidden md:flex'>
 					<Sidebar />
 				</div>
 
-				<div className='transition-all flex flex-col h-full w-full md:max-w-[40rem] p-2 sm:p-5 overflow-auto bg-background border-x'>
+				<div className='transition-all flex flex-col h-full w-full md:max-w-[40rem] p-2 sm:p-5 overflow-y-scroll bg-background'>
 					<Outlet />
 				</div>
 
-				<aside className='transition-all w-[30rem] hidden lg:flex flex-col h-full border-l dark:border-gray-800'>
-					<article></article>
-
-					<article></article>
+				<aside className='transition-all bg-background w-[30rem] hidden lg:flex flex-col gap-5 h-full p-2 sm:p-5'>
+					<article className='bg-card w-full h-full rounded-md border'></article>
+					<article className='bg-card w-full h-full rounded-md border'></article>
 				</aside>
 
 				<div className='flex md:hidden'>

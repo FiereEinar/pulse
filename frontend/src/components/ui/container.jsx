@@ -9,3 +9,11 @@ export function MainContainer({ children }) {
 		</main>
 	);
 }
+
+export function PostCardContainer({ children }) {
+	return (
+		<article className='transition-all bg-card shadow-lg border rounded-md'>
+			{children}
+		</article>
+	);
+}

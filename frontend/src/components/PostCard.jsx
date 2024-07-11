@@ -1,5 +1,7 @@
+import { useRef } from 'react';
 import PostActions from './PostActions';
 import PostUserHeader from './PostUserHeader';
+import ImageGallery from 'react-image-gallery';
 
 /* eslint-disable react/prop-types */
 export default function PostCard({
@@ -15,8 +17,14 @@ export default function PostCard({
 	comments,
 	shares,
 }) {
+	const imageGalleryRef = useRef(null);
+
+	const onImageClick = () => {
+		imageGalleryRef.current.toggleFullScreen();
+	};
+
 	return (
-		<article className='transition-all bg-card p-3 rounded-md flex flex-col gap-2 shadow-lg border'>
+		<article className='p-3 flex flex-col gap-2'>
 			{/* post header */}
 			<PostUserHeader
 				creatorProfile={creatorProfile}
@@ -31,12 +39,32 @@ export default function PostCard({
 
 			{/* post image */}
 			{postImage && (
-				<div>
-					<img
-						className='rounded-md object-cover object-center w-full'
+				<div className='relative max-h-[15rem] overflow-hidden rounded-md'>
+					<button
+						className='absolute z-50 top-2 right-2'
+						onClick={onImageClick}
+					>
+						<img
+							className='size-8'
+							src='/icons/fullscreen.svg'
+							alt='fullscreen'
+						/>
+					</button>
+					<ImageGallery
+						showThumbnails={false}
+						showFullscreenButton={false}
+						showPlayButton={false}
+						showBullets={false}
+						ref={imageGalleryRef}
+						onClick={onImageClick}
+						items={[{ original: postImage }]}
+					/>
+
+					{/* <img
+						className='rounded-md object-cover object-center w-full max-h-[18rem]'
 						src={postImage}
 						alt='image'
-					/>
+					/> */}
 				</div>
 			)}
 

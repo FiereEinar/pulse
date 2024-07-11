@@ -4,6 +4,7 @@ import GetIcon from './icons';
 import { togglePostLike } from '@/api/post';
 import { useToast } from './ui/use-toast';
 import { QueryClient } from '@tanstack/react-query';
+import { Link } from 'react-router-dom';
 
 export default function PostActions({
 	postID,
@@ -60,10 +61,14 @@ export default function PostActions({
 				/>
 				<p className='text-muted-foreground'>{likes}</p>
 			</button>
-			<button className='flex gap-1'>
-				<GetIcon iconKey='comment' width='22px' height='22px' />
-				<p className='text-muted-foreground'>{comments}</p>
-			</button>
+
+			<Link to={`/post/${postID}`}>
+				<button className='flex gap-1'>
+					<GetIcon iconKey='comment' width='22px' height='22px' />
+					<p className='text-muted-foreground'>{comments}</p>
+				</button>
+			</Link>
+
 			<button className='flex gap-1'>
 				<GetIcon iconKey='share' />
 				<p className='text-muted-foreground'>{shares}</p>

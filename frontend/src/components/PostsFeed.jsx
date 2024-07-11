@@ -3,6 +3,7 @@ import PostCard from './PostCard';
 import { useToast } from './ui/use-toast';
 import { useEffect } from 'react';
 import { FormError } from './ui/error';
+import { PostCardContainer } from './ui/container';
 
 /* eslint-disable react/prop-types */
 export default function PostsFeed({ posts, error, isLoading }) {
@@ -24,20 +25,21 @@ export default function PostsFeed({ posts, error, isLoading }) {
 			{error && <FormError message='Error fetching posts' />}
 			{posts &&
 				posts.map((post) => (
-					<PostCard
-						likes={post.likes.length}
-						comments={post.comments.length}
-						shares={post.shares.length}
-						postID={post._id}
-						isLiked={post.likes.includes(currentUserID)}
-						key={post._id}
-						content={post.content}
-						creatorProfile={post.creator.profile.url}
-						fullname={`${post.creator.firstname} ${post.creator.lastname}`}
-						postImage={post.image.url}
-						username={post.creator.username}
-						date={format(post.dateCreated, 'MMMM dd, yyyy')}
-					/>
+					<PostCardContainer key={post._id}>
+						<PostCard
+							likes={post.likes.length}
+							comments={post.comments.length}
+							shares={post.shares.length}
+							postID={post._id}
+							isLiked={post.likes.includes(currentUserID)}
+							content={post.content}
+							creatorProfile={post.creator.profile.url}
+							fullname={`${post.creator.firstname} ${post.creator.lastname}`}
+							postImage={post.image.url}
+							username={post.creator.username}
+							date={format(post.dateCreated, 'MMMM dd, yyyy')}
+						/>
+					</PostCardContainer>
 				))}
 		</section>
 	);

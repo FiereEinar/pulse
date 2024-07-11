@@ -2,6 +2,7 @@ const asyncHandler = require("express-async-handler");
 const Response = require('../utils/response');
 const User = require('../models/user');
 const Post = require('../models/post');
+const Comment = require('../models/comment');
 const { serverlessImageUpload } = require("../utils/uploader");
 
 exports.posts_get = asyncHandler(async (req, res) => {
