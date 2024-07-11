@@ -6,6 +6,7 @@ import { FormError } from './ui/error';
 
 /* eslint-disable react/prop-types */
 export default function PostsFeed({ posts, error, isLoading }) {
+	const currentUserID = localStorage.getItem('UserID');
 	const { toast } = useToast();
 
 	useEffect(() => {
@@ -16,17 +17,19 @@ export default function PostsFeed({ posts, error, isLoading }) {
 			});
 		}
 	}, [error, toast]);
-
+	console.log(posts);
 	return (
 		<section className='flex flex-col gap-3'>
 			{isLoading && <p className='text-muted-foreground'>Loading...</p>}
-			{error && (
-				<FormError message='Error fetching posts' />
-				// <p className='text-muted-foreground'>Error fetching posts...</p>
-			)}
+			{error && <FormError message='Error fetching posts' />}
 			{posts &&
 				posts.map((post) => (
 					<PostCard
+						likes={post.likes.length}
+						comments={post.comments.length}
+						shares={post.shares.length}
+						postID={post._id}
+						isLiked={post.likes.includes(currentUserID)}
 						key={post._id}
 						content={post.content}
 						creatorProfile={post.creator.profile.url}

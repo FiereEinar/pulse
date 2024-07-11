@@ -9,6 +9,11 @@ export default function PostCard({
 	content,
 	postImage,
 	date,
+	isLiked,
+	postID,
+	likes,
+	comments,
+	shares,
 }) {
 	return (
 		<article className='transition-all bg-card p-3 rounded-md flex flex-col gap-2 shadow-lg border'>
@@ -38,7 +43,13 @@ export default function PostCard({
 			<p className='text-xs text-muted-foreground italic'>{date}</p>
 
 			{/* post actions */}
-			<PostActions />
+			<PostActions
+				likes={likes}
+				comments={comments}
+				shares={shares}
+				postID={postID}
+				isLiked={isLiked}
+			/>
 		</article>
 	);
 }

@@ -31,3 +31,28 @@ export const createPost = async (formData) => {
     throw e;
   }
 };
+
+export const togglePostLike = async (postID, userID, isCurrentlyLiked) => {
+  try {
+    let result = null;
+
+    if (isCurrentlyLiked) {
+      result = await axios.delete(`${BASE_API_URL}/post/${postID}/${userID}/like`, {
+        headers: {
+          Authorization: localStorage.getItem('Token')
+        }
+      });
+    } else {
+      result = await axios.post(`${BASE_API_URL}/post/${postID}/${userID}/like`, {}, {
+        headers: {
+          Authorization: localStorage.getItem('Token')
+        }
+      });
+    }
+
+    return result.data;
+  } catch (e) {
+    console.error('Error toggling like post', e);
+    throw e;
+  }
+};

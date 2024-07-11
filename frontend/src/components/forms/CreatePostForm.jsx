@@ -70,6 +70,7 @@ export default function CreatePostForm({ currentUser }) {
 					{/* add image */}
 					<div className='flex'>
 						<Button
+							title='Add Image'
 							disabled={isSubmitting}
 							type='button'
 							size='sm'
@@ -101,7 +102,12 @@ export default function CreatePostForm({ currentUser }) {
 					</div>
 
 					{/* submit button */}
-					<Button disabled={isSubmitting} className='flex-shrink-0' size='sm'>
+					<Button
+						title='Create Post'
+						disabled={isSubmitting}
+						className='flex-shrink-0'
+						size='sm'
+					>
 						<img className='size-5 sm:mr-1' src='/icons/add.svg' alt='' />
 
 						<p className='hidden sm:flex'>Create Post</p>

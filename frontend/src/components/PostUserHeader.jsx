@@ -10,7 +10,7 @@ export default function PostUserHeader({ creatorProfile, fullname, username }) {
 				alt=''
 			/>
 			<div className='flex flex-col justify-center'>
-				<h4 className='font-semibold text-popover-foreground border text-wrap'>
+				<h4 className='font-semibold text-popover-foreground text-wrap'>
 					{_.startCase(fullname)}
 				</h4>
 				<p className='text-muted-foreground text-sm text-wrap'>@{username}</p>

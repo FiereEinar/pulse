@@ -4,7 +4,6 @@ const User = require('../models/user');
 const Post = require('../models/post');
 const { serverlessImageUpload } = require("../utils/uploader");
 
-
 exports.posts_get = asyncHandler(async (req, res) => {
   const posts = await Post.find({})
     .populate({
@@ -70,4 +69,21 @@ exports.post_post = asyncHandler(async (req, res) => {
   await post.save();
 
   res.json(new Response(true, post, 'Posts created', null));
+});
+
+
+exports.like_post = asyncHandler(async (req, res) => {
+  const { postID, userID } = req.params;
+
+  const result = await Post.findByIdAndUpdate(postID, { $push: { likes: userID } }, { new: true }).exec();
+
+  res.json(new Response(true, result, 'Post liked', null));
+});
+
+exports.like_delete = asyncHandler(async (req, res) => {
+  const { postID, userID } = req.params;
+
+  const result = await Post.findByIdAndUpdate(postID, { $pull: { likes: userID } }, { new: true }).exec();
+
+  res.json(new Response(true, result, 'Post unliked', null));
 });
