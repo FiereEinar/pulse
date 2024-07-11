@@ -45,7 +45,7 @@ export default function PostCard({
 						onClick={onImageClick}
 					>
 						<img
-							className='size-8'
+							className='size-6'
 							src='/icons/fullscreen.svg'
 							alt='fullscreen'
 						/>
@@ -57,14 +57,13 @@ export default function PostCard({
 						showBullets={false}
 						ref={imageGalleryRef}
 						onClick={onImageClick}
-						items={[{ original: postImage }]}
+						items={[
+							{
+								original: postImage,
+								thumbnail: postImage,
+							},
+						]}
 					/>
-
-					{/* <img
-						className='rounded-md object-cover object-center w-full max-h-[18rem]'
-						src={postImage}
-						alt='image'
-					/> */}
 				</div>
 			)}
 

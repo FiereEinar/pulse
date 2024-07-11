@@ -11,14 +11,7 @@ const userRouter = require('./routes/user');
 const postRouter = require('./routes/post');
 
 // connect to mongoDB
-const mongoose = require('mongoose');
-mongoose.set('strictQuery', false);
-const mongoDB = process.env.MONGO_URI;
-
-main().catch((err) => console.log(err));
-async function main() {
-  await mongoose.connect(mongoDB);
-}
+require('./utils/mongodb');
 
 // middlewares
 app.use(express.json());

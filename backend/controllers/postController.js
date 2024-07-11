@@ -88,3 +88,33 @@ exports.like_delete = asyncHandler(async (req, res) => {
 
   res.json(new Response(true, result, 'Post unliked', null));
 });
+
+exports.post_comment_create = asyncHandler(async (req, res) => {
+  const { postID } = req.params;
+  const { commenterID, content } = req.body;
+
+  let imageUrl = '';
+  let imagePublicID = '';
+
+  if (req.file) {
+    const result = await serverlessImageUpload(req.file.buffer);
+
+    imageUrl = result.secure_url;
+    imagePublicID = result.public_id;
+  }
+
+  const comment = new Comment({
+    commenter: commenterID,
+    content: content,
+    image: {
+      url: imageUrl,
+      publicID: imagePublicID
+    },
+  });
+
+  await comment.save();
+
+  const result = await Post.findByIdAndUpdate(postID, { $push: { comments: comment._id } }, { new: true }).exec();
+
+  res.json(new Response(true, { comment, result }, 'Comment posted on a  post', null));
+});

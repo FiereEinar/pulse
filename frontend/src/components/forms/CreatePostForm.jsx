@@ -124,6 +124,7 @@ export default function CreatePostForm({ currentUser }) {
 					placeholder='Write about something...'
 					name='content'
 					id='content'
+					autoFocus
 					rows={4}
 				/>
 				{errors.content && <FormError message={errors.content.message} />}

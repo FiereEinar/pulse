@@ -6,6 +6,7 @@ export default function CreateCommentForm({}) {
 			<input
 				// disabled={isSubmitting}
 				// {...register('content')}
+				autoFocus
 				className='w-full bg-card p-1 text-muted-foreground px-3 focus:outline-none'
 				placeholder='Write a comment'
 				name='content'
