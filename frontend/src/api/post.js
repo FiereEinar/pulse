@@ -16,3 +16,18 @@ export const getPosts = async () => {
     throw e;
   }
 };
+
+export const createPost = async (formData) => {
+  try {
+    const { data } = await axios.post(`${BASE_API_URL}/post`, formData, {
+      headers: {
+        Authorization: localStorage.getItem('Token')
+      }
+    });
+
+    return data;
+  } catch (e) {
+    console.error('Error creating post', e);
+    throw e;
+  }
+};

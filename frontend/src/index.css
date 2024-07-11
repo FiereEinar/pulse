@@ -100,7 +100,7 @@ input:-webkit-autofill:active {
 		--secondary-foreground: 0 0% 7.1%; /* #121212 */
 
 		--muted: 217.2 32.6% 17.5%;
-		--muted-foreground: 215 20.2% 65.1%;
+		--muted-foreground: 215 20.2% 65.1%; /* #64748b */
 
 		/* --muted: 0 0% 11.8%; #1E1E1E */
 		/* --muted-foreground: 0 0% 87.8%;  */
@@ -134,12 +134,14 @@ input:-webkit-autofill:active {
 	hyphens: auto;
 }
 
-/* styling for nav icons when hovered/active */
-.navIconPath {
+/* 
+	styling for nav icons when hovered/active 
+*/
+.navIconContainer .navIconPath {
 	transition: all 0.15s ease;
 }
 
-.navIconPath {
+.navIconContainer .navIconPath {
 	stroke: hsl(var(--muted-foreground));
 }
 

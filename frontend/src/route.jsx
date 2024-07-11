@@ -6,6 +6,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Logout from './pages/Logout';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
+import CreatePost from './pages/CreatePost';
 
 export default function Route() {
 	const route = createBrowserRouter([
@@ -21,6 +22,10 @@ export default function Route() {
 				{
 					index: true,
 					element: <Home />,
+				},
+				{
+					path: '/create',
+					element: <CreatePost />,
 				},
 			],
 		},
