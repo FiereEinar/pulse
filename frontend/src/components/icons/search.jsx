@@ -18,7 +18,7 @@ export default function SearchIcon({
 				strokeWidth='2'
 				strokeLinecap='round'
 				strokeLinejoin='round'
-				className='navIconPath'
+				className='iconPath'
 			/>
 		</svg>
 	);

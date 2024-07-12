@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
-import GetIcon from './icons';
 import { togglePostLike } from '@/api/post';
 import { useToast } from './ui/use-toast';
-import { QueryClient } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
+import HeartIcon from './icons/heart';
+import CommentIcon from './icons/comment';
+import ShareIcon from './icons/share';
 
 export default function PostActions({
 	postID,
@@ -12,11 +13,11 @@ export default function PostActions({
 	likes,
 	comments,
 	shares,
+	refetch,
 }) {
 	const { toast } = useToast();
 	const currentUserID = localStorage.getItem('UserID');
 	const textMutedForeground = '#64748b';
-	const queryClient = new QueryClient();
 
 	const [liked, setLiked] = useState(isLiked);
 	const [isLoading, setIsLoading] = useState(false);
@@ -36,7 +37,7 @@ export default function PostActions({
 				return;
 			}
 
-			await queryClient.invalidateQueries(['posts']);
+			refetch();
 		} catch (err) {
 			toast({
 				variant: 'destructive',
@@ -52,10 +53,11 @@ export default function PostActions({
 			<button
 				disabled={isLoading}
 				onClick={onLikeClick}
-				className='flex gap-1 post-action active-heart disabled:opacity-70'
+				className={`flex gap-1 post-action active-heart disabled:opacity-70 ${
+					!liked && 'postActionContainer'
+				}`}
 			>
-				<GetIcon
-					iconKey='heart'
+				<HeartIcon
 					fill={liked ? 'red' : 'none'}
 					stroke={liked ? 'red' : textMutedForeground}
 				/>
@@ -63,14 +65,14 @@ export default function PostActions({
 			</button>
 
 			<Link to={`/post/${postID}`}>
-				<button className='flex gap-1'>
-					<GetIcon iconKey='comment' width='22px' height='22px' />
+				<button className='postActionContainer heartIcon flex gap-1'>
+					<CommentIcon width='22px' height='22px' />
 					<p className='text-muted-foreground'>{comments}</p>
 				</button>
 			</Link>
 
-			<button className='flex gap-1'>
-				<GetIcon iconKey='share' />
+			<button className='postActionContainer flex gap-1'>
+				<ShareIcon />
 				<p className='text-muted-foreground'>{shares}</p>
 			</button>
 		</div>

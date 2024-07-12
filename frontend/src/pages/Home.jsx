@@ -7,11 +7,19 @@ export default function Home() {
 		data: posts,
 		error,
 		isLoading,
+		refetch,
 	} = useQuery({
 		queryKey: ['posts'],
 		queryFn: getPosts,
 		retry: false,
 	});
 
-	return <PostsFeed posts={posts} isLoading={isLoading} error={error} />;
+	return (
+		<PostsFeed
+			posts={posts}
+			isLoading={isLoading}
+			error={error}
+			refetch={refetch}
+		/>
+	);
 }

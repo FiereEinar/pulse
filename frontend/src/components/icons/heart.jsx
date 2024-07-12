@@ -19,7 +19,7 @@ export default function HeartIcon({
 				strokeWidth='1.6'
 				strokeLinecap='round'
 				strokeLinejoin='round'
-				className='navIconPath'
+				className='iconPath'
 			/>
 		</svg>
 	);

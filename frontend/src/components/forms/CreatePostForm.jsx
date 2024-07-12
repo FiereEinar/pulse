@@ -9,6 +9,7 @@ import { FormError } from '../ui/error';
 import { useToast } from '../ui/use-toast';
 import { createPost } from '@/api/post';
 import { useNavigate } from 'react-router-dom';
+import ImagePreview from '../ImagePreview';
 
 export default function CreatePostForm({ currentUser }) {
 	const navigate = useNavigate();
@@ -57,10 +58,11 @@ export default function CreatePostForm({ currentUser }) {
 	return (
 		<form
 			onSubmit={handleSubmit(onPostSubmit)}
-			className='bg-card w-full rounded-md border'
+			className='bg-card w-full rounded-md h-full'
 		>
 			<div className='p-3 flex justify-between gap-2'>
 				<PostUserHeader
+					userID={currentUser._id}
 					creatorProfile={currentUser.profile.url}
 					fullname={`${currentUser.firstname} ${currentUser.lastname}`}
 					username={currentUser.username}
@@ -132,21 +134,12 @@ export default function CreatePostForm({ currentUser }) {
 
 			{/* image preview */}
 			{image && (
-				<div className='relative pt-1'>
-					<img
-						className='object-cover object-center rounded-md w-full'
-						src={URL.createObjectURL(image)}
-						alt='image preview'
-					/>
-					<button
-						disabled={isSubmitting}
-						type='button'
-						onClick={() => setImage(null)}
-						className='absolute size-5 p-1 bg-card rounded-full top-2 right-2 disabled:opacity-70'
-					>
-						<img src='/icons/close.svg' alt='' />
-					</button>
-				</div>
+				<ImagePreview
+					image={URL.createObjectURL(image)}
+					isSubmitting={isSubmitting}
+					onCancel={() => setImage(null)}
+					imageClass={''}
+				/>
 			)}
 		</form>
 	);

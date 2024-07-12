@@ -1,4 +1,4 @@
-import { fetchPostByID } from '@/api/post';
+import { fetchPostByID, getPosts } from '@/api/post';
 import CreateCommentForm from '@/components/forms/CreateCommentForm';
 import PostCard from '@/components/PostCard';
 import PostCommentFeed from '@/components/PostCommentFeed';
@@ -16,12 +16,23 @@ export default function Post() {
 		data: postData,
 		error,
 		isLoading,
+		refetch: refetchPost,
 	} = useQuery({
 		queryKey: [`post_${postID}`],
 		queryFn: () => fetchPostByID(postID),
 	});
 
-	console.log(postData);
+	const { refetch: refetchAllPosts } = useQuery({
+		queryKey: ['posts'],
+		queryFn: getPosts,
+		retry: false,
+	});
+
+	// refetch both the single post and all posts so that when the user goes back to homepage, the posts are up to date
+	const refetch = () => {
+		refetchPost();
+		refetchAllPosts();
+	};
 
 	return (
 		<PostCardContainer>
@@ -40,11 +51,13 @@ export default function Post() {
 						creatorProfile={postData.creator.profile.url}
 						fullname={`${postData.creator.firstname} ${postData.creator.lastname}`}
 						postImage={postData.image.url}
+						userID={postData.creator._id}
 						username={postData.creator.username}
+						refetch={refetch}
 						date={format(postData.dateCreated, 'MMMM dd, yyyy')}
 					/>
 
-					<CreateCommentForm />
+					<CreateCommentForm postID={postID} refetch={refetch} />
 
 					<h1 className='p-3 italic text-popover-foreground text-lg'>
 						Comments

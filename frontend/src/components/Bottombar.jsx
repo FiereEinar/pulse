@@ -3,7 +3,7 @@ import SidebarLink from './SidebarLink';
 
 export default function Bottombar() {
 	return (
-		<aside className='transition-all flex h-full text-black dark:text-muted-foreground border-t w-full dark:border-gray-800'>
+		<aside className='transition-all flex h-full bg-card text-muted-foreground border-t w-full dark:border-gray-800'>
 			<div className='flex w-full justify-around p-2 gap-1'>
 				{navLinks.map((link) => (
 					<SidebarLink

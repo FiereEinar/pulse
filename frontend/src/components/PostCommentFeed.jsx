@@ -2,7 +2,6 @@ import CommentCard from './CommentCard';
 
 /* eslint-disable react/prop-types */
 export default function PostCommentFeed({ comments }) {
-	console.log('Comments: ', comments);
 	return (
 		<div>
 			{comments.length === 0 && (
@@ -12,6 +11,7 @@ export default function PostCommentFeed({ comments }) {
 				<CommentCard
 					key={comment._id}
 					comment={comment.content}
+					userID={comment.commenter._id}
 					image={comment.image.url}
 					profile={comment.commenter.profile.url}
 					isLast={i === comments.length - 1}

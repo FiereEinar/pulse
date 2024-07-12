@@ -31,14 +31,18 @@ export default function CommentCard({
 				{!isLast ? (
 					<div className='border-l-2 w-[50%] h-full' />
 				) : (
-					<div className='border-l-2 border-b-2 border-b rounded-bl-3xl w-[50%] h-[50%]' />
+					<div
+						className={`border-l-2 border-b-2 rounded-bl-3xl w-[50%] ${
+							image ? 'h-[50%]' : 'h-[28%]'
+						}`}
+					/>
 				)}
 			</div>
 
 			<div className='flex-grow'>
 				<div className='flex gap-3'>
 					<Link to={`/profile/${userID}`}>
-						<h4 className='text-popover-foreground font-medium'>
+						<h4 className='text-popover-foreground font-medium text-wrap'>
 							{_.startCase(fullname)}
 						</h4>
 					</Link>
@@ -46,7 +50,7 @@ export default function CommentCard({
 				<p className='text-muted-foreground text-xs italic'>
 					{format(date, 'MMMM dd, yyyy')}
 				</p>
-				<p className='text-muted-foreground my-1'>{comment}</p>
+				<p className='text-muted-foreground my-1 text-wrap'>{comment}</p>
 				{image && (
 					<CustomImageGallery image={image} containerClass='h-[10rem]' />
 				)}

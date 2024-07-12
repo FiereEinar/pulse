@@ -50,7 +50,7 @@ input:-webkit-autofill:active {
 		--background: 0 0% 100%; /* #FFFFFF */
 		--foreground: 0 0% 0%; /* #000000 */
 
-		--card: 0 0% 96%; /* #F5F5F5 */
+		--card: 0 0% 92%; /* #F5F5F5 */
 		--card-foreground: 0 0% 0%; /* #000000 */
 
 		--popover: 0 0% 100%; /* #FFFFFF */
@@ -138,17 +138,26 @@ input:-webkit-autofill:active {
 /* 
 	styling for nav icons when hovered/active 
 */
-.navIconContainer .navIconPath {
+.iconPath {
 	transition: all 0.15s ease;
 }
 
-.navIconContainer .navIconPath {
+.navIconContainer .iconPath {
 	stroke: hsl(var(--muted-foreground));
 }
 
-.navIconContainer:hover .navIconPath,
+.navIconContainer:hover .iconPath,
 /* '.active-link' class will be applied when a link is active */
-.navIconContainer.active-link .navIconPath {
+.navIconContainer.active-link .iconPath {
 	/* this is where we change the color of the icon svg */
 	stroke: hsl(var(--primary));
+}
+
+.postActionContainer:hover .iconPath {
+	/* this is where we change the color of the icon svg */
+	stroke: hsl(var(--primary));
+}
+
+.postActionContainer.heartIcon:hover .iconPath {
+	fill: hsl(var(--primary));
 }

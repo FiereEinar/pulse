@@ -10,7 +10,7 @@ function App() {
 			{/* 10dvh */}
 			<Header />
 
-			<div className='flex bg-background md:flex-row h-[90dvh]'>
+			<div className='flex flex-col bg-background md:flex-row h-[90dvh]'>
 				<div className='hidden md:flex'>
 					<Sidebar />
 				</div>
@@ -23,7 +23,6 @@ function App() {
 					<article className='bg-card w-full h-full rounded-md border'></article>
 					<article className='bg-card w-full h-full rounded-md border'></article>
 				</aside>
-
 				<div className='flex md:hidden'>
 					<Bottombar />
 				</div>

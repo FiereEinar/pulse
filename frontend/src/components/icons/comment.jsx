@@ -15,7 +15,7 @@ export default function CommentIcon({
 			<g id='style=stroke'>
 				<g id='comment'>
 					<path
-						className='navIconPath'
+						className='iconPath'
 						id='vector (Stroke)'
 						strokeWidth='0.4'
 						fillRule='evenodd'

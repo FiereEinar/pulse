@@ -71,3 +71,18 @@ export const fetchPostByID = async (postID) => {
     throw e;
   }
 };
+
+export const createComment = async (postID, formData) => {
+  try {
+    const { data } = await axios.post(`${BASE_API_URL}/post/${postID}/comment`, formData, {
+      headers: {
+        Authorization: localStorage.getItem('Token')
+      }
+    });
+
+    return data;
+  } catch (e) {
+    console.error('Error posting comment', e);
+    throw e;
+  }
+};

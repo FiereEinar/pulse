@@ -6,7 +6,7 @@ import { FormError } from './ui/error';
 import { PostCardContainer } from './ui/container';
 
 /* eslint-disable react/prop-types */
-export default function PostsFeed({ posts, error, isLoading }) {
+export default function PostsFeed({ posts, error, isLoading, refetch }) {
 	const currentUserID = localStorage.getItem('UserID');
 	const { toast } = useToast();
 
@@ -18,7 +18,7 @@ export default function PostsFeed({ posts, error, isLoading }) {
 			});
 		}
 	}, [error, toast]);
-	console.log(posts);
+
 	return (
 		<section className='flex flex-col gap-3'>
 			{isLoading && <p className='text-muted-foreground'>Loading...</p>}
@@ -36,6 +36,8 @@ export default function PostsFeed({ posts, error, isLoading }) {
 							creatorProfile={post.creator.profile.url}
 							fullname={`${post.creator.firstname} ${post.creator.lastname}`}
 							postImage={post.image.url}
+							refetch={refetch}
+							userID={post.creator._id}
 							username={post.creator.username}
 							date={format(post.dateCreated, 'MMMM dd, yyyy')}
 						/>
