@@ -1,7 +1,10 @@
 import CommentCard from './CommentCard';
 
 /* eslint-disable react/prop-types */
-export default function PostCommentFeed({ comments }) {
+export default function PostCommentFeed({ comments, postID, refetch }) {
+	const currentUserID = localStorage.getItem('UserID');
+
+	console.log(comments);
 	return (
 		<div>
 			{comments.length === 0 && (
@@ -10,6 +13,11 @@ export default function PostCommentFeed({ comments }) {
 			{comments.map((comment, i) => (
 				<CommentCard
 					key={comment._id}
+					isLiked={comment.likes.includes(currentUserID)}
+					likes={comment.likes.length}
+					postID={postID}
+					refetch={refetch}
+					commentID={comment._id}
 					comment={comment.content}
 					userID={comment.commenter._id}
 					image={comment.image.url}

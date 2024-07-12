@@ -64,7 +64,11 @@ export default function Post() {
 					</h1>
 
 					<div className='px-3 pb-3'>
-						<PostCommentFeed comments={postData.comments} />
+						<PostCommentFeed
+							postID={postData._id}
+							comments={postData.comments}
+							refetch={refetch}
+						/>
 					</div>
 				</>
 			)}

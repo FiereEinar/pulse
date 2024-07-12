@@ -9,7 +9,9 @@ const {
   post_post,
   like_post,
   like_delete,
-  post_comment_create
+  post_comment_create,
+  post_comment_like_create,
+  post_comment_like_delete
 } = require('../controllers/postController');
 
 // GET POSTS
@@ -36,6 +38,18 @@ router.post('/:postID/comment',
   passport.authenticate('jwt', { session: false }),
   upload.single('image'),
   post_comment_create
+);
+
+// SEND A LIKE TO A COMMENT ON A POST
+router.post('/:postID/comment/:commentID/like/:userID',
+  passport.authenticate('jwt', { session: false }),
+  post_comment_like_create
+);
+
+// REMOVE A LIKE TO A COMMENT ON A POST
+router.delete('/:postID/comment/:commentID/like/:userID',
+  passport.authenticate('jwt', { session: false }),
+  post_comment_like_delete
 );
 
 // SEND A LIKE TO A POST

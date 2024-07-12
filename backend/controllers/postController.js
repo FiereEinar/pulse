@@ -76,7 +76,7 @@ exports.post_post = asyncHandler(async (req, res) => {
 exports.like_post = asyncHandler(async (req, res) => {
   const { postID, userID } = req.params;
 
-  const result = await Post.findByIdAndUpdate(postID, { $push: { likes: userID } }, { new: true }).exec();
+  const result = await Post.findByIdAndUpdate(postID, { $addToSet: { likes: userID } }, { new: true }).exec();
 
   res.json(new Response(true, result, 'Post liked', null));
 });
@@ -116,5 +116,21 @@ exports.post_comment_create = asyncHandler(async (req, res) => {
 
   const result = await Post.findByIdAndUpdate(postID, { $push: { comments: comment._id } }, { new: true }).exec();
 
-  res.json(new Response(true, { comment, result }, 'Comment posted on a  post', null));
+  res.json(new Response(true, { comment, result }, 'Comment posted on a post', null));
+});
+
+exports.post_comment_like_create = asyncHandler(async (req, res) => {
+  const { commentID, userID } = req.params;
+
+  const result = await Comment.findByIdAndUpdate(commentID, { $addToSet: { likes: userID } }, { new: true }).exec();
+
+  res.json(new Response(true, result, 'Like sent to a comment', null));
+});
+
+exports.post_comment_like_delete = asyncHandler(async (req, res) => {
+  const { commentID, userID } = req.params;
+
+  const result = await Comment.findByIdAndUpdate(commentID, { $pull: { likes: userID } }, { new: true }).exec();
+
+  res.json(new Response(true, result, 'Like removed to a comment', null));
 });

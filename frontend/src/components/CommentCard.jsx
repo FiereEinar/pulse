@@ -1,10 +1,9 @@
 /* eslint-disable react/prop-types */
-
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
-import GetIcon from './icons';
 import CustomImageGallery from './CustomImageGallery';
 import { format } from 'date-fns';
+import CommentActions from './CommentActions';
 
 export default function CommentCard({
 	profile,
@@ -14,9 +13,12 @@ export default function CommentCard({
 	image,
 	date,
 	isLast,
+	commentID,
+	postID,
+	refetch,
+	likes,
+	isLiked,
 }) {
-	const textMutedForeground = '#64748b';
-
 	return (
 		<article className='flex gap-2'>
 			<div className='flex flex-col items-end flex-shrink-0'>
@@ -58,11 +60,13 @@ export default function CommentCard({
 				<div className='h-3' />
 			</div>
 
-			<div>
-				<button className='flex gap-1 mt-3 post-action active-heart disabled:opacity-70'>
-					<GetIcon iconKey='heart' stroke={textMutedForeground} />
-				</button>
-			</div>
+			<CommentActions
+				commentID={commentID}
+				isLiked={isLiked}
+				likes={likes}
+				postID={postID}
+				refetch={refetch}
+			/>
 		</article>
 	);
 }

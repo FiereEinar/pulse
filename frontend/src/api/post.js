@@ -86,3 +86,33 @@ export const createComment = async (postID, formData) => {
     throw e;
   }
 };
+
+export const toggleCommentLike = async (
+  postID,
+  commentID,
+  userID,
+  isCurrentlyLiked
+) => {
+  try {
+    let result = null;
+
+    if (isCurrentlyLiked) {
+      result = await axios.delete(`${BASE_API_URL}/post/${postID}/comment/${commentID}/like/${userID}`, {
+        headers: {
+          Authorization: localStorage.getItem('Token')
+        }
+      });
+    } else {
+      result = await axios.post(`${BASE_API_URL}/post/${postID}/comment/${commentID}/like/${userID}`, {}, {
+        headers: {
+          Authorization: localStorage.getItem('Token')
+        }
+      });
+    }
+
+    return result.data;
+  } catch (e) {
+    console.error('Error toggling like on a comment', e);
+    throw e;
+  }
+};

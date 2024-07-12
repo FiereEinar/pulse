@@ -3,9 +3,9 @@ import { useState } from 'react';
 import { togglePostLike } from '@/api/post';
 import { useToast } from './ui/use-toast';
 import { Link } from 'react-router-dom';
-import HeartIcon from './icons/heart';
 import CommentIcon from './icons/comment';
 import ShareIcon from './icons/share';
+import HeartButton from './HeartButton';
 
 export default function PostActions({
 	postID,
@@ -17,7 +17,6 @@ export default function PostActions({
 }) {
 	const { toast } = useToast();
 	const currentUserID = localStorage.getItem('UserID');
-	const textMutedForeground = '#64748b';
 
 	const [liked, setLiked] = useState(isLiked);
 	const [isLoading, setIsLoading] = useState(false);
@@ -50,19 +49,12 @@ export default function PostActions({
 
 	return (
 		<div className='flex gap-3 items-center'>
-			<button
-				disabled={isLoading}
+			<HeartButton
+				isLiked={liked}
+				isLoading={isLoading}
+				likes={likes}
 				onClick={onLikeClick}
-				className={`flex gap-1 post-action active-heart disabled:opacity-70 ${
-					!liked && 'postActionContainer'
-				}`}
-			>
-				<HeartIcon
-					fill={liked ? 'red' : 'none'}
-					stroke={liked ? 'red' : textMutedForeground}
-				/>
-				<p className='text-muted-foreground'>{likes}</p>
-			</button>
+			/>
 
 			<Link to={`/post/${postID}`}>
 				<button className='postActionContainer heartIcon flex gap-1'>
