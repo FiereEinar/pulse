@@ -1,23 +1,22 @@
-import { Button } from './button';
+import { useState } from 'react';
+import { DarkModeSwitch } from 'react-toggle-dark-mode';
 
 // temporary
 export default function DarkModeToggle() {
-	const handleClick = () => {
+	const [isDarkMode, setDarkMode] = useState(true);
+
+	const toggleDarkMode = () => {
 		const body = document.querySelector('body');
 
 		if (body.classList.contains('dark')) {
 			body.classList.remove('dark');
+			setDarkMode(false);
 		} else {
 			body.classList.add('dark');
+			setDarkMode(true);
 		}
 	};
 	return (
-		<Button
-			variant=''
-			onClick={handleClick}
-			className='absolute z-50 bottom-3 right-3 size-10 border rounded-full'
-		>
-			O
-		</Button>
+		<DarkModeSwitch size={20} checked={isDarkMode} onChange={toggleDarkMode} />
 	);
 }

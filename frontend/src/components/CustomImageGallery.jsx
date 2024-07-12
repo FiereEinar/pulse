@@ -26,7 +26,7 @@ export default function CustomImageGallery({ image, containerClass }) {
 				items={[
 					{
 						original: image,
-						originalClass: 'h-screen object-cover object-center',
+						originalClass: 'object-cover object-center',
 					},
 				]}
 			/>
