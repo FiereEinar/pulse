@@ -107,12 +107,13 @@ export default function CreatePostForm({ currentUser }) {
 					<Button
 						title='Create Post'
 						disabled={isSubmitting}
-						className='flex-shrink-0'
+						className='flex-shrink-0 gap-1'
 						size='sm'
 					>
-						<img className='size-5 sm:mr-1' src='/icons/add.svg' alt='' />
+						<img className='size-5' src='/icons/add.svg' alt='' />
 
 						<p className='hidden sm:flex'>Create Post</p>
+						<p className='sm:hidden'>Post</p>
 					</Button>
 				</div>
 			</div>

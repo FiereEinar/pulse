@@ -23,6 +23,7 @@ export default function PostCard({
 		<article className='p-3 flex flex-col gap-2'>
 			{/* post header */}
 			<PostUserHeader
+				postID={postID}
 				refetch={refetch}
 				showActions={true}
 				isEdited={isEdited}

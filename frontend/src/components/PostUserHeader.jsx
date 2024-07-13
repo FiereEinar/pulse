@@ -14,6 +14,7 @@ export default function PostUserHeader({
 	showActions,
 	content,
 	refetch,
+	postID,
 }) {
 	const currentUserID = localStorage.getItem('UserID');
 
@@ -21,7 +22,7 @@ export default function PostUserHeader({
 		<div className='flex justify-between items-center'>
 			<div className='flex gap-2 items-center'>
 				{/* user image */}
-				<Link to={`/profile/${userID}`}>
+				<Link className='flex-shrink-0' to={`/profile/${userID}`}>
 					<img
 						className='size-10 rounded-full object-cover object-center shadow-md'
 						src={creatorProfile ? creatorProfile : '/default_user.jpg'}
@@ -31,12 +32,14 @@ export default function PostUserHeader({
 
 				{/* username and fullname */}
 				<div className='flex flex-col justify-center'>
-					<Link to={`/profile/${userID}`} className='flex items-center gap-2'>
-						<h4 className='transition-all font-semibold text-popover-foreground text-wrap hover:underline'>
-							{_.startCase(fullname)}
-						</h4>
+					<div className='flex items-center gap-1 flex-wrap'>
+						<Link to={`/profile/${userID}`}>
+							<h4 className='transition-all font-semibold text-popover-foreground text-wrap hover:underline'>
+								{_.startCase(fullname)}
+							</h4>
+						</Link>
 						{date && (
-							<p className='text-muted-foreground text-xs italic'>
+							<p className='text-muted-foreground text-[0.60rem] italic'>
 								-{' '}
 								{formatDistanceToNow(date, {
 									includeSeconds: true,
@@ -45,16 +48,18 @@ export default function PostUserHeader({
 							</p>
 						)}
 						{isEdited && (
-							<p className='text-muted-foreground text-xs italic'>- Edited</p>
+							<p className='text-muted-foreground text-[0.60rem] italic'>
+								- Edited
+							</p>
 						)}
-					</Link>
+					</div>
 					<p className='text-muted-foreground text-sm text-wrap'>@{username}</p>
 				</div>
 			</div>
 
 			{/* actions */}
 			{showActions && currentUserID === userID && (
-				<PostController content={content} refetch={refetch} />
+				<PostController content={content} refetch={refetch} postID={postID} />
 			)}
 		</div>
 	);

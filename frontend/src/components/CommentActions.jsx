@@ -20,17 +20,63 @@ export default function CommentActions({
 	likes,
 	comment,
 }) {
-	const { toast } = useToast();
-	const currentUserID = localStorage.getItem('UserID');
 	const [isLoading, setIsLoading] = useState(false);
 
-	// for like
+	return (
+		<div className='flex gap-2 flex-shrink-0'>
+			<Menubar className='w-fit'>
+				<MenubarMenu>
+					<MenubarTrigger disabled={isLoading}>
+						<img className='size-6' src='/icons/3_dots.svg' alt='' />
+					</MenubarTrigger>
+					<MenubarContent className='text-muted-foreground flex flex-col rounded-md overflow-hidden'>
+						<EditButton
+							commentID={commentID}
+							isLoading={isLoading}
+							postID={postID}
+							refetch={refetch}
+							setIsLoading={setIsLoading}
+							comment={comment}
+						/>
+
+						<DeleteButton
+							commentID={commentID}
+							isLoading={isLoading}
+							postID={postID}
+							refetch={refetch}
+							setIsLoading={setIsLoading}
+						/>
+					</MenubarContent>
+				</MenubarMenu>
+			</Menubar>
+
+			{/* like */}
+			<HeartButtonAction
+				refetch={refetch}
+				commentID={commentID}
+				postID={postID}
+				isLiked={isLiked}
+				isLoading={isLoading}
+				likes={likes}
+				setIsLoading={setIsLoading}
+			/>
+		</div>
+	);
+}
+
+function HeartButtonAction({
+	isLoading,
+	setIsLoading,
+	likes,
+	isLiked,
+	postID,
+	commentID,
+	refetch,
+}) {
+	const currentUserID = localStorage.getItem('UserID');
+	const { toast } = useToast();
 	const [liked, setLiked] = useState(isLiked);
 
-	// for edit
-	const [contentValue, setContentValue] = useState(comment);
-
-	// like handler
 	const onLike = async () => {
 		try {
 			setIsLoading(true);
@@ -62,7 +108,28 @@ export default function CommentActions({
 		}
 	};
 
-	// edit handler
+	return (
+		<HeartButton
+			isLiked={liked}
+			isLoading={isLoading}
+			likes={likes}
+			onClick={onLike}
+		/>
+	);
+}
+
+function EditButton({
+	postID,
+	commentID,
+	isLoading,
+	setIsLoading,
+	refetch,
+	comment,
+}) {
+	const currentUserID = localStorage.getItem('UserID');
+	const { toast } = useToast();
+	const [contentValue, setContentValue] = useState(comment);
+
 	const onEdit = async () => {
 		try {
 			setIsLoading(true);
@@ -83,6 +150,9 @@ export default function CommentActions({
 			}
 
 			refetch();
+			toast({
+				title: 'Your comment has been updated',
+			});
 		} catch (err) {
 			toast({
 				variant: 'destructive',
@@ -93,7 +163,35 @@ export default function CommentActions({
 		}
 	};
 
-	// delete handler
+	return (
+		<DialogWrapper
+			onConfirm={onEdit}
+			title='Edit your comment:'
+			body={
+				<textarea
+					value={contentValue}
+					onChange={(e) => setContentValue(e.target.value)}
+					className='w-full bg-card p-1 rounded-md focus:outline-none text-muted-foreground'
+					rows={3}
+				/>
+			}
+			trigger={
+				<Button
+					disabled={isLoading}
+					size='sm'
+					className='flex gap-2 justify-start rounded-none bg-[#242526] hover:bg-[#3a3b3c] text-muted-foreground'
+				>
+					<img className='size-5' src='/icons/edit.svg' alt='' />
+					<p>Edit</p>
+				</Button>
+			}
+		/>
+	);
+}
+
+function DeleteButton({ postID, commentID, isLoading, setIsLoading, refetch }) {
+	const { toast } = useToast();
+
 	const onDelete = async () => {
 		try {
 			setIsLoading(true);
@@ -109,6 +207,9 @@ export default function CommentActions({
 			}
 
 			refetch();
+			toast({
+				title: 'Your comment has been deleted',
+			});
 		} catch (err) {
 			toast({
 				variant: 'destructive',
@@ -120,63 +221,21 @@ export default function CommentActions({
 	};
 
 	return (
-		<div className='flex gap-2 flex-shrink-0'>
-			<Menubar className='w-fit'>
-				<MenubarMenu>
-					<MenubarTrigger disabled={isLoading}>
-						<img className='size-6' src='/icons/3_dots.svg' alt='' />
-					</MenubarTrigger>
-					<MenubarContent className='text-muted-foreground flex flex-col rounded-md overflow-hidden'>
-						{/* edit */}
-						<DialogWrapper
-							onConfirm={onEdit}
-							title='Edit your comment:'
-							body={
-								<textarea
-									value={contentValue}
-									onChange={(e) => setContentValue(e.target.value)}
-									className='w-full bg-card p-1 rounded-md focus:outline-none text-muted-foreground'
-									rows={3}
-								/>
-							}
-							trigger={
-								<Button
-									size='sm'
-									className='flex gap-2 justify-start rounded-none bg-[#242526] hover:bg-[#3a3b3c] text-muted-foreground'
-								>
-									<img className='size-5' src='/icons/edit.svg' alt='' />
-									<p>Edit</p>
-								</Button>
-							}
-						/>
-
-						{/* delete */}
-						<DialogWrapper
-							onConfirm={onDelete}
-							title='Are you sure you want to delete this comment?'
-							description='This action can not be undone'
-							confirmBtnVariant='destructive'
-							trigger={
-								<Button
-									size='sm'
-									className='flex gap-2 justify-start rounded-none bg-[#242526] hover:bg-[#3a3b3c] text-muted-foreground'
-								>
-									<img className='size-5' src='/icons/delete.svg' alt='' />
-									<p>Delete</p>
-								</Button>
-							}
-						/>
-					</MenubarContent>
-				</MenubarMenu>
-			</Menubar>
-
-			{/* like */}
-			<HeartButton
-				isLiked={liked}
-				isLoading={isLoading}
-				likes={likes}
-				onClick={onLike}
-			/>
-		</div>
+		<DialogWrapper
+			onConfirm={onDelete}
+			title='Are you sure you want to delete this comment?'
+			description='This action can not be undone'
+			confirmBtnVariant='destructive'
+			trigger={
+				<Button
+					disabled={isLoading}
+					size='sm'
+					className='flex gap-2 justify-start rounded-none bg-[#242526] hover:bg-[#3a3b3c] text-muted-foreground'
+				>
+					<img className='size-5' src='/icons/delete.svg' alt='' />
+					<p>Delete</p>
+				</Button>
+			}
+		/>
 	);
 }

@@ -18,7 +18,10 @@ const MenubarRadioGroup = MenubarPrimitive.RadioGroup;
 const Menubar = React.forwardRef(({ className, ...props }, ref) => (
 	<MenubarPrimitive.Root
 		ref={ref}
-		className={cn('flex items-center rounded-md bg-card', className)}
+		className={cn(
+			'transition-all flex items-center rounded-md bg-card',
+			className
+		)}
 		{...props}
 	/>
 ));

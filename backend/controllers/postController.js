@@ -106,7 +106,7 @@ exports.post_comment_create = asyncHandler(async (req, res) => {
   let imagePublicID = '';
 
   if (req.file) {
-    const result = await serverlessImageUpload(req.file.buffer);
+    const result = await serverlessImageUpload(req.file.buffer, 'comments');
 
     imageUrl = result.secure_url;
     imagePublicID = result.public_id;

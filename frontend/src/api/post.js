@@ -146,3 +146,33 @@ export const updateComment = async (postID, commentID, formData) => {
     throw e;
   }
 };
+
+export const updatePost = async (postID, formData) => {
+  try {
+    const { data } = await axios.put(`${BASE_API_URL}/post/${postID}`, formData, {
+      headers: {
+        Authorization: localStorage.getItem('Token')
+      }
+    });
+
+    return data;
+  } catch (e) {
+    console.error('Error updating post', e);
+    throw e;
+  }
+};
+
+export const deletePost = async (postID) => {
+  try {
+    const { data } = await axios.delete(`${BASE_API_URL}/post/${postID}`, {
+      headers: {
+        Authorization: localStorage.getItem('Token')
+      }
+    });
+
+    return data;
+  } catch (e) {
+    console.error('Error deleting post', e);
+    throw e;
+  }
+};
