@@ -176,3 +176,18 @@ export const deletePost = async (postID) => {
     throw e;
   }
 };
+
+export const fetchUserPosts = async (userID) => {
+  try {
+    const { data } = await axios.get(`${BASE_API_URL}/post/user/${userID}`, {
+      headers: {
+        Authorization: localStorage.getItem('Token')
+      }
+    });
+
+    return data.data;
+  } catch (e) {
+    console.error('Error fetching user posts', e);
+    throw e;
+  }
+};

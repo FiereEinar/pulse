@@ -19,36 +19,40 @@ export default function CommentActions({
 	postID,
 	likes,
 	comment,
+	userID,
 }) {
+	const currentUserID = localStorage.getItem('UserID');
 	const [isLoading, setIsLoading] = useState(false);
 
 	return (
 		<div className='flex gap-2 flex-shrink-0'>
-			<Menubar className='w-fit'>
-				<MenubarMenu>
-					<MenubarTrigger disabled={isLoading}>
-						<img className='size-6' src='/icons/3_dots.svg' alt='' />
-					</MenubarTrigger>
-					<MenubarContent className='text-muted-foreground flex flex-col rounded-md overflow-hidden'>
-						<EditButton
-							commentID={commentID}
-							isLoading={isLoading}
-							postID={postID}
-							refetch={refetch}
-							setIsLoading={setIsLoading}
-							comment={comment}
-						/>
+			{currentUserID === userID && (
+				<Menubar className='w-fit'>
+					<MenubarMenu>
+						<MenubarTrigger disabled={isLoading}>
+							<img className='size-6' src='/icons/3_dots.svg' alt='' />
+						</MenubarTrigger>
+						<MenubarContent className='text-muted-foreground flex flex-col rounded-md overflow-hidden'>
+							<EditButton
+								commentID={commentID}
+								isLoading={isLoading}
+								postID={postID}
+								refetch={refetch}
+								setIsLoading={setIsLoading}
+								comment={comment}
+							/>
 
-						<DeleteButton
-							commentID={commentID}
-							isLoading={isLoading}
-							postID={postID}
-							refetch={refetch}
-							setIsLoading={setIsLoading}
-						/>
-					</MenubarContent>
-				</MenubarMenu>
-			</Menubar>
+							<DeleteButton
+								commentID={commentID}
+								isLoading={isLoading}
+								postID={postID}
+								refetch={refetch}
+								setIsLoading={setIsLoading}
+							/>
+						</MenubarContent>
+					</MenubarMenu>
+				</Menubar>
+			)}
 
 			{/* like */}
 			<HeartButtonAction

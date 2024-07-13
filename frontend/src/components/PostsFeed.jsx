@@ -23,6 +23,11 @@ export default function PostsFeed({ posts, error, isLoading, refetch }) {
 		<section className='flex flex-col gap-3'>
 			{isLoading && <p className='text-muted-foreground'>Loading...</p>}
 			{error && <FormError message='Error fetching posts' />}
+			{posts && posts.length === 0 && (
+				<p className='h-full w-full bg-card p-3 rounded-md text-muted-foreground italic text-sm'>
+					No posts yet
+				</p>
+			)}
 			{posts &&
 				posts.map((post) => (
 					<PostCardContainer key={post._id}>

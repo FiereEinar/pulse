@@ -15,13 +15,20 @@ const {
   post_comment_update,
   post_comment_delete,
   post_update,
-  post_delete
+  post_delete,
+  user_posts_get
 } = require('../controllers/postController');
 
 // GET POSTS
 router.get('/',
   passport.authenticate('jwt', { session: false }),
   posts_get
+);
+
+// GET USER POSTS
+router.get('/user/:userID',
+  passport.authenticate('jwt', { session: false }),
+  user_posts_get
 );
 
 // CREATE A POST

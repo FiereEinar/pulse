@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import CreatePost from './pages/CreatePost';
 import Post from './pages/Post';
+import Profile from './pages/Profile';
 
 export default function Route() {
 	const route = createBrowserRouter([
@@ -27,6 +28,10 @@ export default function Route() {
 				{
 					path: '/create',
 					element: <CreatePost />,
+				},
+				{
+					path: '/profile/:userID',
+					element: <Profile />,
 				},
 				{
 					path: '/post/:postID',

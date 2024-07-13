@@ -20,15 +20,13 @@ export default function CommentCard({
 	isLiked,
 	isEdited,
 }) {
-	const currentUserID = localStorage.getItem('UserID');
-
 	return (
 		<article className='flex gap-2'>
 			<div className='flex flex-col items-end flex-shrink-0'>
 				{/* user profile */}
 				<Link to={`/profile/${userID}`}>
 					<img
-						className='!size-8 rounded-full object-cover object-center mt-1 flex-shrink-0'
+						className='!size-8 rounded-full shadow-md object-cover object-center mt-1 flex-shrink-0'
 						src={profile || '/default_user.jpg'}
 						alt=''
 					/>
@@ -36,10 +34,10 @@ export default function CommentCard({
 
 				{/* this is just a line */}
 				{!isLast ? (
-					<div className='border-l-2 w-[50%] h-full' />
+					<div className='border-l border-muted-foreground w-[50%] h-full' />
 				) : (
 					<div
-						className={`border-l-2 border-b-2 rounded-bl-3xl w-[50%] ${
+						className={`border-l border-b border-muted-foreground rounded-bl-3xl w-[50%] ${
 							image ? 'h-[50%]' : 'h-[28%]'
 						}`}
 					/>
@@ -67,16 +65,15 @@ export default function CommentCard({
 						</p>
 					</div>
 
-					{currentUserID === userID && (
-						<CommentActions
-							comment={comment}
-							commentID={commentID}
-							isLiked={isLiked}
-							likes={likes}
-							postID={postID}
-							refetch={refetch}
-						/>
-					)}
+					<CommentActions
+						comment={comment}
+						commentID={commentID}
+						isLiked={isLiked}
+						likes={likes}
+						postID={postID}
+						refetch={refetch}
+						userID={userID}
+					/>
 				</div>
 
 				{/* comment and image */}

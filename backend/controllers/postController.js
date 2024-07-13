@@ -18,6 +18,20 @@ exports.posts_get = asyncHandler(async (req, res) => {
   res.json(new Response(true, posts, 'Posts gathered', null));
 });
 
+exports.user_posts_get = asyncHandler(async (req, res) => {
+  const { userID } = req.params;
+
+  const posts = await Post.find({ creator: userID })
+    .populate({
+      path: 'creator',
+      select: '-password'
+    })
+    .sort({ dateCreated: -1 })
+    .exec();
+
+  res.json(new Response(true, posts, 'User posts gathered', null));
+});
+
 exports.post_id_get = asyncHandler(async (req, res) => {
   const { postID } = req.params;
 
