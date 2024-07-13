@@ -18,7 +18,10 @@ export default function CommentCard({
 	refetch,
 	likes,
 	isLiked,
+	isEdited,
 }) {
+	const currentUserID = localStorage.getItem('UserID');
+
 	return (
 		<article className='flex gap-2'>
 			<div className='flex flex-col items-end flex-shrink-0'>
@@ -42,12 +45,15 @@ export default function CommentCard({
 			</div>
 
 			<div className='flex-grow'>
-				<div className='flex gap-3'>
+				<div className='flex gap-3 items-center'>
 					<Link to={`/profile/${userID}`}>
 						<h4 className='text-popover-foreground font-medium text-wrap'>
 							{_.startCase(fullname)}
 						</h4>
 					</Link>
+					{isEdited && (
+						<p className='text-xs italic text-muted-foreground'>- Edited</p>
+					)}
 				</div>
 				<p className='text-muted-foreground text-xs italic'>
 					{format(date, 'MMMM dd, yyyy')}
@@ -60,13 +66,16 @@ export default function CommentCard({
 				<div className='h-3' />
 			</div>
 
-			<CommentActions
-				commentID={commentID}
-				isLiked={isLiked}
-				likes={likes}
-				postID={postID}
-				refetch={refetch}
-			/>
+			{currentUserID === userID && (
+				<CommentActions
+					comment={comment}
+					commentID={commentID}
+					isLiked={isLiked}
+					likes={likes}
+					postID={postID}
+					refetch={refetch}
+				/>
+			)}
 		</article>
 	);
 }

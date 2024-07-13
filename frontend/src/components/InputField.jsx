@@ -3,7 +3,7 @@ import { FormError } from './ui/error';
 /* eslint-disable react/prop-types */
 export function InputField({
 	id = '',
-	label = 'Enter text here',
+	label = 'Enter text here:',
 	type = 'text',
 	error,
 	register,

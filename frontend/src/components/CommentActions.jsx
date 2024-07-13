@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import HeartButton from './HeartButton';
 import { useToast } from './ui/use-toast';
-import { toggleCommentLike } from '@/api/post';
+import { deleteComment, toggleCommentLike, updateComment } from '@/api/post';
 import { Button } from './ui/button';
 import DialogWrapper from './DialogWrapper';
 import {
@@ -18,14 +18,20 @@ export default function CommentActions({
 	commentID,
 	postID,
 	likes,
+	comment,
 }) {
 	const { toast } = useToast();
 	const currentUserID = localStorage.getItem('UserID');
-
-	const [liked, setLiked] = useState(isLiked);
 	const [isLoading, setIsLoading] = useState(false);
 
-	const onLikeClick = async () => {
+	// for like
+	const [liked, setLiked] = useState(isLiked);
+
+	// for edit
+	const [contentValue, setContentValue] = useState(comment);
+
+	// like handler
+	const onLike = async () => {
 		try {
 			setIsLoading(true);
 			setLiked(!liked);
@@ -55,18 +61,84 @@ export default function CommentActions({
 			setIsLoading(false);
 		}
 	};
+
+	// edit handler
+	const onEdit = async () => {
+		try {
+			setIsLoading(true);
+
+			if (!contentValue) return;
+
+			const result = await updateComment(postID, commentID, {
+				commenterID: currentUserID,
+				content: contentValue,
+			});
+
+			if (!result.success) {
+				toast({
+					variant: 'destructive',
+					title: 'Failed to update the comment',
+				});
+				return;
+			}
+
+			refetch();
+		} catch (err) {
+			toast({
+				variant: 'destructive',
+				title: 'Failed to update the comment',
+			});
+		} finally {
+			setIsLoading(false);
+		}
+	};
+
+	// delete handler
+	const onDelete = async () => {
+		try {
+			setIsLoading(true);
+
+			const result = await deleteComment(postID, commentID);
+
+			if (!result.success) {
+				toast({
+					variant: 'destructive',
+					title: 'Failed to delete the comment',
+				});
+				return;
+			}
+
+			refetch();
+		} catch (err) {
+			toast({
+				variant: 'destructive',
+				title: 'Failed to delete the comment',
+			});
+		} finally {
+			setIsLoading(false);
+		}
+	};
+
 	return (
 		<div className='mt-1 flex gap-2 flex-shrink-0'>
 			<Menubar className='w-fit'>
 				<MenubarMenu>
-					<MenubarTrigger>
+					<MenubarTrigger disabled={isLoading}>
 						<img className='size-6' src='/icons/3_dots.svg' alt='' />
 					</MenubarTrigger>
 					<MenubarContent className='text-muted-foreground flex flex-col rounded-md overflow-hidden'>
 						{/* edit */}
 						<DialogWrapper
-							title='Are you sure you want to delete this comment?'
-							description='This action can not be undone'
+							onConfirm={onEdit}
+							title='Edit your comment:'
+							body={
+								<textarea
+									value={contentValue}
+									onChange={(e) => setContentValue(e.target.value)}
+									className='w-full bg-card p-1 rounded-md focus:outline-none text-muted-foreground'
+									rows={3}
+								/>
+							}
 							trigger={
 								<Button
 									size='sm'
@@ -80,6 +152,7 @@ export default function CommentActions({
 
 						{/* delete */}
 						<DialogWrapper
+							onConfirm={onDelete}
 							title='Are you sure you want to delete this comment?'
 							description='This action can not be undone'
 							confirmBtnVariant='destructive'
@@ -102,7 +175,7 @@ export default function CommentActions({
 				isLiked={liked}
 				isLoading={isLoading}
 				likes={likes}
-				onClick={onLikeClick}
+				onClick={onLike}
 			/>
 		</div>
 	);

@@ -4,6 +4,7 @@ const User = require('../models/user');
 const Post = require('../models/post');
 const Comment = require('../models/comment');
 const { serverlessImageUpload } = require("../utils/uploader");
+const cloudinary = require('../utils/cloudinary');
 
 exports.posts_get = asyncHandler(async (req, res) => {
   const posts = await Post.find({})
@@ -160,6 +161,10 @@ exports.post_comment_delete = asyncHandler(async (req, res) => {
   const { postID, commentID } = req.params;
 
   const result = await Comment.findByIdAndDelete(commentID);
+
+  if (result?.image?.publicID) {
+    await cloudinary.uploader.destroy(result.image.publicID)
+  }
 
   const updatedPost = await Post.findByIdAndUpdate(
     postID,

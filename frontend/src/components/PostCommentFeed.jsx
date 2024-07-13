@@ -4,7 +4,6 @@ import CommentCard from './CommentCard';
 export default function PostCommentFeed({ comments, postID, refetch }) {
 	const currentUserID = localStorage.getItem('UserID');
 
-	console.log(comments);
 	return (
 		<div>
 			{comments.length === 0 && (
@@ -24,6 +23,7 @@ export default function PostCommentFeed({ comments, postID, refetch }) {
 					profile={comment.commenter.profile.url}
 					isLast={i === comments.length - 1}
 					date={comment.dateCreated}
+					isEdited={comment.edited}
 					fullname={`${comment.commenter.firstname} ${comment.commenter.lastname}`}
 				/>
 			))}

@@ -13,7 +13,7 @@ import {
 
 export default function DialogWrapper({
 	trigger,
-	children,
+	body,
 	title,
 	description,
 	customConfirmBtn = 'Confirm',
@@ -30,7 +30,7 @@ export default function DialogWrapper({
 					<DialogDescription>{description}</DialogDescription>
 				</DialogHeader>
 
-				<div className='flex items-center space-x-2'>{children}</div>
+				<div className='flex items-center space-x-2'>{body}</div>
 
 				<DialogFooter className='sm:justify-start'>
 					<div className='w-full flex gap-2 justify-end'>

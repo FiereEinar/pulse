@@ -116,3 +116,33 @@ export const toggleCommentLike = async (
     throw e;
   }
 };
+
+export const deleteComment = async (postID, commentID) => {
+  try {
+    const { data } = await axios.delete(`${BASE_API_URL}/post/${postID}/comment/${commentID}`, {
+      headers: {
+        Authorization: localStorage.getItem('Token')
+      }
+    });
+
+    return data;
+  } catch (e) {
+    console.error('Error deleting comment', e);
+    throw e;
+  }
+};
+
+export const updateComment = async (postID, commentID, formData) => {
+  try {
+    const { data } = await axios.put(`${BASE_API_URL}/post/${postID}/comment/${commentID}`, formData, {
+      headers: {
+        Authorization: localStorage.getItem('Token')
+      }
+    });
+
+    return data;
+  } catch (e) {
+    console.error('Error updating comment', e);
+    throw e;
+  }
+};
