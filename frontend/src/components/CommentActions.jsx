@@ -10,7 +10,7 @@ import {
 	MenubarContent,
 	MenubarMenu,
 	MenubarTrigger,
-} from '@radix-ui/react-menubar';
+} from './ui/menubar';
 
 export default function CommentActions({
 	refetch,
@@ -120,7 +120,7 @@ export default function CommentActions({
 	};
 
 	return (
-		<div className='mt-1 flex gap-2 flex-shrink-0'>
+		<div className='flex gap-2 flex-shrink-0'>
 			<Menubar className='w-fit'>
 				<MenubarMenu>
 					<MenubarTrigger disabled={isLoading}>

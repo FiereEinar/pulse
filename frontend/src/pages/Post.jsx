@@ -41,6 +41,7 @@ export default function Post() {
 			{postData && (
 				<>
 					<PostCard
+						isEdited={postData.edited}
 						likes={postData.likes.length}
 						comments={postData.comments.length}
 						shares={postData.shares.length}

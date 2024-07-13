@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
-import SidebarLink from './SidebarLink';
 import DarkModeToggle from './ui/darkmode-toggle';
+import LogoutIcon from './icons/logout';
 
 export default function Header() {
 	const { postID } = useParams();
@@ -29,7 +29,9 @@ export default function Header() {
 				<div className='flex items-center gap-5'>
 					<DarkModeToggle />
 					<div className='md:hidden'>
-						<SidebarLink name='Logout' path='/logout' icon='logout' />
+						<Link to='/logout'>
+							<LogoutIcon />
+						</Link>
 					</div>
 				</div>
 			)}

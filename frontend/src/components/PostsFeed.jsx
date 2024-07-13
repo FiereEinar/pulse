@@ -27,6 +27,7 @@ export default function PostsFeed({ posts, error, isLoading, refetch }) {
 				posts.map((post) => (
 					<PostCardContainer key={post._id}>
 						<PostCard
+							isEdited={post.edited}
 							likes={post.likes.length}
 							comments={post.comments.length}
 							shares={post.shares.length}

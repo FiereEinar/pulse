@@ -2,7 +2,7 @@
 export default function LogoutIcon({
 	height = '24px',
 	width = '24px',
-	stroke = '#1C274C',
+	stroke = '#64748b',
 }) {
 	return (
 		<svg

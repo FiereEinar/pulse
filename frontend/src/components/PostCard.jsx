@@ -17,11 +17,16 @@ export default function PostCard({
 	shares,
 	refetch,
 	userID,
+	isEdited,
 }) {
 	return (
 		<article className='p-3 flex flex-col gap-2'>
 			{/* post header */}
 			<PostUserHeader
+				refetch={refetch}
+				showActions={true}
+				isEdited={isEdited}
+				content={content}
 				creatorProfile={creatorProfile}
 				fullname={fullname}
 				userID={userID}

@@ -13,6 +13,12 @@ export default function DarkModeToggle() {
 	};
 
 	return (
-		<DarkModeSwitch size={20} checked={isDarkMode} onChange={toggleDarkMode} />
+		<DarkModeSwitch
+			sunColor='#64748b'
+			moonColor='#64748b'
+			size={20}
+			checked={isDarkMode}
+			onChange={toggleDarkMode}
+		/>
 	);
 }

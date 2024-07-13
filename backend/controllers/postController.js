@@ -192,3 +192,29 @@ exports.post_comment_update = asyncHandler(async (req, res) => {
 
   res.json(new Response(true, updatedComment, 'Comment updated', null));
 });
+
+exports.post_update = asyncHandler(async (req, res) => {
+  const { postID } = req.params;
+  const { content } = req.body;
+
+  const update = {
+    content: content,
+    edited: true
+  };
+
+  const result = await Post.findByIdAndUpdate(postID, update, { new: true }).exec();
+
+  res.json(new Response(true, result, 'Post updated', null));
+});
+
+exports.post_delete = asyncHandler(async (req, res) => {
+  const { postID } = req.params;
+
+  const result = await Post.findByIdAndDelete(postID);
+
+  if (result?.image?.publicID) {
+    await cloudinary.uploader.destroy(result.image.publicID)
+  }
+
+  res.json(new Response(true, result, 'Post deleted', null));
+});
