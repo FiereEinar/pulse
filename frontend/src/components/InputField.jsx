@@ -24,7 +24,7 @@ export function InputField({
 				{...register}
 				{...rest}
 				id={id}
-				className={`transition-all p-1 px-2 border w-full min-w-[10rem] rounded-sm bg-dark-200 text-lg bg-transparent ${inputClass}`}
+				className={`transition-all text-muted-foreground p-1 px-2 border w-full min-w-[10rem] rounded-sm bg-dark-200 text-lg bg-transparent ${inputClass}`}
 				type={type}
 			/>
 			{error && <FormError message={error.message} />}

@@ -9,7 +9,7 @@ export default function CoverPhoto({ image, userID }) {
 			<CustomImageGallery image={image || '/default_cover.svg'} />
 
 			{currentUserID === userID && (
-				<div className='absolute bg-[#242526] rounded-full p-1 right-1 bottom-1'>
+				<div className='absolute bg-[#55595a] rounded-full p-2 right-1 bottom-1'>
 					<label className='cursor-pointer' htmlFor='image'>
 						<img className='size-5' src='/icons/camera.svg' alt='' />
 					</label>

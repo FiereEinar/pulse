@@ -59,7 +59,10 @@ input:-webkit-autofill:active {
 		--primary: 262.2 87.8% 47.1%; /* #6200EE */
 		--primary-foreground: 0 0% 100%; /* #FFFFFF */
 
-		--secondary: 180 83.3% 25.5%; /* #018786 */
+		/* --secondary: 210, 3%, 30%; */
+		--secondary: 0 0% 85%;
+
+		/* --secondary: 180 83.3% 25.5%; #018786 */
 		--secondary-foreground: 0 0% 100%; /* #FFFFFF */
 
 		--muted: 210 40% 96.1%;
@@ -100,7 +103,9 @@ input:-webkit-autofill:active {
 		/* --primary: 262.2 87.8% 83.1%; #BB86FC */
 		/* --primary-foreground: 0 0% 7.1%; #121212 */
 
-		--secondary: 172.5 94.8% 67.1%; /* #03DAC6 */
+		--secondary: 210, 3%, 18%;
+
+		/* --secondary: 172.5 94.8% 67.1%; #03DAC6 */
 		--secondary-foreground: 0 0% 7.1%; /* #121212 */
 
 		--muted: 217.2 32.6% 17.5%;

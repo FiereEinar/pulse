@@ -1,11 +1,9 @@
 import { fetchUserPosts } from '@/api/post';
 import { fetchUserByID } from '@/api/user';
-import CoverPhoto from '@/components/CoverPhoto';
 import PostsFeed from '@/components/PostsFeed';
-import { Button } from '@/components/ui/button';
 import UserGrid from '@/components/UserGrid';
+import UserProfile from '@/components/UserProfile';
 import { useQuery } from '@tanstack/react-query';
-import _ from 'lodash';
 import { Link, useParams } from 'react-router-dom';
 
 export default function Profile() {
@@ -33,7 +31,7 @@ export default function Profile() {
 
 	if (userLoading) {
 		return (
-			<div className='bg-card w-full rounded-md h-full text-muted-foreground'>
+			<div className='transition-all bg-card w-full rounded-md h-full text-muted-foreground'>
 				Loading...
 			</div>
 		);
@@ -41,7 +39,7 @@ export default function Profile() {
 
 	if (userError) {
 		return (
-			<div className='bg-card w-full rounded-md h-full text-destructive'>
+			<div className='transition-all bg-card w-full rounded-md h-full text-destructive'>
 				Failed to fetch user
 			</div>
 		);
@@ -49,38 +47,15 @@ export default function Profile() {
 
 	return (
 		<section className='w-full h-full'>
-			{/* user profile */}
-			<div className='bg-card w-full rounded-md h-fit p-3'>
-				<div className='relative'>
-					<CoverPhoto image={userData.cover?.url} userID={userData._id} />
-
-					{/* spacing */}
-					<div className='w-full h-8' />
-
-					{/* user profile picture */}
-					<img
-						className='absolute bottom-0 left-3 size-[5rem] rounded-full object-cover object-center'
-						src={userData.profile?.url || '/default_user.jpg'}
-						alt='profile'
-					/>
-				</div>
-
-				<div className='mt-3 flex items-start justify-between'>
-					<div>
-						<h1 className='text-xl font-semibold text-popover-foreground'>
-							{_.startCase(`${userData.firstname} ${userData.lastname}`)}
-						</h1>
-						<p className='text-muted-foreground'>@{userData.username}</p>
-					</div>
-
-					{userID !== currentUserID &&
-						!userData.friends.some(
-							(friend) => friend._id === currentUserID
-						) && <Button size='sm'>Send Request</Button>}
-
-					{userID === currentUserID && <Button size='sm'>Edit Profile</Button>}
-				</div>
-			</div>
+			<UserProfile
+				coverImage={userData.cover?.url}
+				friends={userData.friends}
+				fullname={`${userData.firstname} ${userData.lastname}`}
+				username={userData.username}
+				bio={userData.bio}
+				profileImage={userData.profile?.url}
+				userID={userData._id}
+			/>
 
 			{/* friends section */}
 			<div className='mt-3'>

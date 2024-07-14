@@ -93,7 +93,7 @@ function EditButton({ content, setIsLoading, refetch, postID, isLoading }) {
 				<Button
 					disabled={isLoading}
 					size='sm'
-					className='flex gap-2 justify-start rounded-none bg-[#242526] hover:bg-[#3a3b3c] text-muted-foreground'
+					className='flex gap-2 justify-start rounded-none bg-secondary hover:bg-[#c2c6c7] text-muted-foreground'
 				>
 					<img className='size-5' src='/icons/edit.svg' alt='' />
 					<p>Edit</p>
@@ -144,7 +144,7 @@ function DeleteButton({ setIsLoading, refetch, postID, isLoading }) {
 				<Button
 					disabled={isLoading}
 					size='sm'
-					className='flex gap-2 justify-start rounded-none bg-[#242526] hover:bg-[#3a3b3c] text-muted-foreground'
+					className='flex gap-2 justify-start rounded-none bg-secondary hover:bg-[#c2c6c7] text-muted-foreground'
 				>
 					<img className='size-5' src='/icons/delete.svg' alt='' />
 					<p>Delete</p>

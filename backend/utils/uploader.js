@@ -4,6 +4,7 @@ const streamifier = require('streamifier');
 /**
  * 
  * @param {Buffer} buffer req.file.buffer
+ * @param {String} folder 'posts' | 'comments' | 'profiles' | 'covers'
  * @returns upload result object
  */
 exports.serverlessImageUpload = (buffer, folder) => {

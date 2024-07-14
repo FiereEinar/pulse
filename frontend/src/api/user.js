@@ -16,3 +16,18 @@ export const fetchUserByID = async (userID) => {
     throw e;
   }
 };
+
+export const updateUser = async (userID, formData) => {
+  try {
+    const { data } = await axios.put(`${BASE_API_URL}/user/${userID}`, formData, {
+      headers: {
+        Authorization: localStorage.getItem('Token')
+      }
+    });
+
+    return data;
+  } catch (e) {
+    console.error('Error updating user', e);
+    throw e;
+  }
+};

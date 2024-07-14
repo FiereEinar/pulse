@@ -1,9 +1,9 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import DarkModeToggle from './ui/darkmode-toggle';
 import LogoutIcon from './icons/logout';
 
 export default function Header() {
-	const { postID } = useParams();
+	const { pathname } = useLocation();
 
 	return (
 		<header className='transition-all px-5 h-[10dvh] flex justify-between items-center bg-card'>
@@ -24,7 +24,7 @@ export default function Header() {
 
 			{/* for mobile, show the back button when viewing a post */}
 			<div className='sm:hidden'>
-				{!postID ? (
+				{pathname === '/' ? (
 					<Link
 						to='/'
 						className='flex items-center gap-3 text-popover-foreground'
@@ -58,7 +58,7 @@ export default function Header() {
 
 			{/* for mobile */}
 			<div className='sm:hidden'>
-				{!postID && (
+				{pathname === '/' && (
 					<div className='flex items-center gap-5'>
 						<DarkModeToggle />
 						<div className='md:hidden'>

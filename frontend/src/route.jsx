@@ -9,6 +9,7 @@ import NotFound from './pages/NotFound';
 import CreatePost from './pages/CreatePost';
 import Post from './pages/Post';
 import Profile from './pages/Profile';
+import EditProfile from './pages/EditProfile';
 
 export default function Route() {
 	const route = createBrowserRouter([
@@ -36,6 +37,10 @@ export default function Route() {
 				{
 					path: '/post/:postID',
 					element: <Post />,
+				},
+				{
+					path: '/user/edit',
+					element: <EditProfile />,
 				},
 			],
 		},
