@@ -12,6 +12,7 @@ export default function UserProfile({
 	username,
 	friends,
 	bio,
+	refetch,
 }) {
 	const currentUserID = localStorage.getItem('UserID');
 	const navigate = useNavigate();
@@ -19,7 +20,7 @@ export default function UserProfile({
 	return (
 		<div className='transition-all bg-card w-full rounded-md h-fit p-3'>
 			<div className='relative'>
-				<CoverPhoto image={coverImage} userID={userID} />
+				<CoverPhoto refetch={refetch} image={coverImage} userID={userID} />
 
 				{/* spacing */}
 				<div className='w-full h-8' />

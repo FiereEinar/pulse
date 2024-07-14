@@ -6,7 +6,8 @@ const upload = require('../utils/multer');
 const {
   user_get,
   users_get,
-  user_update
+  user_update,
+  user_update_cover
 } = require('../controllers/userController');
 
 // GET USERS
@@ -26,6 +27,13 @@ router.put('/:userID',
   passport.authenticate('jwt', { session: false }),
   upload.single('image'),
   user_update
+);
+
+// UPDATE USER COVER PHOTO
+router.put('/:userID/cover',
+  passport.authenticate('jwt', { session: false }),
+  upload.single('image'),
+  user_update_cover
 );
 
 module.exports = router;

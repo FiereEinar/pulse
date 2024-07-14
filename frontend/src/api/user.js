@@ -31,3 +31,18 @@ export const updateUser = async (userID, formData) => {
     throw e;
   }
 };
+
+export const updateUserCover = async (userID, formData) => {
+  try {
+    const { data } = await axios.put(`${BASE_API_URL}/user/${userID}/cover`, formData, {
+      headers: {
+        Authorization: localStorage.getItem('Token')
+      }
+    });
+
+    return data;
+  } catch (e) {
+    console.error('Error updating user cover photo', e);
+    throw e;
+  }
+};

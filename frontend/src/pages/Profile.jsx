@@ -14,6 +14,7 @@ export default function Profile() {
 		data: userData,
 		error: userError,
 		isLoading: userLoading,
+		refetch: userRefetch,
 	} = useQuery({
 		queryKey: [`user_${userID}`],
 		queryFn: () => fetchUserByID(userID),
@@ -53,6 +54,7 @@ export default function Profile() {
 				fullname={`${userData.firstname} ${userData.lastname}`}
 				username={userData.username}
 				bio={userData.bio}
+				refetch={userRefetch}
 				profileImage={userData.profile?.url}
 				userID={userData._id}
 			/>

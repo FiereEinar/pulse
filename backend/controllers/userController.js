@@ -74,3 +74,40 @@ exports.user_update = asyncHandler(async (req, res) => {
 
   res.json(new Response(true, result, 'User updated', null));
 });
+
+/**
+ * UPDATE USER COVER PHOTO
+ */
+exports.user_update_cover = asyncHandler(async (req, res) => {
+  const { userID } = req.params;
+
+  const user = await User.findById(userID);
+  if (!user) {
+    return res.status(404).json(new Response(false, null, 'User not found', null));
+  }
+
+  let imageUrl = user.cover.url;
+  let imagePublicID = user.cover.publicID;
+
+  if (req.file) {
+    const result = await serverlessImageUpload(req.file.buffer, 'covers');
+
+    imageUrl = result.secure_url;
+    imagePublicID = result.public_id;
+
+    if (user.cover.publicID) {
+      await cloudinary.uploader.destroy(user.cover.publicID);
+    }
+  }
+
+  const update = {
+    cover: {
+      url: imageUrl,
+      publicID: imagePublicID
+    },
+  };
+
+  const result = await User.findByIdAndUpdate(userID, update, { new: true }).exec();
+
+  res.json(new Response(true, result, 'User cover updated', null));
+});
