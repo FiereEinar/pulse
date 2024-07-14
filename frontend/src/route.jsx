@@ -11,6 +11,7 @@ import Post from './pages/Post';
 import Profile from './pages/Profile';
 import EditProfile from './pages/EditProfile';
 import PostLikes from './pages/PostLikes';
+import SearchUsers from './pages/SearchUsers';
 
 export default function Route() {
 	const route = createBrowserRouter([
@@ -46,6 +47,10 @@ export default function Route() {
 				{
 					path: '/user/edit',
 					element: <EditProfile />,
+				},
+				{
+					path: '/search/users',
+					element: <SearchUsers />,
 				},
 			],
 		},

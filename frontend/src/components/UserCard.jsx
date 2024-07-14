@@ -4,7 +4,7 @@ import { Button } from './ui/button';
 
 export default function UserCard({ profile, fullname, username, userID }) {
 	return (
-		<div className='transition-all flex gap-2 p-3 hover:bg-secondary items-center justify-between'>
+		<div className='transition-all flex gap-2 rounded-md p-3 hover:bg-secondary items-center justify-between'>
 			<PostUserHeader
 				fullname={fullname}
 				username={username}

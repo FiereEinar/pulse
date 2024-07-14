@@ -66,7 +66,7 @@ export default function Profile() {
 					{userID === currentUserID ? (
 						<Link
 							className='hover:underline text-muted-foreground text-sm'
-							to='/users'
+							to='/search/users'
 						>
 							Find Friends
 						</Link>

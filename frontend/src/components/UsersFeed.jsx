@@ -16,9 +16,9 @@ export default function UsersFeed({ users, isLoading, error }) {
 	console.log(users);
 	return (
 		<div>
-			{users.length === 0 && (
+			{/* {users.length === 0 && (
 				<p className='text-muted-foreground text-sm italic'>Empty</p>
-			)}
+			)} */}
 			{users &&
 				users.map((user) => (
 					<UserCard

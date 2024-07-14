@@ -46,3 +46,18 @@ export const updateUserCover = async (userID, formData) => {
     throw e;
   }
 };
+
+export const fetchUsers = async () => {
+  try {
+    const { data } = await axios.get(`${BASE_API_URL}/user`, {
+      headers: {
+        Authorization: localStorage.getItem('Token')
+      }
+    });
+
+    return data.data;
+  } catch (e) {
+    console.error('Error fetching users', e);
+    throw e;
+  }
+};

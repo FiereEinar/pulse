@@ -6,7 +6,7 @@ export const navLinks = [
     name: 'Home'
   },
   {
-    path: '/search',
+    path: '/search/users',
     icon: 'search',
     name: 'Search'
   },
