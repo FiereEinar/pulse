@@ -6,7 +6,7 @@ import { PostCardContainer } from '@/components/ui/container';
 import { FormError } from '@/components/ui/error';
 import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 export default function Post() {
 	const currentUserID = localStorage.getItem('UserID');
@@ -34,6 +34,8 @@ export default function Post() {
 		refetchAllPosts();
 	};
 
+	console.log(postData);
+
 	return (
 		<PostCardContainer>
 			{isLoading && <p className='text-muted-foreground'>Loading...</p>}
@@ -57,6 +59,13 @@ export default function Post() {
 						refetch={refetch}
 						date={format(postData.dateCreated, 'MMMM dd, yyyy')}
 					/>
+
+					<Link
+						to={`/post/${postID}/likes`}
+						className='text-muted-foreground text-sm ml-3 italic  hover:underline'
+					>
+						View all likes
+					</Link>
 
 					<CreateCommentForm postID={postID} refetch={refetch} />
 
