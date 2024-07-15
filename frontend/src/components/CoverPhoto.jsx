@@ -3,7 +3,6 @@ import CustomImageGallery from './CustomImageGallery';
 import { useToast } from './ui/use-toast';
 import { useState } from 'react';
 
-/* eslint-disable react/prop-types */
 export default function CoverPhoto({ image, userID, refetch }) {
 	const { toast } = useToast();
 	const currentUserID = localStorage.getItem('UserID');

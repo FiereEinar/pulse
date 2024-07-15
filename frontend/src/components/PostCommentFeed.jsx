@@ -1,6 +1,5 @@
 import CommentCard from './CommentCard';
 
-/* eslint-disable react/prop-types */
 export default function PostCommentFeed({ comments, postID, refetch }) {
 	const currentUserID = localStorage.getItem('UserID');
 

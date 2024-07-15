@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useState } from 'react';
 import HeartButton from './HeartButton';
 import { useToast } from './ui/use-toast';
@@ -183,7 +182,7 @@ function EditButton({
 				<Button
 					disabled={isLoading}
 					size='sm'
-					className='flex gap-2 justify-start rounded-none bg-secondary hover:bg-[#c2c6c7] text-muted-foreground'
+					className='flex gap-2 justify-start rounded-none bg-secondary hover:bg-secondary-hover text-muted-foreground'
 				>
 					<img className='size-5' src='/icons/edit.svg' alt='' />
 					<p>Edit</p>
@@ -234,7 +233,7 @@ function DeleteButton({ postID, commentID, isLoading, setIsLoading, refetch }) {
 				<Button
 					disabled={isLoading}
 					size='sm'
-					className='flex gap-2 justify-start rounded-none bg-secondary hover:bg-[#c2c6c7] text-muted-foreground'
+					className='flex gap-2 justify-start rounded-none bg-secondary hover:bg-secondary-hover text-muted-foreground'
 				>
 					<img className='size-5' src='/icons/delete.svg' alt='' />
 					<p>Delete</p>

@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import PostUserHeader from './PostUserHeader';
 import { Button } from './ui/button';
 

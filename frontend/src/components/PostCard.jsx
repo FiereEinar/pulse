@@ -2,7 +2,6 @@ import PostActions from './PostActions';
 import PostUserHeader from './PostUserHeader';
 import CustomImageGallery from './CustomImageGallery';
 
-/* eslint-disable react/prop-types */
 export default function PostCard({
 	creatorProfile,
 	fullname,

@@ -3,7 +3,6 @@ import _ from 'lodash';
 import { Link } from 'react-router-dom';
 import PostController from './PostController';
 
-/* eslint-disable react/prop-types */
 export default function PostUserHeader({
 	creatorProfile,
 	fullname,

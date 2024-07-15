@@ -61,6 +61,7 @@ input:-webkit-autofill:active {
 
 		/* --secondary: 210, 3%, 30%; */
 		--secondary: 0 0% 85%;
+		--secondary-hover: 192, 4%, 77%;
 
 		/* --secondary: 180 83.3% 25.5%; #018786 */
 		--secondary-foreground: 0 0% 100%; /* #FFFFFF */
@@ -104,6 +105,7 @@ input:-webkit-autofill:active {
 		/* --primary-foreground: 0 0% 7.1%; #121212 */
 
 		--secondary: 210, 3%, 18%;
+		--secondary-hover: 200, 4%, 22%;
 
 		/* --secondary: 172.5 94.8% 67.1%; #03DAC6 */
 		--secondary-foreground: 0 0% 7.1%; /* #121212 */

@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
 import CustomImageGallery from './CustomImageGallery';

@@ -12,6 +12,7 @@ import Profile from './pages/Profile';
 import EditProfile from './pages/EditProfile';
 import PostLikes from './pages/PostLikes';
 import SearchUsers from './pages/SearchUsers';
+import Activity from './pages/Activity';
 
 export default function Route() {
 	const route = createBrowserRouter([
@@ -31,6 +32,10 @@ export default function Route() {
 				{
 					path: '/create',
 					element: <CreatePost />,
+				},
+				{
+					path: '/activity',
+					element: <Activity />,
 				},
 				{
 					path: '/profile/:userID',

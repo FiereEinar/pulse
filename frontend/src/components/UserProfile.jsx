@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import _ from 'lodash';
 import CoverPhoto from './CoverPhoto';
 import { Button } from './ui/button';

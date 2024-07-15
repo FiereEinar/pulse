@@ -73,7 +73,7 @@ export default function Profile() {
 					) : (
 						<Link
 							className='hover:underline text-muted-foreground text-sm'
-							to='/users/:userID/friends'
+							to={`/users/${userID}/friends`}
 						>
 							View Friends
 						</Link>

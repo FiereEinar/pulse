@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 export default function SearchIcon({
 	height = '24px',
 	width = '24px',

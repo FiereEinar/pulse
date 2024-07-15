@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { NavLink } from 'react-router-dom';
 import GetIcon from './icons';
 
@@ -13,6 +12,7 @@ export default function SidebarLink({ path, name, icon }) {
 		<NavLink
 			title={name}
 			to={path}
+			replace={true}
 			className={({ isActive }) =>
 				`${navClass} ${isActive ? 'text-primary active-link' : ''}`
 			}

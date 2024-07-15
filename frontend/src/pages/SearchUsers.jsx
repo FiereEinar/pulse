@@ -34,7 +34,7 @@ export default function SearchUsers() {
 	};
 
 	return (
-		<section className='w-full h-full bg-card rounded-md p-3 flex flex-col gap-1'>
+		<section className='w-full bg-card rounded-md p-3 flex flex-col gap-1'>
 			<h1 className='text-popover-foreground text-xl font-semibold'>
 				Search Users:
 			</h1>

@@ -5,7 +5,6 @@ import { useEffect } from 'react';
 import { FormError } from './ui/error';
 import { PostCardContainer } from './ui/container';
 
-/* eslint-disable react/prop-types */
 export default function PostsFeed({ posts, error, isLoading, refetch }) {
 	const currentUserID = localStorage.getItem('UserID');
 	const { toast } = useToast();
@@ -14,7 +13,7 @@ export default function PostsFeed({ posts, error, isLoading, refetch }) {
 		if (error) {
 			toast({
 				variant: 'destructive',
-				title: 'Error fetching posts',
+				title: 'Failed to fetch posts',
 			});
 		}
 	}, [error, toast]);
@@ -22,7 +21,7 @@ export default function PostsFeed({ posts, error, isLoading, refetch }) {
 	return (
 		<section className='flex flex-col gap-3'>
 			{isLoading && <p className='text-muted-foreground'>Loading...</p>}
-			{error && <FormError message='Error fetching posts' />}
+			{error && <FormError message='Failed to fetch posts' />}
 			{posts && posts.length === 0 && (
 				<p className='transition-all h-full w-full bg-card p-3 rounded-md text-muted-foreground italic text-sm'>
 					No posts yet

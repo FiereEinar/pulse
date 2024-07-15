@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useState } from 'react';
 import DialogWrapper from './DialogWrapper';
 import { Button } from './ui/button';
@@ -93,7 +92,7 @@ function EditButton({ content, setIsLoading, refetch, postID, isLoading }) {
 				<Button
 					disabled={isLoading}
 					size='sm'
-					className='flex gap-2 justify-start rounded-none bg-secondary hover:bg-[#c2c6c7] text-muted-foreground'
+					className='flex gap-2 justify-start rounded-none bg-secondary hover:bg-secondary-hover text-muted-foreground'
 				>
 					<img className='size-5' src='/icons/edit.svg' alt='' />
 					<p>Edit</p>
@@ -144,7 +143,7 @@ function DeleteButton({ setIsLoading, refetch, postID, isLoading }) {
 				<Button
 					disabled={isLoading}
 					size='sm'
-					className='flex gap-2 justify-start rounded-none bg-secondary hover:bg-[#c2c6c7] text-muted-foreground'
+					className='flex gap-2 justify-start rounded-none bg-secondary hover:bg-secondary-hover text-muted-foreground'
 				>
 					<img className='size-5' src='/icons/delete.svg' alt='' />
 					<p>Delete</p>

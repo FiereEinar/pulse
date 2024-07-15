@@ -3,6 +3,7 @@ const Response = require('../utils/response');
 const User = require('../models/user');
 const { serverlessImageUpload } = require('../utils/uploader');
 const cloudinary = require('../utils/cloudinary');
+const Activity = require('../models/activity');
 
 /**
  * GET USER BY ID
@@ -110,4 +111,21 @@ exports.user_update_cover = asyncHandler(async (req, res) => {
   const result = await User.findByIdAndUpdate(userID, update, { new: true }).exec();
 
   res.json(new Response(true, result, 'User cover updated', null));
+});
+
+exports.user_activity_get = asyncHandler(async (req, res) => {
+  const { userID } = req.params;
+
+  const activities = await Activity.find({ for: userID }).sort({ date: -1 }).exec();
+
+  res.json(new Response(true, activities, 'User activity gathered', null));
+});
+
+exports.user_activity_update = asyncHandler(async (req, res) => {
+  const { activityID } = req.params;
+  const { seen } = req.body;
+
+  const result = await Activity.findByIdAndUpdate(activityID, { seen: seen }, { new: true }).exec();
+
+  res.json(new Response(true, result, 'User activity update', null));
 });

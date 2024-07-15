@@ -61,3 +61,33 @@ export const fetchUsers = async () => {
     throw e;
   }
 };
+
+export const fetchUserActivity = async (userID) => {
+  try {
+    const { data } = await axios.get(`${BASE_API_URL}/user/${userID}/activity`, {
+      headers: {
+        Authorization: localStorage.getItem('Token')
+      }
+    });
+
+    return data.data;
+  } catch (e) {
+    console.error('Error fetching user activity', e);
+    throw e;
+  }
+};
+
+export const updateActivityStatus = async (userID, activityID, formData) => {
+  try {
+    const { data } = await axios.put(`${BASE_API_URL}/user/${userID}/activity/${activityID}`, formData, {
+      headers: {
+        Authorization: localStorage.getItem('Token')
+      }
+    });
+
+    return data;
+  } catch (e) {
+    console.error('Error updating user activity', e);
+    throw e;
+  }
+};

@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-
 export default function UserGrid({ users, type }) {
 	return (
 		<div className='transition-all bg-card min-h-[10rem] p-1 px-2 rounded-md'>

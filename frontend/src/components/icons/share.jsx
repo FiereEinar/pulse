@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 export default function ShareIcon({
 	height = '24px',
 	width = '24px',

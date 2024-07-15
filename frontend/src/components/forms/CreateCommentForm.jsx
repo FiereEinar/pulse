@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '../ui/button';
 import { useForm } from 'react-hook-form';

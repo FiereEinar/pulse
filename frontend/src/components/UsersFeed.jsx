@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-
 import UserCard from './UserCard';
 
 export default function UsersFeed({ users, isLoading, error }) {
@@ -13,7 +11,6 @@ export default function UsersFeed({ users, isLoading, error }) {
 		);
 	}
 
-	console.log(users);
 	return (
 		<div>
 			{/* {users.length === 0 && (

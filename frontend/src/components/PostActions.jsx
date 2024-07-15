@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useState } from 'react';
 import { togglePostLike } from '@/api/post';
 import { useToast } from './ui/use-toast';

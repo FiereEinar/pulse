@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 export default function ProfileIcon({
 	height = '24px',
 	width = '24px',

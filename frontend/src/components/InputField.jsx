@@ -1,6 +1,5 @@
 import { FormError } from './ui/error';
 
-/* eslint-disable react/prop-types */
 export function InputField({
 	id = '',
 	label = 'Enter text here:',

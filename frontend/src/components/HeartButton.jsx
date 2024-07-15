@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import HeartIcon from './icons/heart';
 
 export default function HeartButton({ isLoading, onClick, isLiked, likes }) {
