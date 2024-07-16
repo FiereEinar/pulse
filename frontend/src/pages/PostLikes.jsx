@@ -18,7 +18,7 @@ export default function PostLikes() {
 
 	return (
 		<section className='bg-card rounded-md overflow-hidden w-full h-full'>
-			<h4 className='p-3 text-xl border-b font-medium text-muted-foreground'>
+			<h4 className='p-3 text-xl border-b font-semibold text-popover-foreground'>
 				Liked by:
 			</h4>
 			<UsersFeed users={postData?.likes} error={error} isLoading={isLoading} />

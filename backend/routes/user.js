@@ -9,7 +9,8 @@ const {
   user_update,
   user_update_cover,
   user_activity_get,
-  user_activity_update
+  user_activity_update,
+  user_request_send
 } = require('../controllers/userController');
 
 // GET USERS
@@ -42,6 +43,12 @@ router.put('/:userID/cover',
 router.get('/:userID/activity',
   passport.authenticate('jwt', { session: false }),
   user_activity_get
+);
+
+// SEND REQUEST TO A USER
+router.post('/:userID/request',
+  passport.authenticate('jwt', { session: false }),
+  user_request_send
 );
 
 // UPDATE USER ACTIVITY/NOTIFICATIONS

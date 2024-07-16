@@ -91,3 +91,18 @@ export const updateActivityStatus = async (userID, activityID, formData) => {
     throw e;
   }
 };
+
+export const sendFriendRequest = async (userID) => {
+  try {
+    const { data } = await axios.post(`${BASE_API_URL}/user/${userID}/request`, {}, {
+      headers: {
+        Authorization: localStorage.getItem('Token')
+      }
+    });
+
+    return data;
+  } catch (e) {
+    console.error('Error sending friend request', e);
+    throw e;
+  }
+};

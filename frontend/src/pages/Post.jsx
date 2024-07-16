@@ -34,8 +34,6 @@ export default function Post() {
 		refetchAllPosts();
 	};
 
-	console.log(postData);
-
 	return (
 		<PostCardContainer>
 			{isLoading && <p className='text-muted-foreground'>Loading...</p>}
@@ -69,7 +67,7 @@ export default function Post() {
 
 					<CreateCommentForm postID={postID} refetch={refetch} />
 
-					<h1 className='p-3 italic text-popover-foreground text-lg'>
+					<h1 className='transition-all p-3 italic text-popover-foreground text-lg'>
 						Comments
 					</h1>
 

@@ -52,7 +52,9 @@ export default function PostUserHeader({
 							</p>
 						)}
 					</div>
-					<p className='text-muted-foreground text-sm text-wrap'>@{username}</p>
+					<p className='text-muted-foreground text-sm text-wrap text-start'>
+						@{username}
+					</p>
 				</div>
 			</div>
 

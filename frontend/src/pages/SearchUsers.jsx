@@ -1,16 +1,24 @@
 import { fetchUsers } from '@/api/user';
 import UsersFeed from '@/components/UsersFeed';
 import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function SearchUsers() {
+	const currentUserID = localStorage.getItem('UserID');
 	const [search, setSearch] = useState('');
 	const [users, setUsers] = useState([]);
+	const [searchResults, setSearchResults] = useState([]);
 
 	const { data, error, isLoading } = useQuery({
 		queryKey: ['users'],
 		queryFn: fetchUsers,
 	});
+
+	useEffect(() => {
+		if (data) {
+			setUsers(data.filter((user) => user._id !== currentUserID));
+		}
+	}, [data, currentUserID]);
 
 	const handleSearch = (e) => {
 		const searchTerm = e.target.value;
@@ -22,6 +30,8 @@ export default function SearchUsers() {
 		const filteredUsers = data?.filter((user) => {
 			const fullname = `${user.firstname.toLowerCase()} ${user.lastname.toLowerCase()}`;
 
+			if (user._id === currentUserID) return false;
+
 			if (
 				fullname.includes(searchTerm) ||
 				user.username.toLowerCase().includes(searchTerm)
@@ -30,7 +40,7 @@ export default function SearchUsers() {
 			return false;
 		});
 
-		setUsers(filteredUsers);
+		setSearchResults(filteredUsers);
 	};
 
 	return (
@@ -45,7 +55,7 @@ export default function SearchUsers() {
 				type='text'
 			/>
 			<UsersFeed
-				users={search ? users : data}
+				users={search ? searchResults : users}
 				error={error}
 				isLoading={isLoading}
 			/>

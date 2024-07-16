@@ -11,7 +11,6 @@ export default function Home() {
 	} = useQuery({
 		queryKey: ['posts'],
 		queryFn: getPosts,
-		retry: false,
 	});
 
 	return (

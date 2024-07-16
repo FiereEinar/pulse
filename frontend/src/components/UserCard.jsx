@@ -1,16 +1,20 @@
+import { useNavigate } from 'react-router-dom';
 import PostUserHeader from './PostUserHeader';
-import { Button } from './ui/button';
 
 export default function UserCard({ profile, fullname, username, userID }) {
+	const navigate = useNavigate();
+
 	return (
-		<div className='transition-all flex gap-2 rounded-md p-3 hover:bg-secondary items-center justify-between'>
+		<button
+			onClick={() => navigate(`/profile/${userID}`)}
+			className='transition-all w-full flex gap-2 rounded-md p-3 hover:bg-secondary items-center justify-between'
+		>
 			<PostUserHeader
 				fullname={fullname}
 				username={username}
 				creatorProfile={profile}
 				userID={userID}
 			/>
-			<Button size='sm'>Send Request</Button>
-		</div>
+		</button>
 	);
 }

@@ -49,7 +49,7 @@ export default function CommentCard({
 						{/* user full name */}
 						<div className='flex gap-3 items-center'>
 							<Link to={`/profile/${userID}`}>
-								<h4 className='text-popover-foreground font-medium text-wrap'>
+								<h4 className='transition-all text-popover-foreground font-medium text-wrap hover:underline'>
 									{_.startCase(fullname)}
 								</h4>
 							</Link>

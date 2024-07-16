@@ -21,6 +21,16 @@ export default function Profile() {
 	});
 
 	const {
+		data: currentUserData,
+		error: currentUserError,
+		isLoading: currentUserLoading,
+		refetch: currentUserRefetch,
+	} = useQuery({
+		queryKey: [`user_${currentUserID}`],
+		queryFn: () => fetchUserByID(currentUserID),
+	});
+
+	const {
 		data: userPosts,
 		error: postsError,
 		isLoading: postsLoading,
@@ -30,7 +40,7 @@ export default function Profile() {
 		queryFn: () => fetchUserPosts(userID),
 	});
 
-	if (userLoading) {
+	if (userLoading || currentUserLoading) {
 		return (
 			<div className='transition-all bg-card w-full rounded-md h-full text-muted-foreground'>
 				Loading...
@@ -38,7 +48,7 @@ export default function Profile() {
 		);
 	}
 
-	if (userError) {
+	if (userError || currentUserError) {
 		return (
 			<div className='transition-all bg-card w-full rounded-md h-full text-destructive'>
 				Failed to fetch user
@@ -50,11 +60,19 @@ export default function Profile() {
 		<section className='w-full h-full'>
 			<UserProfile
 				coverImage={userData.cover?.url}
+				// the user being viewed
 				friends={userData.friends}
+				friendRequests={userData.friendRequests}
+				// current user
+				currentUserRequests={currentUserData.friendRequests}
+				currentUserFriends={currentUserData.friends}
 				fullname={`${userData.firstname} ${userData.lastname}`}
 				username={userData.username}
 				bio={userData.bio}
-				refetch={userRefetch}
+				refetch={() => {
+					currentUserRefetch();
+					userRefetch();
+				}}
 				profileImage={userData.profile?.url}
 				userID={userData._id}
 			/>

@@ -15,11 +15,11 @@ function App() {
 					<Sidebar />
 				</div>
 
-				<div className='transition-all flex flex-col flex-1 h-full w-full md:max-w-[40rem] p-2 sm:p-5 overflow-y-scroll bg-background'>
+				<div className='transition-all flex flex-col flex-1 h-full w-full md:max-w-[60rem] md:min-w-[35rem] p-2 sm:p-5 overflow-y-scroll bg-background'>
 					<Outlet />
 				</div>
 
-				<aside className='transition-all w-[30rem] bg-background hidden lg:flex flex-col gap-5 h-full p-2 sm:p-5'>
+				<aside className='transition-all w-[25rem] bg-background hidden  xl:flex flex-col gap-5 h-full p-2 sm:p-5'>
 					<article className='bg-card w-full h-full rounded-md border'></article>
 					<article className='bg-card w-full h-full rounded-md border'></article>
 				</aside>

@@ -59,7 +59,7 @@ export default function CreateCommentForm({ postID, refetch }) {
 					disabled={isSubmitting}
 					{...register('content')}
 					autoFocus
-					className='w-full bg-card p-1 flex-shrink text-muted-foreground px-3 focus:outline-none border rounded-md'
+					className='transition-all w-full bg-card p-1 flex-shrink text-muted-foreground px-3 focus:outline-none border rounded-md'
 					placeholder='Write a comment'
 					name='content'
 					id='content'

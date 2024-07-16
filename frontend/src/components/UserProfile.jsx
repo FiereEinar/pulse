@@ -2,6 +2,7 @@ import _ from 'lodash';
 import CoverPhoto from './CoverPhoto';
 import { Button } from './ui/button';
 import { useNavigate } from 'react-router-dom';
+import SendRequestButton from './SendRequestButton';
 
 export default function UserProfile({
 	coverImage,
@@ -10,6 +11,9 @@ export default function UserProfile({
 	fullname,
 	username,
 	friends,
+	friendRequests,
+	currentUserFriends,
+	currentUserRequests,
 	bio,
 	refetch,
 }) {
@@ -32,7 +36,7 @@ export default function UserProfile({
 				/>
 			</div>
 
-			<div className='mt-3 flex items-start justify-between'>
+			<div className='mt-3 flex flex-wrap gap-2 items-start justify-between'>
 				<div>
 					<h1 className='transition-all text-xl font-semibold text-popover-foreground'>
 						{_.startCase(fullname)}
@@ -40,16 +44,30 @@ export default function UserProfile({
 					<p className='text-muted-foreground'>@{username}</p>
 				</div>
 
-				{userID !== currentUserID &&
-					!friends.some((friend) => friend._id === currentUserID) && (
-						<Button size='sm'>Send Request</Button>
-					)}
+				{/* button on the side of profile */}
 
-				{userID === currentUserID && (
+				{userID === currentUserID ? (
+					// if its your own profile
 					<Button onClick={() => navigate('/user/edit')} size='sm'>
 						Edit Profile
 					</Button>
-				)}
+				) : currentUserRequests.some((user) => user._id === userID) ? (
+					// if the user being viewed is sending request to current user
+					<Button size='sm'>Accept Request</Button>
+				) : currentUserFriends.some((user) => user._id === userID) ? (
+					// if the user is friends with the current user
+					<Button variant='ghost' size='sm' disabled>
+						Friends
+					</Button>
+				) : friendRequests.some((request) => request._id === currentUserID) ? (
+					// if still requesting
+					<Button variant='ghost' size='sm' disabled>
+						Request Sent
+					</Button>
+				) : !friends.some((friend) => friend._id === currentUserID) ? (
+					// if not friends
+					<SendRequestButton userID={userID} refetch={refetch} />
+				) : null}
 			</div>
 
 			{bio && <p className='text-muted-foreground mt-3'>{bio}</p>}

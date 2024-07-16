@@ -1,4 +1,4 @@
-import { fetchUserActivity } from '@/api/user';
+import { fetchUserActivity, fetchUserByID } from '@/api/user';
 import { useQuery } from '@tanstack/react-query';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useEffect, useState } from 'react';
@@ -10,23 +10,55 @@ export default function Activity() {
 
 	const currentUserID = localStorage.getItem('UserID');
 
-	const { data, error, isLoading } = useQuery({
+	const {
+		data,
+		error: activityError,
+		isLoading: activityLoading,
+	} = useQuery({
 		queryKey: [`user_activity_${currentUserID}`],
 		queryFn: () => fetchUserActivity(currentUserID),
 	});
 
+	const {
+		data: userData,
+		error: userError,
+		isLoading: userLoading,
+	} = useQuery({
+		queryKey: [`user_${currentUserID}`],
+		queryFn: () => fetchUserByID(currentUserID),
+	});
+
 	useEffect(() => {
+		// activities
 		if (data) {
 			setActivities(data.filter((act) => act.type === 'post'));
-			setRequests(data.filter((act) => act.type === 'user'));
 		}
 	}, [data]);
 
-	if (isLoading) {
+	useEffect(() => {
+		if (userData) {
+			if (userData.friendRequests) {
+				const friendRequests = userData.friendRequests.map((user) => {
+					return {
+						_id: user._id,
+						associatedID: user._id,
+						message: `${user.firstname} sent you a friend request`,
+						image: user.profile.url,
+						type: 'user',
+						seen: false,
+					};
+				});
+
+				setRequests(friendRequests);
+			}
+		}
+	}, [userData]);
+
+	if (activityLoading || userLoading) {
 		return <p>Loading...</p>;
 	}
 
-	if (error) {
+	if (activityError || userError) {
 		return <p>Failed to load activities</p>;
 	}
 
