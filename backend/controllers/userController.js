@@ -133,7 +133,37 @@ exports.user_activity_update = asyncHandler(async (req, res) => {
 exports.user_request_send = asyncHandler(async (req, res) => {
   const { userID } = req.params;
 
-  const result = await User.findByIdAndUpdate(userID, { $addToSet: { friendRequests: req.user._id } }, { new: true }).exec();
+  const result = await User.findByIdAndUpdate(
+    userID,
+    {
+      $addToSet: { friendRequests: req.user._id }
+    },
+    { new: true }
+  ).exec();
 
   res.json(new Response(true, result, 'Request sent', null));
+});
+
+exports.user_request_accept = asyncHandler(async (req, res) => {
+  const { userID } = req.params;
+
+  await User.findByIdAndUpdate(
+    req.user._id,
+    {
+      $pull: { friendRequests: userID },
+      $addToSet: { friends: userID }
+    },
+    { new: true }
+  ).exec();
+
+  await User.findByIdAndUpdate(
+    userID,
+    {
+      $pull: { friendRequests: req.user._id },
+      $addToSet: { friends: req.user._id }
+    },
+    { new: true }
+  ).exec();
+
+  res.json(new Response(true, null, 'Request accepted', null));
 });

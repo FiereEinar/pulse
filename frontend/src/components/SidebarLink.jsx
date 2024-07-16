@@ -12,7 +12,6 @@ export default function SidebarLink({ path, name, icon }) {
 		<NavLink
 			title={name}
 			to={path}
-			replace={true}
 			className={({ isActive }) =>
 				`${navClass} ${isActive ? 'text-primary active-link' : ''}`
 			}

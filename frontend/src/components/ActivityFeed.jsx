@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import ActivityCard from './ActivityCard';
-import { Button } from './ui/button';
+import AcceptRequestButton from './buttons/AcceptRequestButton';
 
-export default function ActivityFeed({ activities }) {
+export default function ActivityFeed({ activities, refetch }) {
 	const navigate = useNavigate();
 
 	return (
@@ -30,9 +30,10 @@ export default function ActivityFeed({ activities }) {
 					}
 					action={
 						activity.type === 'user' && (
-							<Button onClick={() => console.log('follow back')} size='sm'>
-								Accept
-							</Button>
+							<AcceptRequestButton
+								userID={activity.associatedID}
+								refetch={refetch}
+							/>
 						)
 					}
 				/>

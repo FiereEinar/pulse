@@ -106,3 +106,18 @@ export const sendFriendRequest = async (userID) => {
     throw e;
   }
 };
+
+export const acceptFriendRequest = async (userID) => {
+  try {
+    const { data } = await axios.post(`${BASE_API_URL}/user/${userID}/request/accept`, {}, {
+      headers: {
+        Authorization: localStorage.getItem('Token')
+      }
+    });
+
+    return data;
+  } catch (e) {
+    console.error('Error accepting friend request', e);
+    throw e;
+  }
+};

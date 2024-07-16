@@ -2,7 +2,8 @@ import _ from 'lodash';
 import CoverPhoto from './CoverPhoto';
 import { Button } from './ui/button';
 import { useNavigate } from 'react-router-dom';
-import SendRequestButton from './SendRequestButton';
+import SendRequestButton from './buttons/SendRequestButton';
+import AcceptRequestButton from './buttons/AcceptRequestButton';
 
 export default function UserProfile({
 	coverImage,
@@ -53,7 +54,7 @@ export default function UserProfile({
 					</Button>
 				) : currentUserRequests.some((user) => user._id === userID) ? (
 					// if the user being viewed is sending request to current user
-					<Button size='sm'>Accept Request</Button>
+					<AcceptRequestButton userID={userID} refetch={refetch} />
 				) : currentUserFriends.some((user) => user._id === userID) ? (
 					// if the user is friends with the current user
 					<Button variant='ghost' size='sm' disabled>

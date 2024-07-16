@@ -4,7 +4,7 @@ import { useToast } from './ui/use-toast';
 import { Link } from 'react-router-dom';
 import CommentIcon from './icons/comment';
 import ShareIcon from './icons/share';
-import HeartButton from './HeartButton';
+import HeartButton from './buttons/HeartButton';
 
 export default function PostActions({
 	postID,

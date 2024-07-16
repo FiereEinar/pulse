@@ -1,6 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import DarkModeToggle from './ui/darkmode-toggle';
 import LogoutIcon from './icons/logout';
+import BackButton from './buttons/BackButton';
 
 export default function Header() {
 	const { pathname } = useLocation();
@@ -37,9 +38,7 @@ export default function Header() {
 						<h1 className='text-2xl font-semibold'>Logo</h1>
 					</Link>
 				) : (
-					<Link className='' to={-1}>
-						<img className='size-8' src='/icons/back.svg' alt='' />
-					</Link>
+					<BackButton />
 				)}
 			</div>
 

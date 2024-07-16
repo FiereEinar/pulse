@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import HeartButton from './HeartButton';
+import HeartButton from './buttons/HeartButton';
 import { useToast } from './ui/use-toast';
 import { deleteComment, toggleCommentLike, updateComment } from '@/api/post';
 import { Button } from './ui/button';

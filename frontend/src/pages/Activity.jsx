@@ -23,6 +23,7 @@ export default function Activity() {
 		data: userData,
 		error: userError,
 		isLoading: userLoading,
+		refetch,
 	} = useQuery({
 		queryKey: [`user_${currentUserID}`],
 		queryFn: () => fetchUserByID(currentUserID),
@@ -80,10 +81,10 @@ export default function Activity() {
 					</TabsTrigger>
 				</TabsList>
 				<TabsContent value='activity'>
-					<ActivityFeed activities={activities} />
+					<ActivityFeed activities={activities} refetch={refetch} />
 				</TabsContent>
 				<TabsContent value='requests'>
-					<ActivityFeed activities={requests} />
+					<ActivityFeed activities={requests} refetch={refetch} />
 				</TabsContent>
 			</Tabs>
 		</section>

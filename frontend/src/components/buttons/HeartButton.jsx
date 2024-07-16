@@ -1,4 +1,4 @@
-import HeartIcon from './icons/heart';
+import HeartIcon from '../icons/heart';
 
 export default function HeartButton({ isLoading, onClick, isLiked, likes }) {
 	const textMutedForeground = '#64748b';

@@ -186,6 +186,18 @@ exports.post_comment_like_create = asyncHandler(async (req, res) => {
     { new: true }
   ).exec();
 
+  const post = await Post.findOne({ comments: commentID }).exec();
+
+  const activity = new Activity({
+    message: `${req.user.firstname} liked your comment`,
+    associatedID: post._id,
+    image: req.user.profile.url,
+    type: 'post',
+    for: post.creator
+  });
+
+  await activity.save();
+
   res.json(new Response(true, result, 'Like sent to a comment', null));
 });
 

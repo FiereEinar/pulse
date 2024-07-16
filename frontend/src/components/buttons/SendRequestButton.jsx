@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Button } from './ui/button';
-import { useToast } from './ui/use-toast';
+import { Button } from '../ui/button';
+import { useToast } from '../ui/use-toast';
 import { sendFriendRequest } from '@/api/user';
 
 export default function SendRequestButton({ userID, refetch }) {
