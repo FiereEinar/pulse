@@ -4,10 +4,11 @@ import PostsFeed from '@/components/PostsFeed';
 import UserGrid from '@/components/UserGrid';
 import UserProfile from '@/components/UserProfile';
 import { useQuery } from '@tanstack/react-query';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 export default function Profile() {
 	const currentUserID = localStorage.getItem('UserID');
+	const navigate = useNavigate();
 	const { userID } = useParams();
 
 	const {
@@ -81,23 +82,25 @@ export default function Profile() {
 			<div className='mt-3'>
 				<div className='flex justify-between items-center'>
 					<h2 className='text-lg text-muted-foreground'>Friends</h2>
-					{userID === currentUserID ? (
+					{userID === currentUserID && (
 						<Link
 							className='hover:underline text-muted-foreground text-sm'
 							to='/search/users'
 						>
 							Find Friends
 						</Link>
-					) : (
-						<Link
-							className='hover:underline text-muted-foreground text-sm'
-							to={`/users/${userID}/friends`}
-						>
-							View Friends
-						</Link>
 					)}
 				</div>
-				<UserGrid type='Friends' users={userData.friends} />
+
+				<div className='transition-all bg-card rounded-md overflow-hidden'>
+					<UserGrid type='Friends' users={userData.friends} />
+					<button
+						onClick={() => navigate(`/user/${currentUserID}/friends`)}
+						className='transition-all border-t hover:bg-secondary w-full p-2 text-muted-foreground'
+					>
+						View All Friends
+					</button>
+				</div>
 			</div>
 
 			{/* posts */}

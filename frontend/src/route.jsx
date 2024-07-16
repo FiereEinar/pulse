@@ -13,6 +13,7 @@ import EditProfile from './pages/EditProfile';
 import PostLikes from './pages/PostLikes';
 import SearchUsers from './pages/SearchUsers';
 import Activity from './pages/Activity';
+import UserFriends from './pages/UserFriends';
 
 export default function Route() {
 	const route = createBrowserRouter([
@@ -40,6 +41,10 @@ export default function Route() {
 				{
 					path: '/profile/:userID',
 					element: <Profile />,
+				},
+				{
+					path: '/user/:userID/friends',
+					element: <UserFriends />,
 				},
 				{
 					path: '/post/:postID',
