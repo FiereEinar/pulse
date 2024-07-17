@@ -113,6 +113,9 @@ exports.user_update_cover = asyncHandler(async (req, res) => {
   res.json(new Response(true, result, 'User cover updated', null));
 });
 
+/**
+ * fetch all activities of a user, notifications | friend requests
+ */
 exports.user_activity_get = asyncHandler(async (req, res) => {
   const { userID } = req.params;
 
@@ -121,6 +124,9 @@ exports.user_activity_get = asyncHandler(async (req, res) => {
   res.json(new Response(true, activities, 'User activity gathered', null));
 });
 
+/**
+ * update the 'seen' status of an activity/notification
+ */
 exports.user_activity_update = asyncHandler(async (req, res) => {
   const { activityID } = req.params;
   const { seen } = req.body;
@@ -130,6 +136,9 @@ exports.user_activity_update = asyncHandler(async (req, res) => {
   res.json(new Response(true, result, 'User activity update', null));
 });
 
+/**
+ * send a friend request to a user
+ */
 exports.user_request_send = asyncHandler(async (req, res) => {
   const { userID } = req.params;
 
@@ -144,6 +153,9 @@ exports.user_request_send = asyncHandler(async (req, res) => {
   res.json(new Response(true, result, 'Request sent', null));
 });
 
+/**
+ * accept a friend request to a user
+ */
 exports.user_request_accept = asyncHandler(async (req, res) => {
   const { userID } = req.params;
 

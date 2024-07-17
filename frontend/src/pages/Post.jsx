@@ -63,7 +63,7 @@ export default function Post() {
 						to={`/post/${postID}/likes`}
 						className='text-muted-foreground text-sm ml-3 italic  hover:underline'
 					>
-						View all likes
+						View all likes and shares
 					</Link>
 
 					<CreateCommentForm postID={postID} refetch={refetch} />

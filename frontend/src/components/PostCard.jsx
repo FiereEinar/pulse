@@ -1,7 +1,6 @@
 import PostActions from './PostActions';
 import PostUserHeader from './PostUserHeader';
 import CustomImageGallery from './CustomImageGallery';
-import ShareIcon from './icons/share';
 import SharePostButton from './buttons/SharePostButton';
 
 export default function PostCard({

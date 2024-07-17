@@ -15,7 +15,7 @@ function App() {
 					<Sidebar />
 				</div>
 
-				<div className='transition-all flex flex-col flex-1 h-full w-full md:max-w-[60rem] md:min-w-[35rem] p-2 sm:p-5 overflow-y-scroll bg-background'>
+				<div className='transition-all flex flex-col flex-1 w-full md:max-w-[60rem] md:min-w-[35rem] p-2 sm:p-5 overflow-y-scroll bg-background'>
 					<Outlet />
 				</div>
 

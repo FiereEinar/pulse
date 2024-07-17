@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { togglePostLike } from '@/api/post';
+import { postLikeToggle } from '@/api/post';
 import { useToast } from './ui/use-toast';
 import { Link } from 'react-router-dom';
 import CommentIcon from './icons/comment';
@@ -27,7 +27,7 @@ export default function PostActions({
 			setIsLoading(true);
 			setLiked(!liked);
 
-			const result = await togglePostLike(postID, currentUserID, liked);
+			const result = await postLikeToggle(postID);
 
 			if (!result.success) {
 				toast({

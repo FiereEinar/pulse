@@ -2,6 +2,9 @@ import axios from "axios";
 
 const BASE_API_URL = import.meta.env.VITE_BASE_API_URL;
 
+/**
+ * sign in
+ */
 export const postSignin = async (formData) => {
   try {
     const { data } = await axios.post(`${BASE_API_URL}/auth/signup`, formData);
@@ -13,6 +16,9 @@ export const postSignin = async (formData) => {
   }
 };
 
+/**
+ * log in
+ */
 export const postLogin = async (formData) => {
   try {
     const { data } = await axios.post(`${BASE_API_URL}/auth/login`, formData);

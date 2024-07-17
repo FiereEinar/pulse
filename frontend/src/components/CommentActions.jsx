@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import HeartButton from './buttons/HeartButton';
 import { useToast } from './ui/use-toast';
-import { deleteComment, toggleCommentLike, updateComment } from '@/api/post';
+import {
+	deleteComment,
+	postCommentLikeToggle,
+	updateComment,
+} from '@/api/post';
 import { Button } from './ui/button';
 import DialogWrapper from './DialogWrapper';
 import {
@@ -76,7 +80,6 @@ function HeartButtonAction({
 	commentID,
 	refetch,
 }) {
-	const currentUserID = localStorage.getItem('UserID');
 	const { toast } = useToast();
 	const [liked, setLiked] = useState(isLiked);
 
@@ -85,12 +88,7 @@ function HeartButtonAction({
 			setIsLoading(true);
 			setLiked(!liked);
 
-			const result = await toggleCommentLike(
-				postID,
-				commentID,
-				currentUserID,
-				liked
-			);
+			const result = await postCommentLikeToggle(postID, commentID);
 
 			if (!result.success) {
 				toast({

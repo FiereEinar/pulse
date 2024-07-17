@@ -7,6 +7,9 @@ const { serverlessImageUpload } = require("../utils/uploader");
 const cloudinary = require('../utils/cloudinary');
 const Activity = require("../models/activity");
 
+/**
+ * get all posts
+ */
 exports.posts_get = asyncHandler(async (req, res) => {
   const posts = await Post.find({})
     .populate({
@@ -19,6 +22,9 @@ exports.posts_get = asyncHandler(async (req, res) => {
   res.json(new Response(true, posts, 'Posts gathered', null));
 });
 
+/**
+ * fetch the posts of a user including shared posts
+ */
 exports.user_posts_get = asyncHandler(async (req, res) => {
   const { userID } = req.params;
 
@@ -32,11 +38,12 @@ exports.user_posts_get = asyncHandler(async (req, res) => {
     .sort({ dateCreated: -1 })
     .exec();
 
-  console.log(posts)
-
   res.json(new Response(true, posts, 'User posts gathered', null));
 });
 
+/**
+ * fetch a post by ID
+ */
 exports.post_id_get = asyncHandler(async (req, res) => {
   const { postID } = req.params;
 
@@ -65,6 +72,9 @@ exports.post_id_get = asyncHandler(async (req, res) => {
   res.json(new Response(true, post, 'Post data gathered', null));
 });
 
+/**
+ * create a post
+ */
 exports.post_post = asyncHandler(async (req, res) => {
   const { creatorID, content } = req.body;
 
@@ -92,46 +102,9 @@ exports.post_post = asyncHandler(async (req, res) => {
   res.json(new Response(true, post, 'Posts created', null));
 });
 
-
-exports.like_post = asyncHandler(async (req, res) => {
-  const { postID, userID } = req.params;
-
-  const user = await User.findById(userID);
-  if (!user) {
-    return res.status(404).json(new Response(false, null, 'User not found', null));
-  }
-
-  const post = await Post.findByIdAndUpdate(
-    postID,
-    { $addToSet: { likes: userID } },
-    { new: true }
-  ).exec();
-
-  const activity = new Activity({
-    message: `${user.firstname} liked your post`,
-    associatedID: post._id,
-    image: user.profile.url,
-    type: 'post',
-    for: post.creator
-  });
-
-  await activity.save();
-
-  res.json(new Response(true, post, 'Post liked', null));
-});
-
-exports.like_delete = asyncHandler(async (req, res) => {
-  const { postID, userID } = req.params;
-
-  const result = await Post.findByIdAndUpdate(
-    postID,
-    { $pull: { likes: userID } },
-    { new: true }
-  ).exec();
-
-  res.json(new Response(true, result, 'Post unliked', null));
-});
-
+/** 
+ * create a comment on a post
+ */
 exports.post_comment_create = asyncHandler(async (req, res) => {
   const { postID } = req.params;
   const { commenterID, content } = req.body;
@@ -181,43 +154,78 @@ exports.post_comment_create = asyncHandler(async (req, res) => {
   res.json(new Response(true, { comment, result }, 'Comment posted on a post', null));
 });
 
-exports.post_comment_like_create = asyncHandler(async (req, res) => {
-  const { commentID, userID } = req.params;
+/**
+ * toggle a like on a post
+ */
+exports.post_like_toggle = asyncHandler(async (req, res) => {
+  const { postID } = req.params;
 
-  const result = await Comment.findByIdAndUpdate(
-    commentID,
-    { $addToSet: { likes: userID } },
-    { new: true }
-  ).exec();
+  const post = await Post.findById(postID);
+  if (!post) {
+    return res.status(404).json(new Response(false, null, 'Post not found', null));
+  }
 
-  const post = await Post.findOne({ comments: commentID }).exec();
+  const isLiked = post.likes.includes(req.user._id);
 
-  const activity = new Activity({
-    message: `${req.user.firstname} liked your comment`,
-    associatedID: post._id,
-    image: req.user.profile.url,
-    type: 'post',
-    for: post.creator
-  });
+  if (isLiked) {
+    post.likes.pull(req.user._id);
+  } else {
+    post.likes.push(req.user._id);
 
-  await activity.save();
+    const activity = new Activity({
+      message: `${req.user.firstname} liked your post`,
+      associatedID: post._id,
+      image: req.user.profile.url,
+      type: 'post',
+      for: post.creator
+    });
 
-  res.json(new Response(true, result, 'Like sent to a comment', null));
+    await activity.save();
+  }
+
+  await post.save();
+
+  res.json(new Response(true, null, 'Post liked', null));
 });
 
-exports.post_comment_like_delete = asyncHandler(async (req, res) => {
-  const { commentID, userID } = req.params;
+/**
+ * toggle a like on a comment
+ */
+exports.post_comment_like_toggle = asyncHandler(async (req, res) => {
+  const { commentID, postID } = req.params;
 
-  const result = await Comment.findByIdAndUpdate(
-    commentID,
-    { $pull: { likes: userID } },
-    { new: true }
-  ).exec();
+  const post = await Post.findById(postID);
+  const comment = await Comment.findById(commentID);
+  if (!comment) {
+    return res.status(404).json(new Response(false, null, 'Comment not found', null));
+  }
 
-  res.json(new Response(true, result, 'Like removed to a comment', null));
+  const isLiked = comment.likes.includes(req.user._id);
+
+  if (isLiked) {
+    comment.likes.pull(req.user._id);
+  } else {
+    comment.likes.push(req.user._id);
+
+    const activity = new Activity({
+      message: `${req.user.firstname} liked your comment`,
+      associatedID: post._id,
+      image: req.user.profile.url,
+      type: 'post',
+      for: comment.commenter
+    });
+
+    await activity.save();
+  }
+
+  await comment.save();
+
+  res.json(new Response(true, null, 'Comment liked', null));
 });
 
-
+/**
+ * delete a comment on a post
+ */
 exports.post_comment_delete = asyncHandler(async (req, res) => {
   const { postID, commentID } = req.params;
 
@@ -236,6 +244,9 @@ exports.post_comment_delete = asyncHandler(async (req, res) => {
   res.json(new Response(true, { result, updatedPost }, 'Comment removed', null));
 });
 
+/**
+ * update a comment
+ */
 exports.post_comment_update = asyncHandler(async (req, res) => {
   const { commentID } = req.params;
   const { commenterID, content } = req.body;
@@ -254,6 +265,9 @@ exports.post_comment_update = asyncHandler(async (req, res) => {
   res.json(new Response(true, updatedComment, 'Comment updated', null));
 });
 
+/**
+ * update a post
+ */
 exports.post_update = asyncHandler(async (req, res) => {
   const { postID } = req.params;
   const { content } = req.body;
@@ -268,6 +282,9 @@ exports.post_update = asyncHandler(async (req, res) => {
   res.json(new Response(true, result, 'Post updated', null));
 });
 
+/**
+ * delete a post
+ */
 exports.post_delete = asyncHandler(async (req, res) => {
   const { postID } = req.params;
 
@@ -280,6 +297,9 @@ exports.post_delete = asyncHandler(async (req, res) => {
   res.json(new Response(true, result, 'Post deleted', null));
 });
 
+/**
+ * toggle a share on a post
+ */
 exports.post_share_toggle = asyncHandler(async (req, res) => {
   const { postID } = req.params;
 

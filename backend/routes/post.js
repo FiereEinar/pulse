@@ -7,17 +7,15 @@ const {
   posts_get,
   post_id_get,
   post_post,
-  like_post,
-  like_delete,
   post_comment_create,
-  post_comment_like_create,
-  post_comment_like_delete,
   post_comment_update,
   post_comment_delete,
   post_update,
   post_delete,
   user_posts_get,
-  post_share_toggle
+  post_share_toggle,
+  post_like_toggle,
+  post_comment_like_toggle
 } = require('../controllers/postController');
 
 // GET POSTS
@@ -70,16 +68,10 @@ router.put('/:postID/share',
   post_share_toggle
 );
 
-// SEND A LIKE TO A POST
-router.post('/:postID/:userID/like',
+// LIKE A POST
+router.put('/:postID/like',
   passport.authenticate('jwt', { session: false }),
-  like_post
-);
-
-// REMOVE A LIKE TO A POST
-router.delete('/:postID/:userID/like',
-  passport.authenticate('jwt', { session: false }),
-  like_delete
+  post_like_toggle
 );
 
 // UPDATE A COMMENT ON A POST
@@ -95,15 +87,9 @@ router.delete('/:postID/comment/:commentID',
 );
 
 // SEND A LIKE TO A COMMENT ON A POST
-router.post('/:postID/comment/:commentID/like/:userID',
+router.put('/:postID/comment/:commentID/like',
   passport.authenticate('jwt', { session: false }),
-  post_comment_like_create
-);
-
-// REMOVE A LIKE TO A COMMENT ON A POST
-router.delete('/:postID/comment/:commentID/like/:userID',
-  passport.authenticate('jwt', { session: false }),
-  post_comment_like_delete
+  post_comment_like_toggle
 );
 
 module.exports = router;

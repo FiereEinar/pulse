@@ -95,7 +95,7 @@ export default function Profile() {
 				<div className='transition-all bg-card rounded-md overflow-hidden'>
 					<UserGrid type='Friends' users={userData.friends} />
 					<button
-						onClick={() => navigate(`/user/${currentUserID}/friends`)}
+						onClick={() => navigate(`/user/${userData._id}/friends`)}
 						className='transition-all border-t hover:bg-secondary w-full p-2 text-muted-foreground'
 					>
 						View All Friends

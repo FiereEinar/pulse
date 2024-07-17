@@ -12,20 +12,16 @@ export default function UsersFeed({ users, isLoading, error }) {
 	}
 
 	return (
-		<div>
-			{/* {users.length === 0 && (
-				<p className='text-muted-foreground text-sm italic'>Empty</p>
-			)} */}
-			{users &&
-				users.map((user) => (
-					<UserCard
-						key={user._id}
-						profile={user.profile.url}
-						userID={user._id}
-						fullname={`${user.firstname} ${user.lastname}`}
-						username={user.username}
-					/>
-				))}
+		<div className='flex flex-col'>
+			{users.map((user) => (
+				<UserCard
+					key={user._id}
+					profile={user.profile.url}
+					userID={user._id}
+					fullname={`${user.firstname} ${user.lastname}`}
+					username={user.username}
+				/>
+			))}
 		</div>
 	);
 }

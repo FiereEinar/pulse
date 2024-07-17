@@ -2,6 +2,9 @@ import axios from "axios";
 
 const BASE_API_URL = import.meta.env.VITE_BASE_API_URL;
 
+/**
+ * get all posts
+ */
 export const getPosts = async () => {
   try {
     const { data } = await axios.get(`${BASE_API_URL}/post`, {
@@ -17,6 +20,9 @@ export const getPosts = async () => {
   }
 };
 
+/**
+ * create a post
+ */
 export const createPost = async (formData) => {
   try {
     const { data } = await axios.post(`${BASE_API_URL}/post`, formData, {
@@ -32,23 +38,16 @@ export const createPost = async (formData) => {
   }
 };
 
-export const togglePostLike = async (postID, userID, isCurrentlyLiked) => {
+/**
+ * toggle a like on a post
+ */
+export const postLikeToggle = async (postID) => {
   try {
-    let result = null;
-
-    if (isCurrentlyLiked) {
-      result = await axios.delete(`${BASE_API_URL}/post/${postID}/${userID}/like`, {
-        headers: {
-          Authorization: localStorage.getItem('Token')
-        }
-      });
-    } else {
-      result = await axios.post(`${BASE_API_URL}/post/${postID}/${userID}/like`, {}, {
-        headers: {
-          Authorization: localStorage.getItem('Token')
-        }
-      });
-    }
+    const result = await axios.put(`${BASE_API_URL}/post/${postID}/like`, {}, {
+      headers: {
+        Authorization: localStorage.getItem('Token')
+      }
+    });
 
     return result.data;
   } catch (e) {
@@ -57,6 +56,9 @@ export const togglePostLike = async (postID, userID, isCurrentlyLiked) => {
   }
 };
 
+/**
+ * fetch a post by ID
+ */
 export const fetchPostByID = async (postID) => {
   try {
     const { data } = await axios.get(`${BASE_API_URL}/post/${postID}`, {
@@ -72,6 +74,9 @@ export const fetchPostByID = async (postID) => {
   }
 };
 
+/** 
+ * create a comment on a post
+ */
 export const createComment = async (postID, formData) => {
   try {
     const { data } = await axios.post(`${BASE_API_URL}/post/${postID}/comment`, formData, {
@@ -87,28 +92,16 @@ export const createComment = async (postID, formData) => {
   }
 };
 
-export const toggleCommentLike = async (
-  postID,
-  commentID,
-  userID,
-  isCurrentlyLiked
-) => {
+/**
+ * toggle a like on a comment
+ */
+export const postCommentLikeToggle = async (postID, commentID) => {
   try {
-    let result = null;
-
-    if (isCurrentlyLiked) {
-      result = await axios.delete(`${BASE_API_URL}/post/${postID}/comment/${commentID}/like/${userID}`, {
-        headers: {
-          Authorization: localStorage.getItem('Token')
-        }
-      });
-    } else {
-      result = await axios.post(`${BASE_API_URL}/post/${postID}/comment/${commentID}/like/${userID}`, {}, {
-        headers: {
-          Authorization: localStorage.getItem('Token')
-        }
-      });
-    }
+    const result = await axios.put(`${BASE_API_URL}/post/${postID}/comment/${commentID}/like`, {}, {
+      headers: {
+        Authorization: localStorage.getItem('Token')
+      }
+    });
 
     return result.data;
   } catch (e) {
@@ -117,6 +110,9 @@ export const toggleCommentLike = async (
   }
 };
 
+/**
+ * delete a comment on a post
+ */
 export const deleteComment = async (postID, commentID) => {
   try {
     const { data } = await axios.delete(`${BASE_API_URL}/post/${postID}/comment/${commentID}`, {
@@ -132,6 +128,9 @@ export const deleteComment = async (postID, commentID) => {
   }
 };
 
+/**
+ * update a comment
+ */
 export const updateComment = async (postID, commentID, formData) => {
   try {
     const { data } = await axios.put(`${BASE_API_URL}/post/${postID}/comment/${commentID}`, formData, {
@@ -147,6 +146,9 @@ export const updateComment = async (postID, commentID, formData) => {
   }
 };
 
+/**
+ * update a post
+ */
 export const updatePost = async (postID, formData) => {
   try {
     const { data } = await axios.put(`${BASE_API_URL}/post/${postID}`, formData, {
@@ -162,6 +164,9 @@ export const updatePost = async (postID, formData) => {
   }
 };
 
+/**
+ * delete a post
+ */
 export const deletePost = async (postID) => {
   try {
     const { data } = await axios.delete(`${BASE_API_URL}/post/${postID}`, {
@@ -177,6 +182,9 @@ export const deletePost = async (postID) => {
   }
 };
 
+/**
+ * fetch the posts of a user
+ */
 export const fetchUserPosts = async (userID) => {
   try {
     const { data } = await axios.get(`${BASE_API_URL}/post/user/${userID}`, {
@@ -192,6 +200,9 @@ export const fetchUserPosts = async (userID) => {
   }
 };
 
+/**
+ * toggle a share on a post
+ */
 export const sharePostToggle = async (postID) => {
   try {
     const { data } = await axios.put(`${BASE_API_URL}/post/${postID}/share`, {}, {

@@ -2,6 +2,9 @@ import axios from "axios";
 
 const BASE_API_URL = import.meta.env.VITE_BASE_API_URL;
 
+/**
+ * fetch a user by ID
+ */
 export const fetchUserByID = async (userID) => {
   try {
     const { data } = await axios.get(`${BASE_API_URL}/user/${userID}`, {
@@ -17,6 +20,9 @@ export const fetchUserByID = async (userID) => {
   }
 };
 
+/**
+ * update a user
+ */
 export const updateUser = async (userID, formData) => {
   try {
     const { data } = await axios.put(`${BASE_API_URL}/user/${userID}`, formData, {
@@ -32,6 +38,9 @@ export const updateUser = async (userID, formData) => {
   }
 };
 
+/**
+ * update the cover photo of a user
+ */
 export const updateUserCover = async (userID, formData) => {
   try {
     const { data } = await axios.put(`${BASE_API_URL}/user/${userID}/cover`, formData, {
@@ -47,6 +56,9 @@ export const updateUserCover = async (userID, formData) => {
   }
 };
 
+/**
+ * fetch all users
+ */
 export const fetchUsers = async () => {
   try {
     const { data } = await axios.get(`${BASE_API_URL}/user`, {
@@ -62,6 +74,9 @@ export const fetchUsers = async () => {
   }
 };
 
+/**
+ * fetch all activities of a user, notifications | friend requests
+ */
 export const fetchUserActivity = async (userID) => {
   try {
     const { data } = await axios.get(`${BASE_API_URL}/user/${userID}/activity`, {
@@ -77,6 +92,9 @@ export const fetchUserActivity = async (userID) => {
   }
 };
 
+/**
+ * update the 'seen' status of an activity/notification
+ */
 export const updateActivityStatus = async (userID, activityID, formData) => {
   try {
     const { data } = await axios.put(`${BASE_API_URL}/user/${userID}/activity/${activityID}`, formData, {
@@ -92,6 +110,9 @@ export const updateActivityStatus = async (userID, activityID, formData) => {
   }
 };
 
+/**
+ * send a friend request to a user
+ */
 export const sendFriendRequest = async (userID) => {
   try {
     const { data } = await axios.post(`${BASE_API_URL}/user/${userID}/request`, {}, {
@@ -107,6 +128,9 @@ export const sendFriendRequest = async (userID) => {
   }
 };
 
+/**
+ * accept a friend request to a user
+ */
 export const acceptFriendRequest = async (userID) => {
   try {
     const { data } = await axios.post(`${BASE_API_URL}/user/${userID}/request/accept`, {}, {
