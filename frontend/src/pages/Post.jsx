@@ -47,6 +47,7 @@ export default function Post() {
 						shares={postData.shares.length}
 						postID={postData._id}
 						isLiked={postData.likes.some((user) => user._id === currentUserID)}
+						isSingular={true}
 						key={postData._id}
 						content={postData.content}
 						creatorProfile={postData.creator.profile.url}

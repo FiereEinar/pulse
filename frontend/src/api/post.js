@@ -191,3 +191,18 @@ export const fetchUserPosts = async (userID) => {
     throw e;
   }
 };
+
+export const sharePostToggle = async (postID) => {
+  try {
+    const { data } = await axios.put(`${BASE_API_URL}/post/${postID}/share`, {}, {
+      headers: {
+        Authorization: localStorage.getItem('Token')
+      }
+    });
+
+    return data;
+  } catch (e) {
+    console.error('Error sharing post', e);
+    throw e;
+  }
+};

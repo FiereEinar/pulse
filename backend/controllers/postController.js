@@ -22,13 +22,17 @@ exports.posts_get = asyncHandler(async (req, res) => {
 exports.user_posts_get = asyncHandler(async (req, res) => {
   const { userID } = req.params;
 
-  const posts = await Post.find({ creator: userID })
+  const posts = await Post.find({
+    $or: [{ creator: userID }, { shares: userID }]
+  })
     .populate({
       path: 'creator',
       select: '-password'
     })
     .sort({ dateCreated: -1 })
     .exec();
+
+  console.log(posts)
 
   res.json(new Response(true, posts, 'User posts gathered', null));
 });
@@ -274,4 +278,25 @@ exports.post_delete = asyncHandler(async (req, res) => {
   }
 
   res.json(new Response(true, result, 'Post deleted', null));
+});
+
+exports.post_share_toggle = asyncHandler(async (req, res) => {
+  const { postID } = req.params;
+
+  const post = await Post.findById(postID);
+  if (!post) {
+    return res.status(404).json(new Response(false, null, 'Post not found', null));
+  }
+
+  const isShared = post.shares.includes(req.user._id);
+
+  if (isShared) {
+    post.shares.pull(req.user._id);
+  } else {
+    post.shares.push(req.user._id);
+  }
+
+  await post.save();
+
+  res.json(new Response(true, null, 'Post shared', null));
 });

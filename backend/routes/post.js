@@ -16,7 +16,8 @@ const {
   post_comment_delete,
   post_update,
   post_delete,
-  user_posts_get
+  user_posts_get,
+  post_share_toggle
 } = require('../controllers/postController');
 
 // GET POSTS
@@ -61,6 +62,12 @@ router.post('/:postID/comment',
   passport.authenticate('jwt', { session: false }),
   upload.single('image'),
   post_comment_create
+);
+
+// SHARE A POST
+router.put('/:postID/share',
+  passport.authenticate('jwt', { session: false }),
+  post_share_toggle
 );
 
 // SEND A LIKE TO A POST

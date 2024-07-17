@@ -4,8 +4,10 @@ import { useToast } from './ui/use-toast';
 import { useEffect } from 'react';
 import { FormError } from './ui/error';
 import { PostCardContainer } from './ui/container';
+import { useParams } from 'react-router-dom';
 
 export default function PostsFeed({ posts, error, isLoading, refetch }) {
+	const { userID } = useParams();
 	const currentUserID = localStorage.getItem('UserID');
 	const { toast } = useToast();
 
@@ -35,6 +37,8 @@ export default function PostsFeed({ posts, error, isLoading, refetch }) {
 							likes={post.likes.length}
 							comments={post.comments.length}
 							shares={post.shares.length}
+							isSharedByCurrentUser={post.shares.includes(currentUserID)}
+							isSharedByViewedUser={post.shares.includes(userID)}
 							postID={post._id}
 							isLiked={post.likes.includes(currentUserID)}
 							content={post.content}

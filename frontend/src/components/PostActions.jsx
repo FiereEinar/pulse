@@ -3,8 +3,8 @@ import { togglePostLike } from '@/api/post';
 import { useToast } from './ui/use-toast';
 import { Link } from 'react-router-dom';
 import CommentIcon from './icons/comment';
-import ShareIcon from './icons/share';
 import HeartButton from './buttons/HeartButton';
+import SharePostButton from './buttons/SharePostButton';
 
 export default function PostActions({
 	postID,
@@ -12,7 +12,9 @@ export default function PostActions({
 	likes,
 	comments,
 	shares,
+	postCreatorID,
 	refetch,
+	isAlreadyShared,
 }) {
 	const { toast } = useToast();
 	const currentUserID = localStorage.getItem('UserID');
@@ -62,10 +64,13 @@ export default function PostActions({
 				</button>
 			</Link>
 
-			<button className='postActionContainer flex gap-1'>
-				<ShareIcon />
-				<p className='text-muted-foreground'>{shares}</p>
-			</button>
+			<SharePostButton
+				refetch={refetch}
+				shareCount={shares}
+				postID={postID}
+				disabled={postCreatorID === currentUserID}
+				isAlreadyShared={isAlreadyShared}
+			/>
 		</div>
 	);
 }
