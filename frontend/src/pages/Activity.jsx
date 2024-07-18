@@ -55,10 +55,6 @@ export default function Activity() {
 		}
 	}, [userData]);
 
-	if (activityLoading || userLoading) {
-		return <p>Loading...</p>;
-	}
-
 	if (activityError || userError) {
 		return <p>Failed to load activities</p>;
 	}
@@ -69,22 +65,24 @@ export default function Activity() {
 				<TabsList className='w-full flex'>
 					<TabsTrigger className='flex-1' value='activity'>
 						Activity
-						{/* <p className='relative'>
-							Activity
-							<div className='absolute rounded-full top-0.5 -right-5 text-xs flex items-center justify-center size-4 bg-destructive text-destructive-foreground'>
-								{activities.filter((act) => !act.seen).length}
-							</div>
-						</p> */}
 					</TabsTrigger>
 					<TabsTrigger className='flex-1' value='requests'>
 						Requests
 					</TabsTrigger>
 				</TabsList>
 				<TabsContent value='activity'>
-					<ActivityFeed activities={activities} refetch={refetch} />
+					<ActivityFeed
+						isLoading={activityLoading || userLoading}
+						activities={activities}
+						refetch={refetch}
+					/>
 				</TabsContent>
 				<TabsContent value='requests'>
-					<ActivityFeed activities={requests} refetch={refetch} />
+					<ActivityFeed
+						isLoading={activityLoading || userLoading}
+						activities={requests}
+						refetch={refetch}
+					/>
 				</TabsContent>
 			</Tabs>
 		</section>

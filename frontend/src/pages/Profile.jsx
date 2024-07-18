@@ -1,5 +1,6 @@
 import { fetchUserPosts } from '@/api/post';
 import { fetchUserByID } from '@/api/user';
+import { PostFeedLoading } from '@/components/LoadingCards';
 import PostsFeed from '@/components/PostsFeed';
 import UserGrid from '@/components/UserGrid';
 import UserProfile from '@/components/UserProfile';
@@ -42,11 +43,7 @@ export default function Profile() {
 	});
 
 	if (userLoading || currentUserLoading) {
-		return (
-			<div className='transition-all bg-card w-full rounded-md h-full text-muted-foreground'>
-				Loading...
-			</div>
-		);
+		return <PostFeedLoading />;
 	}
 
 	if (userError || currentUserError) {

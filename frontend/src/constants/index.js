@@ -26,3 +26,26 @@ export const navLinks = [
     name: 'Profile'
   },
 ];
+
+export const nasaSearchQueries = [
+  'galaxies',
+  'stars',
+  'apollo',
+  'asteroids',
+  'exoplanet',
+  'nebula',
+  'black holes',
+  'spacecraft',
+  'mars',
+  'moon',
+  'saturn',
+  'jupiter',
+  'supernova',
+  'cosmos',
+  'comets',
+  'milky way',
+  'space missions',
+  'astronomy',
+  'Hubble telescope',
+  'cosmic rays',
+];

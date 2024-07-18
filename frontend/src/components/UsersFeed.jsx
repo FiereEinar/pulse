@@ -1,8 +1,9 @@
+import { UsersFeedLoading } from './LoadingCards';
 import UserCard from './UserCard';
 
 export default function UsersFeed({ users, isLoading, error }) {
 	if (isLoading) {
-		return <p className='text-muted-foreground text-sm italic'>Loading...</p>;
+		return <UsersFeedLoading />;
 	}
 
 	if (error) {

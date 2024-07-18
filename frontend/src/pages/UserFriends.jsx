@@ -19,7 +19,7 @@ export default function UserFriends() {
 	return (
 		<section className='bg-card rounded-md overflow-hidden w-full h-full'>
 			<h4 className='p-3 text-xl border-b font-semibold text-popover-foreground'>
-				{_.capitalize(userData.firstname)}&apos;s Friends
+				{_.capitalize(userData?.firstname)}&apos;s Friends
 			</h4>
 			<UsersFeed
 				users={userData?.friends}

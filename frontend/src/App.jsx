@@ -3,6 +3,8 @@ import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import { MainContainer } from './components/ui/container';
 import Bottombar from './components/Bottombar';
+import AdviceSlip from './components/AdviceSlip';
+import WhatsNew from './components/WhatsNew';
 
 function App() {
 	return (
@@ -19,9 +21,9 @@ function App() {
 					<Outlet />
 				</div>
 
-				<aside className='transition-all w-[25rem] bg-background hidden  xl:flex flex-col gap-5 h-full p-2 sm:p-5'>
-					<article className='bg-card w-full h-full rounded-md border'></article>
-					<article className='bg-card w-full h-full rounded-md border'></article>
+				<aside className='transition-all w-[25rem] bg-background hidden xl:flex flex-col gap-5 h-full p-2 sm:p-5 overflow-y-scroll'>
+					<AdviceSlip />
+					<WhatsNew />
 				</aside>
 				<div className='flex md:hidden'>
 					<Bottombar />

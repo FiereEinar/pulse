@@ -1,9 +1,18 @@
 import { useNavigate } from 'react-router-dom';
 import ActivityCard from './ActivityCard';
 import AcceptRequestButton from './buttons/AcceptRequestButton';
+import { UsersFeedLoading } from './LoadingCards';
 
-export default function ActivityFeed({ activities, refetch }) {
+export default function ActivityFeed({ activities, refetch, isLoading }) {
 	const navigate = useNavigate();
+
+	if (isLoading) {
+		return (
+			<div className='transition-all bg-card p-3 rounded-md h-full'>
+				<UsersFeedLoading />
+			</div>
+		);
+	}
 
 	return (
 		<div className='flex flex-col gap-1'>
