@@ -65,7 +65,15 @@ export function PostUserHeaderLoading() {
 	return (
 		<div className='flex gap-2'>
 			<Skeleton className='w-10 h-10 rounded-full flex-shrink-0' />
-			<Skeleton className='w-[15rem] h-10' />
+			<Skeleton className='flex-shrink w-[13rem] h-10' />
+		</div>
+	);
+}
+
+export function CreatePostLoading() {
+	return (
+		<div className='bg-card w-full rounded-md h-full p-3'>
+			<PostUserHeaderLoading />
 		</div>
 	);
 }

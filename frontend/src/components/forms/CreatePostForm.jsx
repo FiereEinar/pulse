@@ -9,11 +9,14 @@ import { useToast } from '../ui/use-toast';
 import { createPost } from '@/api/post';
 import { useNavigate } from 'react-router-dom';
 import ImagePreview from '../ImagePreview';
+import EmojiPickerButton from '../buttons/EmojiPickerButton';
+import AddPhotoIcon from '../icons/add-photo';
 
 export default function CreatePostForm({ currentUser }) {
 	const navigate = useNavigate();
 	const { toast } = useToast();
 	const [image, setImage] = useState(null);
+	const [content, setContent] = useState('');
 
 	const {
 		register,
@@ -23,10 +26,11 @@ export default function CreatePostForm({ currentUser }) {
 		resolver: zodResolver(createPostSchema),
 	});
 
+	// eslint-disable-next-line no-unused-vars
 	const onPostSubmit = async (data) => {
 		try {
 			const formData = new FormData();
-			formData.append('content', data.content);
+			formData.append('content', content);
 			formData.append('creatorID', currentUser._id);
 			if (image) formData.append('image', image);
 
@@ -54,10 +58,14 @@ export default function CreatePostForm({ currentUser }) {
 		}
 	};
 
+	const addEmoji = (emoji) => {
+		setContent(content + emoji.native);
+	};
+
 	return (
 		<form
 			onSubmit={handleSubmit(onPostSubmit)}
-			className='bg-card w-full rounded-md h-full'
+			className='transition-all relative bg-card w-full rounded-md h-full'
 		>
 			<div className='p-3 flex justify-between gap-2'>
 				<PostUserHeader
@@ -67,11 +75,12 @@ export default function CreatePostForm({ currentUser }) {
 					username={currentUser.username}
 				/>
 
-				<div className='flex gap-2 items-center'>
+				<div className='flex items-center'>
 					{/* add image */}
 					<div className='flex'>
 						<Button
 							title='Add Image'
+							variant='icon'
 							disabled={isSubmitting}
 							type='button'
 							size='sm'
@@ -81,14 +90,7 @@ export default function CreatePostForm({ currentUser }) {
 								className='z-50 cursor-pointer size-full flex items-center px-3 flex-shrink-0'
 								htmlFor='image'
 							>
-								<img
-									className='size-5 sm:mr-1'
-									src='/icons/add-photo.svg'
-									alt=''
-								/>
-								<p className='hidden sm:flex'>
-									{image ? 'Change Image' : 'Add Image'}
-								</p>
+								<AddPhotoIcon height='20px' width='20px' />
 							</label>
 						</Button>
 						<input
@@ -102,18 +104,8 @@ export default function CreatePostForm({ currentUser }) {
 						/>
 					</div>
 
-					{/* submit button */}
-					<Button
-						title='Create Post'
-						disabled={isSubmitting}
-						className='flex-shrink-0 gap-1'
-						size='sm'
-					>
-						<img className='size-5' src='/icons/add.svg' alt='' />
-
-						<p className='hidden sm:flex'>Create Post</p>
-						<p className='sm:hidden'>Post</p>
-					</Button>
+					{/* emoji picker button */}
+					<EmojiPickerButton onSelect={addEmoji} isSubmitting={isSubmitting} />
 				</div>
 			</div>
 
@@ -122,12 +114,14 @@ export default function CreatePostForm({ currentUser }) {
 				<textarea
 					disabled={isSubmitting}
 					{...register('content')}
-					className='w-full bg-card p-1 text-muted-foreground focus:outline-none px-3'
+					className='transition-all w-full bg-card p-1 text-muted-foreground focus:outline-none px-3'
 					placeholder='Write about something...'
 					name='content'
 					id='content'
 					autoFocus
 					rows={4}
+					value={content}
+					onChange={(e) => setContent(e.target.value)}
 				/>
 				{errors.content && <FormError message={errors.content.message} />}
 			</div>
@@ -141,6 +135,21 @@ export default function CreatePostForm({ currentUser }) {
 					imageClass={''}
 				/>
 			)}
+
+			{/* submit button */}
+			<div className='flex justify-end p-3'>
+				<Button
+					title='Create Post'
+					disabled={isSubmitting}
+					className='flex-shrink-0 gap-1'
+					size='sm'
+				>
+					<img className='size-5' src='/icons/add.svg' alt='' />
+
+					<p className='hidden sm:flex'>Create Post</p>
+					<p className='sm:hidden'>Post</p>
+				</Button>
+			</div>
 		</form>
 	);
 }

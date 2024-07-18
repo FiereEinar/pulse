@@ -7,6 +7,7 @@ import { createPostSchema } from '@/lib/validations/postSchema';
 import { FormError } from '../ui/error';
 import { createComment } from '@/api/post';
 import ImagePreview from '../ImagePreview';
+import AddPhotoIcon from '../icons/add-photo';
 
 export default function CreateCommentForm({ postID, refetch }) {
 	const currentUserID = localStorage.getItem('UserID');
@@ -73,13 +74,13 @@ export default function CreateCommentForm({ postID, refetch }) {
 							title='Add Image'
 							disabled={isSubmitting}
 							type='button'
-							className='p-3 flex justify-center flex-shrink-0'
+							className='p-0 flex justify-center flex-shrink-0'
 						>
 							<label
-								className='z-50 cursor-pointer size-full flex items-center flex-shrink-0'
+								className='z-50 p-3 cursor-pointer size-full flex items-center flex-shrink-0'
 								htmlFor='image'
 							>
-								<img className='size-5' src='/icons/add-photo.svg' alt='' />
+								<AddPhotoIcon height='20px' width='20px' stroke='#FFFFFF' />
 							</label>
 						</Button>
 						<input

@@ -81,7 +81,7 @@ input:-webkit-autofill:active {
 		--destructive: 348 100% 36.5%; /* #B00020 */
 		--destructive-foreground: 0 0% 100%; /* #FFFFFF */
 
-		--border: 220 26.5% 90%; /* #E0E0E0 */
+		--border: 220 26.5% 80%;
 		--input: 220 26.5% 90%; /* #E0E0E0 */
 		--ring: 262.2 87.8% 47.1%; /* #6200EE */
 
@@ -126,7 +126,8 @@ input:-webkit-autofill:active {
 		--destructive-foreground: 0 0% 100%; /* #FFFFFF */
 
 		/* --border: 220 26.5% 11.8%; #1E1E1E */
-		--border: 217.2 32.6% 17.5%;
+		/* --border: 217.2 32.6% 17.5%; */
+		--border: 210, 3%, 25%; /* #3e4042 */
 		--input: 220 26.5% 11.8%; /* #1E1E1E */
 		--ring: 212.7 26.8% 83.9%; /* #A0A0A0 */
 	}

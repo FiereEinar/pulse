@@ -64,9 +64,10 @@ export default function PostCard({
 
 			{/* post content */}
 			<div>
-				{content.split(' ').length > 50 && !expanded ? (
+				{content && content.split(' ').length > 50 && !expanded ? (
 					<>
 						<p
+							style={{ whiteSpace: 'pre-wrap' }}
 							onClick={() => setExpanded(!expanded)}
 							className='text-muted-foreground text-wrap cursor-pointer'
 						>
@@ -82,6 +83,7 @@ export default function PostCard({
 				) : (
 					<>
 						<p
+							style={{ whiteSpace: 'pre-wrap' }}
 							onClick={() => setExpanded(!expanded)}
 							className='text-muted-foreground text-wrap cursor-pointer'
 						>

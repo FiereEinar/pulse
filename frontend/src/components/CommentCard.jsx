@@ -76,7 +76,12 @@ export default function CommentCard({
 				</div>
 
 				{/* comment and image */}
-				<p className='text-muted-foreground my-1 text-wrap'>{comment}</p>
+				<p
+					style={{ whiteSpace: 'pre-wrap' }}
+					className='text-muted-foreground my-1 text-wrap'
+				>
+					{comment}
+				</p>
 				{image && (
 					<CustomImageGallery image={image} containerClass='h-[10rem]' />
 				)}

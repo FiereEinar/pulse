@@ -1,5 +1,6 @@
 import { fetchUserByID } from '@/api/user';
 import CreatePostForm from '@/components/forms/CreatePostForm';
+import { CreatePostLoading } from '@/components/LoadingCards';
 import { FormError } from '@/components/ui/error';
 import { useQuery } from '@tanstack/react-query';
 
@@ -20,7 +21,7 @@ export default function CreatePost() {
 	}
 
 	if (isLoading) {
-		return <p className='text-muted-foreground'>Loading...</p>;
+		return <CreatePostLoading />;
 	}
 
 	return <CreatePostForm currentUser={userData} />;

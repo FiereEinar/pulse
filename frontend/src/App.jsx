@@ -17,11 +17,11 @@ function App() {
 					<Sidebar />
 				</div>
 
-				<div className='transition-all flex flex-col flex-1 w-full md:max-w-[60rem] md:min-w-[35rem] p-2 sm:p-5 overflow-y-scroll bg-background'>
+				<div className='transition-all flex flex-col flex-1 w-full md:max-w-[45rem] md:min-w-[30rem] p-2 sm:p-5 overflow-y-scroll bg-background'>
 					<Outlet />
 				</div>
 
-				<aside className='transition-all w-[25rem] bg-background hidden xl:flex flex-col gap-5 h-full p-2 sm:p-5 overflow-y-scroll'>
+				<aside className='transition-all w-[25rem] bg-background hidden lg:flex flex-col gap-5 h-full p-2 sm:p-5 overflow-y-scroll'>
 					<AdviceSlip />
 					<WhatsNew />
 				</aside>

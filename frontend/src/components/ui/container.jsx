@@ -1,8 +1,10 @@
 export function MainContainer({ children }) {
 	return (
-		<main className='transition-all bg-card relative m-auto flex overflow-hidden flex-col w-full lg:px-[10%] h-[100dvh] text-white'>
-			{children}
-		</main>
+		<div className='transition-all bg-card '>
+			<main className='relative m-auto flex overflow-hidden flex-col w-full xl:w-[80rem] h-[100dvh] text-white'>
+				{children}
+			</main>
+		</div>
 	);
 }
 

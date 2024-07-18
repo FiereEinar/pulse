@@ -2,6 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import DarkModeToggle from './ui/darkmode-toggle';
 import LogoutIcon from './icons/logout';
 import BackButton from './buttons/BackButton';
+import Logo from './ui/logo';
 
 export default function Header() {
 	const { pathname } = useLocation();
@@ -10,36 +11,12 @@ export default function Header() {
 		<header className='transition-all px-5 h-[10dvh] flex justify-between items-center bg-card'>
 			{/* for desktop, no back button */}
 			<div className='hidden sm:flex'>
-				<Link
-					to='/'
-					className='flex items-center gap-3 text-popover-foreground'
-				>
-					<img
-						className='border size-12 rounded-full'
-						src='/logo.jpg'
-						alt='logo'
-					/>
-					<h1 className='text-2xl font-semibold'>Logo</h1>
-				</Link>
+				<Logo />
 			</div>
 
 			{/* for mobile, show the back button when viewing a post */}
 			<div className='sm:hidden'>
-				{pathname === '/' ? (
-					<Link
-						to='/'
-						className='flex items-center gap-3 text-popover-foreground'
-					>
-						<img
-							className='border size-12 rounded-full'
-							src='/logo.jpg'
-							alt='logo'
-						/>
-						<h1 className='text-2xl font-semibold'>Logo</h1>
-					</Link>
-				) : (
-					<BackButton />
-				)}
+				{pathname === '/' ? <Logo /> : <BackButton />}
 			</div>
 
 			{/* for desktop */}
