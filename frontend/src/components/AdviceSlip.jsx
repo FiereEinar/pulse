@@ -31,7 +31,7 @@ export default function AdviceSlip() {
 							/>
 						</div>
 
-						<div className='text-muted-foreground text-wrap'>
+						<div className='text-muted-foreground text-wrap  text-sm'>
 							<p>{advice.slip.advice}</p>
 						</div>
 					</>

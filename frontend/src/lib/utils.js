@@ -15,7 +15,6 @@ export function randomDate() {
   //Picking random year between 1901 to 2005 (changed it to 2024 only)
   let year = Math.floor(Math.random() * (2024 - 2024) + 2024)
 
-  console.log(year)
   //Checking whether random month we generated has 31 days
   let day31 = oddDays.includes(month)
 
@@ -55,6 +54,18 @@ export const getRandomElements = (array, amount) => {
   const shuffled = array.sort(() => 0.5 - Math.random());
   return shuffled.slice(0, amount);
 };
+
+export const shuffleArray = (array) => {
+  return array.sort(() => 0.5 - Math.random());
+}
+
+export const selectRandom = (array) => {
+  return array[Math.floor(Math.random() * array.length)]
+}
+
+export const randInt = (max) => {
+  return Math.floor(Math.random() * max)
+}
 
 export const truncateText = (content, wordLimit) => {
   const words = content.split(' ');

@@ -66,6 +66,8 @@ export default function PostsFeed({
 				</p>
 			)}
 			{posts &&
+				!isLoading &&
+				!error &&
 				posts.map((post) => (
 					<PostCardContainer key={post._id}>
 						<PostCard

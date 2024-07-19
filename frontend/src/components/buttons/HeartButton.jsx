@@ -12,8 +12,8 @@ export default function HeartButton({ isLoading, onClick, isLiked, likes }) {
 			}`}
 		>
 			<HeartIcon
-				fill={isLiked ? 'red' : 'none'}
-				stroke={isLiked ? 'red' : textMutedForeground}
+				fill={isLiked ? '#6200EE' : 'none'}
+				stroke={isLiked ? '#6200EE' : textMutedForeground}
 			/>
 			<p className='text-muted-foreground'>{likes}</p>
 		</button>

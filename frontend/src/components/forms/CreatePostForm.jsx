@@ -65,7 +65,7 @@ export default function CreatePostForm({ currentUser }) {
 	return (
 		<form
 			onSubmit={handleSubmit(onPostSubmit)}
-			className='transition-all relative bg-card w-full rounded-md h-full'
+			className='transition-all relative bg-card w-full sm:rounded-md'
 		>
 			<div className='p-3 flex justify-between gap-2'>
 				<PostUserHeader

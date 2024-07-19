@@ -60,7 +60,7 @@ export default function Activity() {
 	}
 
 	return (
-		<section className='bg-card w-full h-full rounded-md p-3'>
+		<section className='bg-card w-full sm:rounded-md p-3'>
 			<Tabs defaultValue='activity' className='w-full'>
 				<TabsList className='w-full flex'>
 					<TabsTrigger className='flex-1' value='activity'>

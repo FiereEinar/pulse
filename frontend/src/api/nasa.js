@@ -6,6 +6,6 @@ export const fetchNasaPosts = async (search) => {
 
     return data;
   } catch (e) {
-    console.error('Error fetching nasa APOD', e);
+    console.error('Error fetching nasa', e);
   }
 }

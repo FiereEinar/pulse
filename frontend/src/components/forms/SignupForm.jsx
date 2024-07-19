@@ -102,6 +102,9 @@ export default function SignupForm() {
 
 			{/* submit button */}
 			<div className='flex justify-end'>
+				<Button type='button' variant='link'>
+					Enter as Guest
+				</Button>
 				<Button disabled={isSubmitting}>Submit</Button>
 			</div>
 		</form>

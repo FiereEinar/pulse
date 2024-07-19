@@ -314,9 +314,20 @@ exports.post_share_toggle = asyncHandler(async (req, res) => {
     post.shares.pull(req.user._id);
   } else {
     post.shares.push(req.user._id);
+
+    const activity = new Activity({
+      message: `${req.user.firstname} shared your post`,
+      associatedID: post._id,
+      image: req.user.profile.url,
+      type: 'post',
+      for: post.creator
+    });
+
+    await activity.save();
   }
 
   await post.save();
+
 
   res.json(new Response(true, null, 'Post shared', null));
 });

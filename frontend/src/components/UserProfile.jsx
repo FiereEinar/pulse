@@ -22,7 +22,7 @@ export default function UserProfile({
 	const navigate = useNavigate();
 
 	return (
-		<div className='transition-all bg-card w-full rounded-md h-fit p-3'>
+		<div className='transition-all bg-card w-full sm:rounded-md h-fit p-3'>
 			<div className='relative'>
 				<CoverPhoto refetch={refetch} image={coverImage} userID={userID} />
 

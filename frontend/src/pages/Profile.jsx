@@ -77,7 +77,7 @@ export default function Profile() {
 
 			{/* friends section */}
 			<div className='mt-3'>
-				<div className='flex justify-between items-center'>
+				<div className='flex justify-between items-center px-3'>
 					<h2 className='text-lg text-muted-foreground'>Friends</h2>
 					{userID === currentUserID && (
 						<Link
@@ -89,7 +89,7 @@ export default function Profile() {
 					)}
 				</div>
 
-				<div className='transition-all bg-card rounded-md overflow-hidden'>
+				<div className='transition-all bg-card sm:rounded-md overflow-hidden'>
 					<UserGrid type='Friends' users={userData.friends} />
 					<button
 						onClick={() => navigate(`/user/${userData._id}/friends`)}
@@ -102,7 +102,7 @@ export default function Profile() {
 
 			{/* posts */}
 			<div className='mt-3'>
-				<h2 className='text-lg text-muted-foreground'>Posts</h2>
+				<h2 className='text-lg text-muted-foreground px-3'>Posts</h2>
 				<PostsFeed
 					error={postsError}
 					isLoading={postsLoading}

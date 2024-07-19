@@ -10,7 +10,7 @@ export function MainContainer({ children }) {
 
 export function PostCardContainer({ children }) {
 	return (
-		<article className='transition-all bg-card shadow-md rounded-md'>
+		<article className='transition-all bg-card shadow-md sm:rounded-md'>
 			{children}
 		</article>
 	);

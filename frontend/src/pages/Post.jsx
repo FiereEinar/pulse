@@ -1,5 +1,6 @@
 import { fetchPostByID, getPosts } from '@/api/post';
 import CreateCommentForm from '@/components/forms/CreateCommentForm';
+import { PostCardLoading } from '@/components/LoadingCards';
 import PostCard from '@/components/PostCard';
 import PostCommentFeed from '@/components/PostCommentFeed';
 import { PostCardContainer } from '@/components/ui/container';
@@ -36,7 +37,7 @@ export default function Post() {
 
 	return (
 		<PostCardContainer>
-			{isLoading && <p className='text-muted-foreground'>Loading...</p>}
+			{isLoading && <PostCardLoading />}
 			{error && <FormError message='Error fetching post' />}
 			{postData && (
 				<>

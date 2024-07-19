@@ -30,7 +30,7 @@ export default function SharePostButton({
 			}
 
 			toast({
-				title: 'Post shared',
+				title: isAlreadyShared ? 'Shared post removed' : 'Post shared',
 			});
 			refetch();
 		} catch (err) {
@@ -54,7 +54,10 @@ export default function SharePostButton({
 					disabled={isLoading || disabled}
 					className='postActionContainer flex gap-1 disabled:pointer-events-none'
 				>
-					<ShareIcon />
+					<ShareIcon
+						fill={isAlreadyShared ? '#6200EE' : 'none'}
+						stroke={isAlreadyShared ? '#6200EE' : '#64748b'}
+					/>
 					<p className='text-muted-foreground'>{shareCount}</p>
 				</button>
 			}

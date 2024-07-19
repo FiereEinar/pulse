@@ -69,7 +69,7 @@ export default function PostCard({
 						<p
 							style={{ whiteSpace: 'pre-wrap' }}
 							onClick={() => setExpanded(!expanded)}
-							className='text-muted-foreground text-wrap cursor-pointer'
+							className='text-muted-foreground text-wrap cursor-pointer text-sm'
 						>
 							{truncateText(content, 50)}
 						</p>
@@ -85,11 +85,11 @@ export default function PostCard({
 						<p
 							style={{ whiteSpace: 'pre-wrap' }}
 							onClick={() => setExpanded(!expanded)}
-							className='text-muted-foreground text-wrap cursor-pointer'
+							className='text-muted-foreground text-wrap cursor-pointer text-sm'
 						>
 							{content}
 						</p>
-						{content.split(' ').length > 50 && (
+						{content && content.split(' ').length > 50 && (
 							<button
 								onClick={() => setExpanded(!expanded)}
 								className='text-sm text-muted-foreground underline'
