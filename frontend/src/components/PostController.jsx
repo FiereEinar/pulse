@@ -136,8 +136,8 @@ function DeleteButton({ setIsLoading, refetch, postID, isLoading }) {
 	return (
 		<DialogWrapper
 			onConfirm={onDelete}
-			title='Are you sure you want to delete this post?'
-			description='This action can not be undone'
+			title='Delete Post'
+			description='Are you sure you want to delete this post? This action can not be undone'
 			confirmBtnVariant='destructive'
 			trigger={
 				<Button
