@@ -118,12 +118,14 @@ export default function CreatePostForm({ currentUser }) {
 					placeholder='Write about something...'
 					name='content'
 					id='content'
-					autoFocus
+					// autoFocus
 					rows={4}
 					value={content}
 					onChange={(e) => setContent(e.target.value)}
 				/>
-				{errors.content && <FormError message={errors.content.message} />}
+				<div className='px-3'>
+					{errors.content && <FormError message={errors.content.message} />}
+				</div>
 			</div>
 
 			{/* image preview */}

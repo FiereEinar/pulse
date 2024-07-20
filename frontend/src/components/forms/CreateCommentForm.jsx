@@ -59,13 +59,12 @@ export default function CreateCommentForm({ postID, refetch }) {
 				<input
 					disabled={isSubmitting}
 					{...register('content')}
-					autoFocus
+					// autoFocus
 					className='transition-all w-full bg-card p-1 flex-shrink text-muted-foreground px-3 focus:outline-none border rounded-md'
 					placeholder='Write a comment'
 					name='content'
 					id='content'
 				/>
-				{errors.content && <FormError message={errors.content.message} />}
 
 				<div className='flex flex-shrink-0 gap-1'>
 					{/* add image */}
@@ -103,6 +102,7 @@ export default function CreateCommentForm({ postID, refetch }) {
 						/>
 					</Button>
 				</div>
+				{errors.content && <FormError message={errors.content.message} />}
 			</form>
 			{image && (
 				<div className='w-[15rem] px-3'>
