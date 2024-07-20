@@ -8,11 +8,13 @@ import { FormError } from '../ui/error';
 import { createComment } from '@/api/post';
 import ImagePreview from '../ImagePreview';
 import AddPhotoIcon from '../icons/add-photo';
+import EmojiPickerButton from '../buttons/EmojiPickerButton';
 
 export default function CreateCommentForm({ postID, refetch }) {
 	const currentUserID = localStorage.getItem('UserID');
 	const { toast } = useToast();
 	const [image, setImage] = useState(null);
+	const [content, setContent] = useState('');
 
 	const {
 		register,
@@ -23,10 +25,11 @@ export default function CreateCommentForm({ postID, refetch }) {
 		resolver: zodResolver(createPostSchema),
 	});
 
-	const onCommentSubmit = async (data) => {
+	// eslint-disable-next-line no-unused-vars
+	const onCommentSubmit = async (_data) => {
 		try {
 			const formData = new FormData();
-			formData.append('content', data.content);
+			formData.append('content', content);
 			formData.append('commenterID', currentUserID);
 			if (image) formData.append('image', image);
 
@@ -42,6 +45,7 @@ export default function CreateCommentForm({ postID, refetch }) {
 			}
 
 			reset();
+			setContent('');
 			setImage(null);
 			refetch();
 		} catch (err) {
@@ -53,57 +57,75 @@ export default function CreateCommentForm({ postID, refetch }) {
 		}
 	};
 
+	const addEmoji = (emoji) => {
+		setContent(content + emoji.native);
+	};
+
 	return (
 		<>
 			<form onSubmit={handleSubmit(onCommentSubmit)} className='flex px-3'>
-				<input
-					disabled={isSubmitting}
-					{...register('content')}
-					// autoFocus
-					className='transition-all w-full bg-card p-1 flex-shrink text-muted-foreground px-3 focus:outline-none border rounded-md'
-					placeholder='Write a comment'
-					name='content'
-					id='content'
-				/>
+				<div className='relative flex w-full'>
+					<textarea
+						disabled={isSubmitting}
+						{...register('content')}
+						// autoFocus
+						className='transition-all w-full bg-card p-1 pr-[5rem] flex-shrink text-muted-foreground px-3 focus:outline-none border rounded-md'
+						placeholder='Write a comment'
+						name='content'
+						id='content'
+						value={content}
+						onChange={(e) => setContent(e.target.value)}
+						rows={1}
+					/>
 
-				<div className='flex flex-shrink-0 gap-1'>
-					{/* add image */}
-					<div className='flex'>
-						<Button
-							title='Add Image'
-							disabled={isSubmitting}
-							type='button'
-							className='p-0 flex justify-center flex-shrink-0'
-						>
-							<label
-								className='z-50 p-3 cursor-pointer size-full flex items-center flex-shrink-0'
-								htmlFor='image'
+					{/* image and emoji container */}
+					<div className='absolute right-0 flex flex-shrink-0 gap-1'>
+						{/* add image */}
+						<div className='flex'>
+							<Button
+								title='Add Image'
+								variant='icon'
+								size='sm'
+								disabled={isSubmitting}
+								type='button'
+								className='p-0 flex justify-center flex-shrink-0'
 							>
-								<AddPhotoIcon height='20px' width='20px' stroke='#FFFFFF' />
-							</label>
-						</Button>
-						<input
-							disabled={isSubmitting}
-							onChange={(e) => setImage(e.target.files[0])}
-							type='file'
-							name='image'
-							id='image'
-							accept='image/*'
-							hidden
-						/>
-					</div>
+								<label
+									className='z-50 p-3 cursor-pointer size-full flex items-center flex-shrink-0'
+									htmlFor='image'
+								>
+									<AddPhotoIcon height='20px' width='20px' />
+								</label>
+							</Button>
+							<input
+								disabled={isSubmitting}
+								onChange={(e) => setImage(e.target.files[0])}
+								type='file'
+								name='image'
+								id='image'
+								accept='image/*'
+								hidden
+							/>
 
-					<Button disabled={isSubmitting} className='p-3'>
-						<p className='hidden sm:flex'>Comment</p>
-						<img
-							className='size-5 flex sm:hidden'
-							src='/icons/send.svg'
-							alt=''
-						/>
-					</Button>
+							{/* emoji picker button */}
+							<EmojiPickerButton
+								onSelect={addEmoji}
+								isSubmitting={isSubmitting}
+								emojiContainerClass='right-[0rem] top-[2.5rem]'
+							/>
+						</div>
+					</div>
 				</div>
-				{errors.content && <FormError message={errors.content.message} />}
+
+				<Button size='sm' disabled={isSubmitting} className='p-3'>
+					<p className='hidden sm:flex'>Comment</p>
+					<img className='size-5 flex sm:hidden' src='/icons/send.svg' alt='' />
+				</Button>
 			</form>
+
+			<div className='px-3'>
+				{errors.content && <FormError message={errors.content.message} />}
+			</div>
 			{image && (
 				<div className='w-[15rem] px-3'>
 					<ImagePreview

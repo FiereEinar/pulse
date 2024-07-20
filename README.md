@@ -17,6 +17,7 @@ Pulse is a full-stack social media application designed to connect users through
 - **User Connections:** Connect and interact with other users.
 - **Post Sharing:** Share your favorite posts.
 - **Emojis:** Express yourself with emojis.
+- **Dark Mode & Light Mode:** Switch between dark and light themes
 
 ## Technologies Used
 
