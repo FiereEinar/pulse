@@ -9,9 +9,7 @@ const FRONTEND_URL =
     : 'http://localhost:5173';
 
 const app = express();
-app.use(cors({
-  origin: FRONTEND_URL
-}));
+app.use(cors());
 
 //controllers
 const authRouter = require('./routes/auth');
