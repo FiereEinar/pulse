@@ -32,7 +32,7 @@ export default function Header() {
 				</div>
 			</div>
 
-			{/* for mobile */}
+			{/* for mobile, hidden when not in home */}
 			<div className='sm:hidden'>
 				{pathname === '/' && (
 					<div className='flex items-center gap-5'>

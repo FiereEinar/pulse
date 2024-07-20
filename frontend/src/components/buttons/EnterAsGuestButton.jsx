@@ -10,8 +10,8 @@ export default function EnterAsGuestButton() {
 	const onGuestLogin = async () => {
 		try {
 			const result = await postLogin({
-				username: '',
-				password: '',
+				username: import.meta.env.VITE_GUEST_USERNAME,
+				password: import.meta.env.VITE_GUEST_PASSWORD,
 			});
 
 			if (!result.success) {

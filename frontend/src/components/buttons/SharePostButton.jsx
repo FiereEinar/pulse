@@ -46,12 +46,20 @@ export default function SharePostButton({
 
 	return (
 		<DialogWrapper
-			title={isAlreadyShared ? 'Unshare this post?' : 'Share this post?'}
-			customConfirmBtn={isAlreadyShared ? 'Unshare' : 'Share'}
-			onConfirm={onShareHandler}
+			description={
+				isAlreadyShared
+					? 'Unshare this post?'
+					: disabled
+					? 'You cant share your own post'
+					: 'Share this post?'
+			}
+			customConfirmBtn={
+				isAlreadyShared ? 'Unshare' : disabled ? 'Back' : 'Share'
+			}
+			onConfirm={disabled ? () => {} : onShareHandler}
 			trigger={
 				<button
-					disabled={isLoading || disabled}
+					disabled={isLoading}
 					className='postActionContainer flex gap-1 disabled:pointer-events-none'
 				>
 					<ShareIcon />

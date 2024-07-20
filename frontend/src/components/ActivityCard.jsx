@@ -29,7 +29,7 @@ export default function ActivityCard({
 
 	return (
 		<article
-			className='transition-all rounded-md cursor-pointer flex justify-between p-3 w-full hover:bg-secondary'
+			className='transition-all rounded-md cursor-pointer flex justify-between gap-1 p-3 w-full hover:bg-secondary'
 			onClick={onCardClick}
 		>
 			<div className='flex items-center gap-2'>
