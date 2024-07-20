@@ -5,55 +5,45 @@ import useUserPosts from '@/hooks/useUserPosts';
 import { useEffect, useState } from 'react';
 
 export default function Home() {
-	const { nasaPosts, fetchMoreNasaPosts, isFetching, nasaError, nasaLoading } =
-		useNasaPosts();
+	const [allPosts, setAllPosts] = useState([]);
+	const [extraPosts, setExtraPosts] = useState([]);
+	const [isFetching, setIsFetching] = useState(false);
+	const { getNasaPosts } = useNasaPosts();
+	const { getUselessFacts } = useUselessFacts();
 
 	const { userPosts, userPostsError, userPostsLoading, userPostsRefetch } =
 		useUserPosts();
 
-	const {
-		uselessFacts,
-		fetchMoreUselessFacts,
-		isFetching: uselessFactsFetching,
-	} = useUselessFacts();
-	const [allPosts, setAllPosts] = useState([]);
-
-	// append all users posts when done fetching
 	useEffect(() => {
 		if (userPosts) {
-			setAllPosts((prevPosts) => [...userPosts, ...prevPosts]);
+			setAllPosts([...userPosts, ...extraPosts]);
 		}
-	}, [userPosts]);
+	}, [userPosts, extraPosts]);
 
-	// append all NASA posts when done fetching
-	useEffect(() => {
-		if (nasaPosts) {
-			setAllPosts((prevPosts) => [...prevPosts, ...nasaPosts]);
+	const refetcherHandler = async () => {
+		try {
+			setIsFetching(true);
+
+			const result = await Promise.all([getNasaPosts(), getUselessFacts()]);
+			const posts = result.flat();
+
+			setAllPosts((prevPosts) => [...prevPosts, ...posts]);
+			setExtraPosts((prevPosts) => [...prevPosts, ...posts]);
+		} catch (err) {
+			console.error('Failed to fetch extra posts', err);
+		} finally {
+			setIsFetching(false);
 		}
-	}, [nasaPosts]);
-
-	// append all uselessfacts posts when done fetching
-	useEffect(() => {
-		if (uselessFacts) {
-			setAllPosts((prevPosts) => [...prevPosts, ...uselessFacts]);
-		}
-	}, [uselessFacts]);
-
-	if (nasaError) {
-		console.error(nasaError);
-	}
+	};
 
 	return (
 		<PostsFeed
-			postsRefetcher={() => {
-				fetchMoreNasaPosts();
-				fetchMoreUselessFacts();
-			}}
+			postsRefetcher={refetcherHandler}
 			posts={allPosts}
 			isLoading={userPostsLoading}
 			error={userPostsError}
 			refetch={userPostsRefetch}
-			isFetching={isFetching || nasaLoading || uselessFactsFetching}
+			isFetching={isFetching}
 		/>
 	);
 }

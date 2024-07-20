@@ -54,10 +54,7 @@ export default function SharePostButton({
 					disabled={isLoading || disabled}
 					className='postActionContainer flex gap-1 disabled:pointer-events-none'
 				>
-					<ShareIcon
-						fill={isAlreadyShared ? '#6200EE' : 'none'}
-						stroke={isAlreadyShared ? '#6200EE' : '#64748b'}
-					/>
+					<ShareIcon />
 					<p className='text-muted-foreground'>{shareCount}</p>
 				</button>
 			}

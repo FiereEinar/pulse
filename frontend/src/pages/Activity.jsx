@@ -11,7 +11,7 @@ export default function Activity() {
 	const currentUserID = localStorage.getItem('UserID');
 
 	const {
-		data,
+		data: activityData,
 		error: activityError,
 		isLoading: activityLoading,
 	} = useQuery({
@@ -30,11 +30,10 @@ export default function Activity() {
 	});
 
 	useEffect(() => {
-		// activities
-		if (data) {
-			setActivities(data.filter((act) => act.type === 'post'));
+		if (activityData) {
+			setActivities(activityData.filter((act) => act.type === 'post'));
 		}
-	}, [data]);
+	}, [activityData]);
 
 	useEffect(() => {
 		if (userData) {
@@ -60,7 +59,7 @@ export default function Activity() {
 	}
 
 	return (
-		<section className='bg-card w-full sm:rounded-md p-3'>
+		<section className='transition-all bg-card w-full sm:rounded-md p-3'>
 			<Tabs defaultValue='activity' className='w-full'>
 				<TabsList className='w-full flex'>
 					<TabsTrigger className='flex-1' value='activity'>

@@ -7,6 +7,7 @@ import { FormError } from '../ui/error';
 import { useToast } from '../ui/use-toast';
 import { postSignin } from '@/api/auth';
 import { Link, useNavigate } from 'react-router-dom';
+import EnterAsGuestButton from '../buttons/EnterAsGuestButton';
 
 export default function SignupForm() {
 	const { toast } = useToast();
@@ -102,9 +103,7 @@ export default function SignupForm() {
 
 			{/* submit button */}
 			<div className='flex justify-end'>
-				<Button type='button' variant='link'>
-					Enter as Guest
-				</Button>
+				<EnterAsGuestButton />
 				<Button disabled={isSubmitting}>Submit</Button>
 			</div>
 		</form>

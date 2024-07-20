@@ -69,7 +69,7 @@ export default function EditProfileForm({ user, refetch }) {
 			className='w-full flex flex-col gap-2'
 		>
 			{/* profile picture */}
-			<div className=' w-full flex justify-center border-b-2 py-5'>
+			<div className=' w-full flex justify-center py-5'>
 				<div className='relative'>
 					<img
 						className='rounded-full size-[8rem] object-cover object-center shadow-md'

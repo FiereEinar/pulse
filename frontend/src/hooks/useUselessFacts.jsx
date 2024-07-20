@@ -1,13 +1,9 @@
 import { fetchUselessFact } from '@/api/uselesspacts';
-import { useToast } from '@/components/ui/use-toast';
 import { randInt, randomDate } from '@/lib/utils';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 
 export default function useUselessFacts() {
-	const { toast } = useToast();
 	const occuredPosts = useMemo(() => new Set(), []);
-	const [uselessFacts, setUselessFacts] = useState([]);
-	const [isFetching, setIsFetching] = useState(false);
 
 	const formatData = (datas) => {
 		const formattedData = datas.map((post) => {
@@ -64,33 +60,16 @@ export default function useUselessFacts() {
 		return formatted;
 	}, [removeDuplicate]);
 
-	useEffect(() => {
-		const fetch = async () => {
-			const posts = await fetchPostsHandler();
-
-			setUselessFacts(posts);
-		};
-
-		fetch();
-	}, [fetchPostsHandler]);
-
 	// function handler to fetch more posts
-	const fetchMoreUselessFacts = async () => {
+	const getUselessFacts = async () => {
 		try {
-			setIsFetching(true);
-
 			const posts = await fetchPostsHandler();
 
-			setUselessFacts(posts);
+			return posts;
 		} catch (err) {
-			toast({
-				variant: 'destructive',
-				title: 'Failed to fetch more useless facts posts',
-			});
-		} finally {
-			setIsFetching(false);
+			console.error('Error fetching useless facts', err);
 		}
 	};
 
-	return { uselessFacts, isFetching, fetchMoreUselessFacts };
+	return { getUselessFacts };
 }

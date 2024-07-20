@@ -44,14 +44,14 @@ export default function SearchUsers() {
 	};
 
 	return (
-		<section className='w-full bg-card sm:rounded-md p-3 flex flex-col gap-1'>
+		<section className='transition-all w-full bg-card sm:rounded-md p-3 flex flex-col gap-1'>
 			<h1 className='text-popover-foreground text-xl font-semibold'>
 				Search Users:
 			</h1>
 			<input
 				value={search}
 				onChange={handleSearch}
-				className='bg-secondary text-muted-foreground p-1 px-2 rounded-md w-full'
+				className='transition-all bg-secondary text-muted-foreground p-1 px-2 rounded-md w-full'
 				type='text'
 			/>
 			<UsersFeed

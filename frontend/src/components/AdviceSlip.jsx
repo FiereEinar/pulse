@@ -27,7 +27,7 @@ export default function AdviceSlip() {
 								postID={advice.slip.id}
 								creatorProfile={''}
 								fullname={'AdviceSlip'}
-								username={'adviceslip'}
+								username={'randomadviceslip'}
 							/>
 						</div>
 

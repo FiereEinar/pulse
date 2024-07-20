@@ -289,9 +289,22 @@ exports.post_delete = asyncHandler(async (req, res) => {
   const { postID } = req.params;
 
   const result = await Post.findByIdAndDelete(postID);
+  if (!result) {
+    return res.status(404).json(new Response(false, null, 'Post not found', null));
+  }
 
-  if (result?.image?.publicID) {
+  if (result.image?.publicID) {
     await cloudinary.uploader.destroy(result.image.publicID)
+  }
+
+  if (result.comments?.length) {
+    await Promise.all(result.comments.map(async (commentID) => {
+      const comment = await Comment.findByIdAndDelete(commentID);
+
+      if (comment?.image?.publicID) {
+        await cloudinary.uploader.destroy(comment.image.publicID);
+      }
+    }));
   }
 
   res.json(new Response(true, result, 'Post deleted', null));

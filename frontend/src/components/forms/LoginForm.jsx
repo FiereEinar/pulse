@@ -7,6 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useToast } from '../ui/use-toast';
 import { Button } from '../ui/button';
 import { postLogin } from '@/api/auth';
+import EnterAsGuestButton from '../buttons/EnterAsGuestButton';
 
 export default function LoginForm() {
 	const { toast } = useToast();
@@ -46,7 +47,7 @@ export default function LoginForm() {
 			toast({
 				variant: 'destructive',
 				title: 'Failed to log in',
-				description: 'An error has occured while trying to log you up',
+				description: 'An error has occured while trying to log you in',
 			});
 		}
 	};
@@ -82,9 +83,7 @@ export default function LoginForm() {
 
 			{/* submit button */}
 			<div className='flex justify-end'>
-				<Button type='button' variant='link'>
-					Enter as Guest
-				</Button>
+				<EnterAsGuestButton />
 				<Button disabled={isSubmitting}>Submit</Button>
 			</div>
 		</form>
