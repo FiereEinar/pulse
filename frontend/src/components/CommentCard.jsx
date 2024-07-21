@@ -78,7 +78,7 @@ export default function CommentCard({
 				{/* comment and image */}
 				<p
 					style={{ whiteSpace: 'pre-wrap' }}
-					className='text-muted-foreground my-1 text-wrap'
+					className='text-muted-foreground my-1 text-wrap text-sm'
 				>
 					{comment}
 				</p>
