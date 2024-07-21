@@ -3,12 +3,14 @@ import { Button } from '../ui/button';
 import { useToast } from '../ui/use-toast';
 import { postLogin } from '@/api/auth';
 
-export default function EnterAsGuestButton() {
+export default function EnterAsGuestButton({ isLoading, setIsLoading }) {
 	const { toast } = useToast();
 	const navigate = useNavigate();
 
 	const onGuestLogin = async () => {
 		try {
+			setIsLoading(true);
+
 			const result = await postLogin({
 				username: import.meta.env.VITE_GUEST_USERNAME,
 				password: import.meta.env.VITE_GUEST_PASSWORD,
@@ -38,11 +40,18 @@ export default function EnterAsGuestButton() {
 				title: 'Failed to log in',
 				description: 'An error has occured while trying to log you in',
 			});
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
 	return (
-		<Button onClick={onGuestLogin} type='button' variant='link'>
+		<Button
+			disabled={isLoading}
+			onClick={onGuestLogin}
+			type='button'
+			variant='link'
+		>
 			Enter as Guest
 		</Button>
 	);

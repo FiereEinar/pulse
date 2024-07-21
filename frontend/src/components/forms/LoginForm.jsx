@@ -8,10 +8,12 @@ import { useToast } from '../ui/use-toast';
 import { Button } from '../ui/button';
 import { postLogin } from '@/api/auth';
 import EnterAsGuestButton from '../buttons/EnterAsGuestButton';
+import { useState } from 'react';
 
 export default function LoginForm() {
 	const { toast } = useToast();
 	const navigate = useNavigate();
+	const [isLoading, setIsLoading] = useState(false);
 
 	const {
 		register,
@@ -83,8 +85,8 @@ export default function LoginForm() {
 
 			{/* submit button */}
 			<div className='flex justify-end'>
-				<EnterAsGuestButton />
-				<Button disabled={isSubmitting}>Submit</Button>
+				<EnterAsGuestButton isLoading={isLoading} setIsLoading={setIsLoading} />
+				<Button disabled={isSubmitting || isLoading}>Submit</Button>
 			</div>
 		</form>
 	);

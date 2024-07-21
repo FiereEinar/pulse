@@ -1,6 +1,6 @@
 import { fetchUserPosts } from '@/api/post';
 import { fetchUserByID } from '@/api/user';
-import { PostFeedLoading } from '@/components/LoadingCards';
+import { PostFeedLoading, ProfilePageLoading } from '@/components/LoadingCards';
 import PostsFeed from '@/components/PostsFeed';
 import UserGrid from '@/components/UserGrid';
 import UserProfile from '@/components/UserProfile';
@@ -43,7 +43,12 @@ export default function Profile() {
 	});
 
 	if (userLoading || currentUserLoading) {
-		return <PostFeedLoading />;
+		return (
+			<>
+				<ProfilePageLoading />
+				<PostFeedLoading />
+			</>
+		);
 	}
 
 	if (userError || currentUserError) {

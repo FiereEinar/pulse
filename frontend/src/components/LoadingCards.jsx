@@ -78,6 +78,31 @@ export function CreatePostLoading() {
 	);
 }
 
+export function ProfilePageLoading() {
+	return (
+		<section className='w-full h-full space-y-6 mb-6'>
+			<div className='bg-card pb-3'>
+				<div className='relative p-3 '>
+					<Skeleton className='h-[15rem] w-full' />
+					<div className='h-8' />
+
+					<Skeleton className='absolute bottom-0 left-6 size-[5rem] rounded-full' />
+				</div>
+
+				<div className='space-y-2 px-3'>
+					<Skeleton className='h-[1.5rem] w-[8rem]' />
+					<Skeleton className='h-[1rem] w-[4rem]' />
+				</div>
+			</div>
+
+			<div className='bg-card p-2 flex gap-3'>
+				<Skeleton className='size-[8rem]' />
+				<Skeleton className='size-[8rem]' />
+			</div>
+		</section>
+	);
+}
+
 export function LoadingSpin() {
 	return (
 		<div role='status'>
