@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const helmet = require('helmet')
 
 // Frontend URL
 const FRONTEND_URL =
@@ -9,6 +10,7 @@ const FRONTEND_URL =
     : 'http://localhost:5173';
 
 const app = express();
+app.use(helmet())
 app.use(cors({
   origin: FRONTEND_URL
 }));
@@ -21,7 +23,6 @@ const postRouter = require('./routes/post');
 // connect to mongoDB
 require('./utils/mongodb');
 
-// middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
