@@ -1,4 +1,3 @@
-import { format } from 'date-fns';
 import PostCard from './PostCard';
 import { useToast } from './ui/use-toast';
 import { useEffect, useRef } from 'react';
@@ -86,7 +85,7 @@ export default function PostsFeed({
 							refetch={refetch}
 							userID={post.creator._id}
 							username={post.creator.username}
-							date={format(post.dateCreated, 'MMMM dd, yyyy')}
+							date={post.dateCreated}
 							disabled={post.isDisabled}
 						/>
 					</PostCardContainer>
