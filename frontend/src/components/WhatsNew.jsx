@@ -11,9 +11,9 @@ export default function WhatsNew() {
 				</h1>
 
 				<p className='text-muted-foreground text-sm'>
-					NOTE: Actions are only available on user created posts (like, comment,
-					share) because they are only being fetched and not saved in the
-					database
+					NOTE: Actions like liking, commenting, and sharing are only available
+					on user-created posts. This is because posts from other sources are
+					fetched dynamically and not saved in the database.
 				</p>
 
 				<div className='border-b w-full' />
