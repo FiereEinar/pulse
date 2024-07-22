@@ -81,7 +81,7 @@ export function CreatePostLoading() {
 export function ProfilePageLoading() {
 	return (
 		<section className='w-full h-full space-y-6 mb-6'>
-			<div className='bg-card pb-3'>
+			<div className='bg-card pb-3 space-y-3'>
 				<div className='relative p-3 '>
 					<Skeleton className='h-[15rem] w-full' />
 					<div className='h-8' />

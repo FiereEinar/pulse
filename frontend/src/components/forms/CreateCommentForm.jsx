@@ -111,7 +111,7 @@ export default function CreateCommentForm({ postID, refetch }) {
 							<EmojiPickerButton
 								onSelect={addEmoji}
 								isSubmitting={isSubmitting}
-								emojiContainerClass='right-[0rem] top-[2.5rem]'
+								emojiContainerClass='right-[-0.1rem] top-[2.4rem]'
 							/>
 						</div>
 					</div>

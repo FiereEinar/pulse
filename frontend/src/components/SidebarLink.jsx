@@ -8,7 +8,7 @@ export default function SidebarLink({ path, name, icon }) {
 		'navIconContainer transition-all md:w-full sm:p-2 rounded-md md:pl-4 md:py-3 md:pr-16 flex flex-col sm:flex-row sm:gap-2 items-center justify-start md:w-[10rem] text-muted-foreground hover:text-primary/90 font-medium';
 
 	return (
-		// 'active-link' class is IMPORTANT so that the color applies when the link is active, see index.css
+		// 'active-link' class is IMPORTANT so that the color applies when the link is active, see index.css */}
 		<NavLink
 			title={name}
 			to={path}
@@ -17,7 +17,7 @@ export default function SidebarLink({ path, name, icon }) {
 			}
 		>
 			<GetIcon iconKey={icon} />
-			<p className='text-xs sm:text-base truncate'>{name}</p>
+			<p className='overflow-visible text-xs sm:text-base truncate'>{name}</p>
 		</NavLink>
 	);
 }
