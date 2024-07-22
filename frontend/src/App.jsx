@@ -12,7 +12,7 @@ function App() {
 	const mainContentRef = useRef(null);
 	const location = useLocation();
 
-	// remove some previous data saved
+	// remove some previous data saved on mount
 	useEffect(() => {
 		localStorage.removeItem('extra_posts');
 		localStorage.removeItem('scroll_position_/');
@@ -40,16 +40,18 @@ function App() {
 	// get the previous scroll position if there are any
 	useEffect(() => {
 		if (mainContentRef.current) {
-			const scrollValue = localStorage.getItem(
-				`scroll_position_${location.pathname}`
+			const value = parseInt(
+				localStorage.getItem(`scroll_position_${location.pathname}`)
 			);
 
+			// i don't want to preserve the scroll value of profile page so this needs to be done
+			const path = location.pathname.split('/')[1];
+			const scrollValue = path === 'profile' ? 0 : value;
+
+			console.log(`scroll_position_${location.pathname}: ${scrollValue}`);
 			// this is weird, it needs setTimeout or else it won't work, im guessing the posts needs time to render considering it it being fetched, although it is queried so it shouldnt take too much time to load
 			setTimeout(() => {
-				mainContentRef.current.scrollBy({
-					top: parseInt(scrollValue),
-					left: 0,
-				});
+				mainContentRef.current.scrollTo(0, scrollValue);
 			}, 20);
 		}
 	}, [location.pathname]);

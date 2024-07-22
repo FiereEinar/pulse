@@ -56,7 +56,7 @@ export default function PostsFeed({
 	}, [postsRefetcher]);
 
 	return (
-		<section className='flex flex-col gap-3'>
+		<section className='flex flex-col gap-2 sm:gap-3'>
 			{isLoading && <PostFeedLoading />}
 			{error && <FormError message='Failed to fetch posts' />}
 			{posts && posts.length === 0 && !isLoading && (

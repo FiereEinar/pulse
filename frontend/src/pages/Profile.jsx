@@ -1,6 +1,6 @@
 import { fetchUserPosts } from '@/api/post';
 import { fetchUserByID } from '@/api/user';
-import { PostFeedLoading, ProfilePageLoading } from '@/components/LoadingCards';
+import { ProfilePageLoading } from '@/components/LoadingCards';
 import PostsFeed from '@/components/PostsFeed';
 import UserGrid from '@/components/UserGrid';
 import UserProfile from '@/components/UserProfile';
@@ -43,12 +43,7 @@ export default function Profile() {
 	});
 
 	if (userLoading || currentUserLoading) {
-		return (
-			<>
-				<ProfilePageLoading />
-				<PostFeedLoading />
-			</>
-		);
+		return <ProfilePageLoading />;
 	}
 
 	if (userError || currentUserError) {
@@ -60,7 +55,7 @@ export default function Profile() {
 	}
 
 	return (
-		<section className='w-full h-full'>
+		<section className='w-full'>
 			<UserProfile
 				coverImage={userData.cover?.url}
 				// the user being viewed
