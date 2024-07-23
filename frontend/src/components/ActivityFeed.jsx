@@ -8,7 +8,7 @@ export default function ActivityFeed({ activities, refetch, isLoading }) {
 
 	if (isLoading) {
 		return (
-			<div className='transition-all bg-card p-3 rounded-md h-full'>
+			<div className='transition-all bg-card rounded-md h-full'>
 				<UsersFeedLoading />
 			</div>
 		);

@@ -65,15 +65,17 @@ export default function CreatePostForm({ currentUser }) {
 	return (
 		<form
 			onSubmit={handleSubmit(onPostSubmit)}
-			className='transition-all relative bg-card w-full sm:rounded-md'
+			className='transition-all relative bg-card w-full sm:rounded-md shadow-md'
 		>
 			<div className='p-3 flex justify-between gap-2'>
-				<PostUserHeader
-					userID={currentUser._id}
-					creatorProfile={currentUser.profile.url}
-					fullname={`${currentUser.firstname} ${currentUser.lastname}`}
-					username={currentUser.username}
-				/>
+				<div className='pointer-events-none'>
+					<PostUserHeader
+						userID={currentUser._id}
+						creatorProfile={currentUser.profile.url}
+						fullname={`${currentUser.firstname} ${currentUser.lastname}`}
+						username={currentUser.username}
+					/>
+				</div>
 
 				<div className='flex items-center'>
 					{/* add image */}

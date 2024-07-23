@@ -91,7 +91,7 @@ export default function CreateCommentForm({ postID, refetch }) {
 								className='p-0 flex justify-center flex-shrink-0'
 							>
 								<label
-									className='z-50 p-3 cursor-pointer size-full flex items-center flex-shrink-0'
+									className='z-50 p-1 cursor-pointer size-full flex items-center flex-shrink-0'
 									htmlFor='image'
 								>
 									<AddPhotoIcon height='20px' width='20px' />
@@ -111,7 +111,7 @@ export default function CreateCommentForm({ postID, refetch }) {
 							<EmojiPickerButton
 								onSelect={addEmoji}
 								isSubmitting={isSubmitting}
-								emojiContainerClass='right-[-0.1rem] top-[2.4rem]'
+								emojiContainerClass='right-[-0.2rem] top-[2.2rem]'
 							/>
 						</div>
 					</div>

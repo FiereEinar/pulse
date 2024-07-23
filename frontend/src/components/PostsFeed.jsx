@@ -64,42 +64,46 @@ export default function PostsFeed({
 	}
 
 	return (
-		<section className='flex flex-col gap-2 sm:gap-3'>
-			{posts && posts.length === 0 && !isLoading && (
-				<p className='transition-all h-full w-full bg-card p-3 rounded-md text-muted-foreground italic text-sm'>
-					No posts yet
-				</p>
-			)}
-			{posts &&
-				!isLoading &&
-				!error &&
-				posts.map((post) => (
-					<PostCardContainer key={post._id}>
-						<PostCard
-							isEdited={post.edited}
-							likes={post.likes.length}
-							comments={post.comments.length}
-							shares={post.shares.length}
-							isSharedByCurrentUser={post.shares.includes(currentUserID)}
-							isSharedByViewedUser={post.shares.includes(userID)}
-							postID={post._id}
-							isLiked={post.likes.includes(currentUserID)}
-							content={post.content}
-							creatorProfile={post.creator.profile.url}
-							fullname={`${post.creator.firstname} ${post.creator.lastname}`}
-							postImage={post.image.url}
-							refetch={refetch}
-							userID={post.creator._id}
-							username={post.creator.username}
-							date={post.dateCreated}
-							disabled={post.isDisabled}
-						/>
-					</PostCardContainer>
-				))}
+		<>
+			<section className='flex flex-col gap-2 sm:gap-3'>
+				{posts && posts.length === 0 && !isLoading && (
+					<p className='transition-all h-full w-full bg-card p-3 rounded-md text-muted-foreground italic text-sm'>
+						No posts yet
+					</p>
+				)}
+				{posts &&
+					!isLoading &&
+					!error &&
+					posts.map((post) => (
+						<PostCardContainer key={post._id}>
+							<PostCard
+								isEdited={post.edited}
+								likes={post.likes.length}
+								comments={post.comments.length}
+								shares={post.shares.length}
+								isSharedByCurrentUser={post.shares.includes(currentUserID)}
+								isSharedByViewedUser={post.shares.includes(userID)}
+								postID={post._id}
+								isLiked={post.likes.includes(currentUserID)}
+								content={post.content}
+								creatorProfile={post.creator.profile.url}
+								fullname={`${post.creator.firstname} ${post.creator.lastname}`}
+								postImage={post.image.url}
+								refetch={refetch}
+								userID={post.creator._id}
+								username={post.creator.username}
+								date={post.dateCreated}
+								disabled={post.isDisabled}
+							/>
+						</PostCardContainer>
+					))}
+			</section>
 
-			<div ref={bottomRef} />
+			<div className='mt-2 sm:mt-3'>
+				<div ref={bottomRef} />
 
-			{isFetching && <PostCardLoading />}
-		</section>
+				{isFetching && <PostCardLoading />}
+			</div>
+		</>
 	);
 }

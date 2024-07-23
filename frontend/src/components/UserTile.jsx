@@ -8,7 +8,7 @@ export default function UserTile({ profile, fullname, userID }) {
 			className='transition-all hover:bg-secondary flex flex-col items-center size-fit p-2 rounded-md gap-1 text-popover-foreground'
 		>
 			<img
-				className='size-max rounded-md'
+				className='size-max rounded-md object-cover object-center'
 				src={profile || '/default_user.jpg'}
 				alt=''
 			/>

@@ -7,7 +7,7 @@ export default function HeartButton({ isLoading, onClick, isLiked, likes }) {
 		<button
 			disabled={isLoading}
 			onClick={onClick}
-			className={`flex gap-1 post-action active-heart disabled:opacity-70 ${
+			className={`flex items-center gap-1 post-action active-heart disabled:opacity-70 ${
 				!isLiked && 'postActionContainer'
 			}`}
 		>

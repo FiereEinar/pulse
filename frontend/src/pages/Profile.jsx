@@ -89,7 +89,7 @@ export default function Profile() {
 					)}
 				</div>
 
-				<div className='transition-all bg-card sm:rounded-md overflow-hidden'>
+				<div className='transition-all bg-card sm:rounded-md shadow-md overflow-hidden'>
 					<UserGrid type='Friends' users={userData.friends} />
 					<button
 						onClick={() => navigate(`/user/${userData._id}/friends`)}

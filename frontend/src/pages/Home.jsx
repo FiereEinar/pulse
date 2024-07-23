@@ -19,7 +19,6 @@ export default function Home() {
 	const { getNasaPosts } = useNasaPosts();
 	const { getUselessFacts } = useUselessFacts();
 
-	// if the extra posts changes(new posts fetched), add it to all posts
 	useEffect(() => {
 		if (userPosts) {
 			setAllPosts([...userPosts, ...extraPosts]);
