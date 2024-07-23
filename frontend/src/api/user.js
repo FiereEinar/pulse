@@ -1,17 +1,11 @@
-import axios from "axios";
-
-const BASE_API_URL = import.meta.env.VITE_BASE_API_URL;
+import axiosInstance from "./axios";
 
 /**
  * fetch a user by ID
  */
 export const fetchUserByID = async (userID) => {
   try {
-    const { data } = await axios.get(`${BASE_API_URL}/user/${userID}`, {
-      headers: {
-        Authorization: localStorage.getItem('Token')
-      }
-    });
+    const { data } = await axiosInstance.get(`/user/${userID}`);
 
     return data.data;
   } catch (e) {
@@ -25,11 +19,7 @@ export const fetchUserByID = async (userID) => {
  */
 export const updateUser = async (userID, formData) => {
   try {
-    const { data } = await axios.put(`${BASE_API_URL}/user/${userID}`, formData, {
-      headers: {
-        Authorization: localStorage.getItem('Token')
-      }
-    });
+    const { data } = await axiosInstance.put(`/user/${userID}`, formData);
 
     return data;
   } catch (e) {
@@ -43,11 +33,7 @@ export const updateUser = async (userID, formData) => {
  */
 export const updateUserCover = async (userID, formData) => {
   try {
-    const { data } = await axios.put(`${BASE_API_URL}/user/${userID}/cover`, formData, {
-      headers: {
-        Authorization: localStorage.getItem('Token')
-      }
-    });
+    const { data } = await axiosInstance.put(`/user/${userID}/cover`, formData);
 
     return data;
   } catch (e) {
@@ -61,11 +47,7 @@ export const updateUserCover = async (userID, formData) => {
  */
 export const fetchUsers = async () => {
   try {
-    const { data } = await axios.get(`${BASE_API_URL}/user`, {
-      headers: {
-        Authorization: localStorage.getItem('Token')
-      }
-    });
+    const { data } = await axiosInstance.get(`/user`);
 
     return data.data;
   } catch (e) {
@@ -79,11 +61,7 @@ export const fetchUsers = async () => {
  */
 export const fetchUserActivity = async (userID) => {
   try {
-    const { data } = await axios.get(`${BASE_API_URL}/user/${userID}/activity`, {
-      headers: {
-        Authorization: localStorage.getItem('Token')
-      }
-    });
+    const { data } = await axiosInstance.get(`/user/${userID}/activity`);
 
     return data.data;
   } catch (e) {
@@ -97,11 +75,7 @@ export const fetchUserActivity = async (userID) => {
  */
 export const updateActivityStatus = async (userID, activityID, formData) => {
   try {
-    const { data } = await axios.put(`${BASE_API_URL}/user/${userID}/activity/${activityID}`, formData, {
-      headers: {
-        Authorization: localStorage.getItem('Token')
-      }
-    });
+    const { data } = await axiosInstance.put(`/user/${userID}/activity/${activityID}`, formData);
 
     return data;
   } catch (e) {
@@ -115,11 +89,7 @@ export const updateActivityStatus = async (userID, activityID, formData) => {
  */
 export const sendFriendRequest = async (userID) => {
   try {
-    const { data } = await axios.post(`${BASE_API_URL}/user/${userID}/request`, {}, {
-      headers: {
-        Authorization: localStorage.getItem('Token')
-      }
-    });
+    const { data } = await axiosInstance.post(`/user/${userID}/request`, {});
 
     return data;
   } catch (e) {
@@ -133,11 +103,7 @@ export const sendFriendRequest = async (userID) => {
  */
 export const acceptFriendRequest = async (userID) => {
   try {
-    const { data } = await axios.post(`${BASE_API_URL}/user/${userID}/request/accept`, {}, {
-      headers: {
-        Authorization: localStorage.getItem('Token')
-      }
-    });
+    const { data } = await axiosInstance.post(`/user/${userID}/request/accept`, {});
 
     return data;
   } catch (e) {

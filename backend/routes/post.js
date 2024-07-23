@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const passport = require('../utils/passport');
-const upload = require('../utils/multer');
+const upload = require('../middlewares/multer');
+const auth = require('../middlewares/auth');
 
 const {
   posts_get,
@@ -20,75 +20,75 @@ const {
 
 // GET POSTS
 router.get('/',
-  passport.authenticate('jwt', { session: false }),
+  auth,
   posts_get
 );
 
 // GET USER POSTS
 router.get('/user/:userID',
-  passport.authenticate('jwt', { session: false }),
+  auth,
   user_posts_get
 );
 
 // CREATE A POST
 router.post('/',
-  passport.authenticate('jwt', { session: false }),
+  auth,
   upload.single('image'),
   post_post
 );
 
 // GET POST BY ID
 router.get('/:postID',
-  passport.authenticate('jwt', { session: false }),
+  auth,
   post_id_get
 );
 
 // UPDATE POST BY ID
 router.put('/:postID',
-  passport.authenticate('jwt', { session: false }),
+  auth,
   post_update
 );
 
 // DELETE POST BY ID
 router.delete('/:postID',
-  passport.authenticate('jwt', { session: false }),
+  auth,
   post_delete
 );
 
 // CREATE A COMMENT ON A POST
 router.post('/:postID/comment',
-  passport.authenticate('jwt', { session: false }),
+  auth,
   upload.single('image'),
   post_comment_create
 );
 
 // SHARE A POST
 router.put('/:postID/share',
-  passport.authenticate('jwt', { session: false }),
+  auth,
   post_share_toggle
 );
 
 // LIKE A POST
 router.put('/:postID/like',
-  passport.authenticate('jwt', { session: false }),
+  auth,
   post_like_toggle
 );
 
 // UPDATE A COMMENT ON A POST
 router.put('/:postID/comment/:commentID',
-  passport.authenticate('jwt', { session: false }),
+  auth,
   post_comment_update
 );
 
 // DELETE A COMMENT ON A POST
 router.delete('/:postID/comment/:commentID',
-  passport.authenticate('jwt', { session: false }),
+  auth,
   post_comment_delete
 );
 
 // SEND A LIKE TO A COMMENT ON A POST
 router.put('/:postID/comment/:commentID/like',
-  passport.authenticate('jwt', { session: false }),
+  auth,
   post_comment_like_toggle
 );
 

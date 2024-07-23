@@ -55,10 +55,16 @@ export default function PostsFeed({
 		};
 	}, [postsRefetcher]);
 
+	if (isLoading) {
+		return <PostFeedLoading />;
+	}
+
+	if (isLoading) {
+		return <FormError message='Failed to fetch posts' />;
+	}
+
 	return (
 		<section className='flex flex-col gap-2 sm:gap-3'>
-			{isLoading && <PostFeedLoading />}
-			{error && <FormError message='Failed to fetch posts' />}
 			{posts && posts.length === 0 && !isLoading && (
 				<p className='transition-all h-full w-full bg-card p-3 rounded-md text-muted-foreground italic text-sm'>
 					No posts yet

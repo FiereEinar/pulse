@@ -23,7 +23,8 @@ function App() {
 		const mainContentRefCurrent = mainContentRef.current;
 
 		const saveScrollPosition = () => {
-			if (mainContentRefCurrent) {
+			// i only wanna save the scroll position on the home page
+			if (mainContentRefCurrent && location.pathname === '/') {
 				localStorage.setItem(
 					`scroll_position_${location.pathname}`,
 					mainContentRefCurrent.scrollTop
@@ -40,15 +41,11 @@ function App() {
 	// get the previous scroll position if there are any
 	useEffect(() => {
 		if (mainContentRef.current) {
-			const value = parseInt(
-				localStorage.getItem(`scroll_position_${location.pathname}`)
-			);
+			const path = location.pathname;
+			const value = parseInt(localStorage.getItem(`scroll_position_${path}`));
 
-			// i don't want to preserve the scroll value of profile page so this needs to be done
-			const path = location.pathname.split('/')[1];
-			const scrollValue = path === 'profile' ? 0 : value;
+			const scrollValue = path === '/' ? value : 0;
 
-			console.log(`scroll_position_${location.pathname}: ${scrollValue}`);
 			// this is weird, it needs setTimeout or else it won't work, im guessing the posts needs time to render considering it it being fetched, although it is queried so it shouldnt take too much time to load
 			setTimeout(() => {
 				mainContentRef.current.scrollTo(0, scrollValue);

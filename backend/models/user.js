@@ -20,6 +20,7 @@ const UserSchema = new Schema({
     url: String,
     publicID: String,
   },
+  token: String
 });
 
 module.exports = mongoose.model('User', UserSchema);

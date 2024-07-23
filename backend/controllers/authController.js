@@ -64,7 +64,39 @@ exports.login_get = asyncHandler(async (req, res) => {
     return res.json(new Response(false, null, 'Invalid password', 'Invalid password'));
   }
 
-  const token = jwt.sign({ user }, process.env.JWT_SECRET_KEY);
+  const token = jwt.sign(
+    { userID: user._id, username: user.username },
+    process.env.JWT_SECRET_KEY,
+    { expiresIn: '1d' }
+  );
 
-  res.json(new Response(true, { token, userID: user._id }, 'Log in successfull', null));
+  user.token = token;
+  await user.save();
+
+  res.cookie('pulse_jwt', token, {
+    httpOnly: true,
+    sameSite: 'None',
+    secure: true,
+    maxAge: 24 * 60 * 60 * 1000   // 1 day
+  });
+
+  res.json(new Response(true, { userID: user._id }, 'Log in successfull', null));
+});
+
+/**
+ * GET - CHECK IF AUTHENTICATED / COOKIES ARE SET
+ */
+exports.check_auth = asyncHandler(async (req, res) => {
+  const token = req.cookies.pulse_jwt;
+
+  if (!token) {
+    return res.sendStatus(401);
+  }
+
+  try {
+    jwt.verify(token, process.env.JWT_SECRET_KEY);
+    res.sendStatus(200);
+  } catch (error) {
+    res.sendStatus(401);
+  }
 });

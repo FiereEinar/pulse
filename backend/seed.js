@@ -1,7 +1,7 @@
 require('dotenv').config();
 const { faker } = require('@faker-js/faker');
 
-require('./utils/mongodb');
+require('./database/mongodb');
 
 const User = require('./models/user');
 const Post = require('./models/post');

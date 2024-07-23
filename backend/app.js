@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet')
+const cookieParser = require('cookie-parser')
 
 // Frontend URL
 const FRONTEND_URL =
@@ -12,7 +13,8 @@ const FRONTEND_URL =
 const app = express();
 app.use(helmet())
 app.use(cors({
-  origin: FRONTEND_URL
+  origin: FRONTEND_URL,
+  credentials: true
 }));
 
 //controllers
@@ -21,10 +23,11 @@ const userRouter = require('./routes/user');
 const postRouter = require('./routes/post');
 
 // connect to mongoDB
-require('./utils/mongodb');
+require('./database/mongodb');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser())
 
 // routes
 app.use('/auth', authRouter);
