@@ -36,7 +36,7 @@ export function PostFeedLoading() {
 	const length = Array(5).fill(0);
 
 	return (
-		<section className='flex flex-col gap-3'>
+		<section className='flex flex-col gap-2 sm:gap-3'>
 			{length.map((_, i) => (
 				<PostCardLoading key={i} />
 			))}

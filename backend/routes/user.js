@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const passport = require('../utils/passport');
-const upload = require('../utils/multer');
+const upload = require('../middlewares/multer');
+const auth = require('../middlewares/auth');
 
 const {
   user_get,
@@ -16,51 +16,51 @@ const {
 
 // GET USERS
 router.get('/',
-  passport.authenticate('jwt', { session: false }),
+  auth,
   users_get
 );
 
 // GET USER BY ID
 router.get('/:userID',
-  passport.authenticate('jwt', { session: false }),
+  auth,
   user_get
 );
 
 // UPDATE USER
 router.put('/:userID',
-  passport.authenticate('jwt', { session: false }),
+  auth,
   upload.single('image'),
   user_update
 );
 
 // UPDATE USER COVER PHOTO
 router.put('/:userID/cover',
-  passport.authenticate('jwt', { session: false }),
+  auth,
   upload.single('image'),
   user_update_cover
 );
 
 // GET USER ACTIVITY/NOTIFICATIONS
 router.get('/:userID/activity',
-  passport.authenticate('jwt', { session: false }),
+  auth,
   user_activity_get
 );
 
 // SEND REQUEST TO A USER
 router.post('/:userID/request',
-  passport.authenticate('jwt', { session: false }),
+  auth,
   user_request_send
 );
 
 // ACCEPT REQUEST TO A USER
 router.post('/:userID/request/accept',
-  passport.authenticate('jwt', { session: false }),
+  auth,
   user_request_accept
 );
 
 // UPDATE USER ACTIVITY/NOTIFICATIONS
 router.put('/:userID/activity/:activityID',
-  passport.authenticate('jwt', { session: false }),
+  auth,
   user_activity_update
 );
 

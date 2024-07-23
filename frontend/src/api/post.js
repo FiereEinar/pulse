@@ -1,17 +1,11 @@
-import axios from "axios";
-
-const BASE_API_URL = import.meta.env.VITE_BASE_API_URL;
+import axiosInstance from "./axios";
 
 /**
  * get all posts
  */
 export const getPosts = async () => {
   try {
-    const { data } = await axios.get(`${BASE_API_URL}/post`, {
-      headers: {
-        Authorization: localStorage.getItem('Token')
-      }
-    });
+    const { data } = await axiosInstance.get(`/post`);
 
     return data.data;
   } catch (e) {
@@ -25,11 +19,7 @@ export const getPosts = async () => {
  */
 export const createPost = async (formData) => {
   try {
-    const { data } = await axios.post(`${BASE_API_URL}/post`, formData, {
-      headers: {
-        Authorization: localStorage.getItem('Token')
-      }
-    });
+    const { data } = await axiosInstance.post(`/post`, formData);
 
     return data;
   } catch (e) {
@@ -43,11 +33,7 @@ export const createPost = async (formData) => {
  */
 export const postLikeToggle = async (postID) => {
   try {
-    const result = await axios.put(`${BASE_API_URL}/post/${postID}/like`, {}, {
-      headers: {
-        Authorization: localStorage.getItem('Token')
-      }
-    });
+    const result = await axiosInstance.put(`/post/${postID}/like`, {});
 
     return result.data;
   } catch (e) {
@@ -61,11 +47,7 @@ export const postLikeToggle = async (postID) => {
  */
 export const fetchPostByID = async (postID) => {
   try {
-    const { data } = await axios.get(`${BASE_API_URL}/post/${postID}`, {
-      headers: {
-        Authorization: localStorage.getItem('Token')
-      }
-    });
+    const { data } = await axiosInstance.get(`/post/${postID}`);
 
     return data.data;
   } catch (e) {
@@ -79,11 +61,7 @@ export const fetchPostByID = async (postID) => {
  */
 export const createComment = async (postID, formData) => {
   try {
-    const { data } = await axios.post(`${BASE_API_URL}/post/${postID}/comment`, formData, {
-      headers: {
-        Authorization: localStorage.getItem('Token')
-      }
-    });
+    const { data } = await axiosInstance.post(`/post/${postID}/comment`, formData);
 
     return data;
   } catch (e) {
@@ -97,11 +75,7 @@ export const createComment = async (postID, formData) => {
  */
 export const postCommentLikeToggle = async (postID, commentID) => {
   try {
-    const result = await axios.put(`${BASE_API_URL}/post/${postID}/comment/${commentID}/like`, {}, {
-      headers: {
-        Authorization: localStorage.getItem('Token')
-      }
-    });
+    const result = await axiosInstance.put(`/post/${postID}/comment/${commentID}/like`, {});
 
     return result.data;
   } catch (e) {
@@ -115,11 +89,7 @@ export const postCommentLikeToggle = async (postID, commentID) => {
  */
 export const deleteComment = async (postID, commentID) => {
   try {
-    const { data } = await axios.delete(`${BASE_API_URL}/post/${postID}/comment/${commentID}`, {
-      headers: {
-        Authorization: localStorage.getItem('Token')
-      }
-    });
+    const { data } = await axiosInstance.delete(`/post/${postID}/comment/${commentID}`);
 
     return data;
   } catch (e) {
@@ -133,11 +103,7 @@ export const deleteComment = async (postID, commentID) => {
  */
 export const updateComment = async (postID, commentID, formData) => {
   try {
-    const { data } = await axios.put(`${BASE_API_URL}/post/${postID}/comment/${commentID}`, formData, {
-      headers: {
-        Authorization: localStorage.getItem('Token')
-      }
-    });
+    const { data } = await axiosInstance.put(`/post/${postID}/comment/${commentID}`, formData);
 
     return data;
   } catch (e) {
@@ -151,11 +117,7 @@ export const updateComment = async (postID, commentID, formData) => {
  */
 export const updatePost = async (postID, formData) => {
   try {
-    const { data } = await axios.put(`${BASE_API_URL}/post/${postID}`, formData, {
-      headers: {
-        Authorization: localStorage.getItem('Token')
-      }
-    });
+    const { data } = await axiosInstance.put(`/post/${postID}`, formData);
 
     return data;
   } catch (e) {
@@ -169,11 +131,7 @@ export const updatePost = async (postID, formData) => {
  */
 export const deletePost = async (postID) => {
   try {
-    const { data } = await axios.delete(`${BASE_API_URL}/post/${postID}`, {
-      headers: {
-        Authorization: localStorage.getItem('Token')
-      }
-    });
+    const { data } = await axiosInstance.delete(`/post/${postID}`);
 
     return data;
   } catch (e) {
@@ -187,11 +145,7 @@ export const deletePost = async (postID) => {
  */
 export const fetchUserPosts = async (userID) => {
   try {
-    const { data } = await axios.get(`${BASE_API_URL}/post/user/${userID}`, {
-      headers: {
-        Authorization: localStorage.getItem('Token')
-      }
-    });
+    const { data } = await axiosInstance.get(`/post/user/${userID}`);
 
     return data.data;
   } catch (e) {
@@ -205,11 +159,7 @@ export const fetchUserPosts = async (userID) => {
  */
 export const sharePostToggle = async (postID) => {
   try {
-    const { data } = await axios.put(`${BASE_API_URL}/post/${postID}/share`, {}, {
-      headers: {
-        Authorization: localStorage.getItem('Token')
-      }
-    });
+    const { data } = await axiosInstance.put(`/post/${postID}/share`, {});
 
     return data;
   } catch (e) {
