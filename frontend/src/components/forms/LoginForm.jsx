@@ -36,9 +36,8 @@ export default function LoginForm() {
 				return;
 			}
 
-			const { token, userID } = result.data;
+			const { userID } = result.data;
 
-			localStorage.setItem('Token', `Bearer ${token}`);
 			localStorage.setItem('UserID', userID);
 
 			toast({

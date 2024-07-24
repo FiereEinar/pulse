@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 /**
  * POST - JWT USER SIGNUP
  */
-exports.signup_get = asyncHandler(async (req, res) => {
+exports.signup = asyncHandler(async (req, res) => {
   const { firstname, lastname, username, password } = req.body;
 
   const errors = validationResult(req);
@@ -46,7 +46,7 @@ exports.signup_get = asyncHandler(async (req, res) => {
 /**
  * POST - JWT USER LOGIN
  */
-exports.login_get = asyncHandler(async (req, res) => {
+exports.login = asyncHandler(async (req, res) => {
   const { username, password } = req.body;
 
   const errors = validationResult(req);
@@ -99,4 +99,36 @@ exports.check_auth = asyncHandler(async (req, res) => {
   } catch (error) {
     res.sendStatus(401);
   }
+});
+
+/**
+ * GET - LOGOUT
+ */
+exports.logout = asyncHandler(async (req, res) => {
+  const token = req.cookies?.pulse_jwt;
+  if (!token) {
+    return res.sendStatus(204)
+  }
+
+  const user = await User.findOne({ token: token }).exec();
+  if (!user) {
+    res.clearCookie('pulse_jwt', {
+      httpOnly: true,
+      sameSite: 'None',
+      secure: true,
+    });
+
+    return res.sendStatus(204);
+  }
+
+  user.token = '';
+  await user.save();
+
+  res.clearCookie('pulse_jwt', {
+    httpOnly: true,
+    sameSite: 'None',
+    secure: true,
+  });
+
+  res.sendStatus(204);
 });

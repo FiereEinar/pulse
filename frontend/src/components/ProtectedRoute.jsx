@@ -29,7 +29,7 @@ export default function ProtectedRoute({ children }) {
 
 	if (!isAuthenticated) {
 		return (
-			<main className='w-full h-screen bg-background flex flex-col items-center justify-center text-muted-foreground gap-3'>
+			<main className='w-full h-dvh bg-background flex flex-col items-center justify-center text-muted-foreground gap-3'>
 				<l-helix size='80' speed='2.5' color='white'></l-helix>
 				<h1 className='text-2xl font-bold'>Authenticating...</h1>
 			</main>
