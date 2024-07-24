@@ -21,6 +21,7 @@ export default function CreatePostForm({ currentUser }) {
 	const {
 		register,
 		handleSubmit,
+		setError,
 		formState: { errors, isSubmitting },
 	} = useForm({
 		resolver: zodResolver(createPostSchema),
@@ -42,6 +43,8 @@ export default function CreatePostForm({ currentUser }) {
 					title: 'Failed to create your post',
 					description: 'An error occured while creating your post',
 				});
+
+				setError('content', { message: result.error });
 				return;
 			}
 
@@ -125,6 +128,7 @@ export default function CreatePostForm({ currentUser }) {
 					value={content}
 					onChange={(e) => setContent(e.target.value)}
 				/>
+
 				<div className='px-3'>
 					{errors.content && <FormError message={errors.content.message} />}
 				</div>

@@ -4,6 +4,7 @@ const User = require('../models/user');
 const { serverlessImageUpload } = require('../utils/uploader');
 const cloudinary = require('../utils/cloudinary');
 const Activity = require('../models/activity');
+const { validationResult } = require('express-validator');
 
 /**
  * GET USER BY ID
@@ -41,6 +42,11 @@ exports.user_update = asyncHandler(async (req, res) => {
   const { userID } = req.params;
   const { firstname, lastname, username, bio } = req.body;
 
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.json(new Response(false, null, 'Validation error', errors.array()[0].msg));
+  }
+
   const user = await User.findById(userID);
   if (!user) {
     return res.status(404).json(new Response(false, null, 'User not found', null));
@@ -61,9 +67,9 @@ exports.user_update = asyncHandler(async (req, res) => {
   }
 
   const update = {
-    firstname: firstname,
-    lastname: lastname,
-    username: username,
+    firstname: firstname.toLowerCase(),
+    lastname: lastname.toLowerCase(),
+    username: username.toLowerCase(),
     bio: bio,
     profile: {
       url: imageUrl,

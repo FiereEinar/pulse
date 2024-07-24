@@ -4,6 +4,7 @@ import CustomImageGallery from './CustomImageGallery';
 import SharePostButton from './buttons/SharePostButton';
 import { truncateText } from '@/lib/utils';
 import { useState } from 'react';
+import he from 'he';
 
 export default function PostCard({
 	creatorProfile,
@@ -71,7 +72,7 @@ export default function PostCard({
 							onClick={() => setExpanded(!expanded)}
 							className='text-muted-foreground text-wrap cursor-pointer text-sm'
 						>
-							{truncateText(content, 50)}
+							{he.decode(truncateText(content, 50))}
 						</p>
 						<button
 							onClick={() => setExpanded(!expanded)}
@@ -87,7 +88,7 @@ export default function PostCard({
 							onClick={() => setExpanded(!expanded)}
 							className='text-muted-foreground text-wrap cursor-pointer text-sm'
 						>
-							{content}
+							{he.decode(content)}
 						</p>
 						{content && content.split(' ').length > 50 && (
 							<button

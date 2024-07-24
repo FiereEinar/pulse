@@ -6,6 +6,7 @@ const Comment = require('../models/comment');
 const { serverlessImageUpload } = require("../utils/uploader");
 const cloudinary = require('../utils/cloudinary');
 const Activity = require("../models/activity");
+const { validationResult } = require("express-validator");
 
 /**
  * get all posts
@@ -78,6 +79,11 @@ exports.post_id_get = asyncHandler(async (req, res) => {
 exports.post_post = asyncHandler(async (req, res) => {
   const { creatorID, content } = req.body;
 
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.json(new Response(false, null, 'Validation error', errors.array()[0].msg));
+  }
+
   let imgUrl = '';
   let imgPublicID = '';
 
@@ -108,6 +114,11 @@ exports.post_post = asyncHandler(async (req, res) => {
 exports.post_comment_create = asyncHandler(async (req, res) => {
   const { postID } = req.params;
   const { commenterID, content } = req.body;
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.json(new Response(false, null, 'Validation error', errors.array()[0].msg));
+  }
 
   const commenter = await User.findById(commenterID);
   if (!commenter) {

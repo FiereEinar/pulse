@@ -13,6 +13,7 @@ const {
   user_request_send,
   user_request_accept
 } = require('../controllers/userController');
+const { user_update_validation } = require('../middlewares/validations');
 
 // GET USERS
 router.get('/',
@@ -30,6 +31,7 @@ router.get('/:userID',
 router.put('/:userID',
   auth,
   upload.single('image'),
+  user_update_validation,
   user_update
 );
 

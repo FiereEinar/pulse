@@ -17,6 +17,7 @@ const {
   post_like_toggle,
   post_comment_like_toggle
 } = require('../controllers/postController');
+const { post_content_validation } = require('../middlewares/validations');
 
 // GET POSTS
 router.get('/',
@@ -34,6 +35,7 @@ router.get('/user/:userID',
 router.post('/',
   auth,
   upload.single('image'),
+  post_content_validation,
   post_post
 );
 
@@ -59,6 +61,7 @@ router.delete('/:postID',
 router.post('/:postID/comment',
   auth,
   upload.single('image'),
+  post_content_validation,
   post_comment_create
 );
 

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import CustomImageGallery from './CustomImageGallery';
 import { format } from 'date-fns';
 import CommentActions from './CommentActions';
+import he from 'he';
 
 export default function CommentCard({
 	profile,
@@ -80,7 +81,7 @@ export default function CommentCard({
 					style={{ whiteSpace: 'pre-wrap' }}
 					className='text-muted-foreground my-1 text-wrap text-sm'
 				>
-					{comment}
+					{he.decode(comment)}
 				</p>
 				{image && (
 					<CustomImageGallery image={image} containerClass='h-[10rem]' />

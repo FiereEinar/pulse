@@ -25,9 +25,8 @@ export default function EnterAsGuestButton({ isLoading, setIsLoading }) {
 				return;
 			}
 
-			const { token, userID } = result.data;
+			const { userID } = result.data;
 
-			localStorage.setItem('Token', `Bearer ${token}`);
 			localStorage.setItem('UserID', userID);
 
 			toast({

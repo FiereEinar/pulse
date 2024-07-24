@@ -20,6 +20,7 @@ export default function CreateCommentForm({ postID, refetch }) {
 		register,
 		handleSubmit,
 		reset,
+		setError,
 		formState: { errors, isSubmitting },
 	} = useForm({
 		resolver: zodResolver(createPostSchema),
@@ -41,6 +42,8 @@ export default function CreateCommentForm({ postID, refetch }) {
 					title: 'Failed to post your comment',
 					description: 'An error occured while posting your comment',
 				});
+
+				setError('content', { message: result.error });
 				return;
 			}
 
