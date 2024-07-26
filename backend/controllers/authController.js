@@ -13,15 +13,32 @@ exports.signup = asyncHandler(async (req, res) => {
 
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.json(new Response(false, null, 'Error in sign up validation', errors.array()[0].msg))
+    return res.json(
+      new Response(
+        false,
+        null,
+        'Error in sign up validation',
+        errors.array()[0].msg
+      )
+    );
   }
 
   const existingUser = await User.findOne({ username: username }).exec();
   if (existingUser) {
-    return res.json(new Response(false, null, 'Username already exists', 'Username already exists'))
+    return res.json(
+      new Response(
+        false,
+        null,
+        'Username already exists',
+        'Username already exists'
+      )
+    );
   }
 
-  const hashedPassword = await bcrypt.hash(password, parseInt(process.env.BCRYPT_SALT))
+  const hashedPassword = await bcrypt.hash(
+    password,
+    parseInt(process.env.BCRYPT_SALT)
+  );
 
   const user = new User({
     firstname: firstname.toLowerCase(),
@@ -30,11 +47,11 @@ exports.signup = asyncHandler(async (req, res) => {
     password: hashedPassword,
     profile: {
       url: '',
-      publicID: ''
+      publicID: '',
     },
     cover: {
       url: '',
-      publicID: ''
+      publicID: '',
     },
   });
 
@@ -51,17 +68,28 @@ exports.login = asyncHandler(async (req, res) => {
 
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.json(new Response(false, null, 'Error in log in validation', errors.array()[0].msg))
+    return res.json(
+      new Response(
+        false,
+        null,
+        'Error in log in validation',
+        errors.array()[0].msg
+      )
+    );
   }
 
   const user = await User.findOne({ username: username }).exec();
   if (!user) {
-    return res.json(new Response(false, null, 'Invalid username', 'Invalid username'));
+    return res.json(
+      new Response(false, null, 'Invalid username', 'Invalid username')
+    );
   }
 
   const match = await bcrypt.compare(password, user.password);
   if (!match) {
-    return res.json(new Response(false, null, 'Invalid password', 'Invalid password'));
+    return res.json(
+      new Response(false, null, 'Invalid password', 'Invalid password')
+    );
   }
 
   const token = jwt.sign(
@@ -77,10 +105,12 @@ exports.login = asyncHandler(async (req, res) => {
     httpOnly: true,
     sameSite: 'None',
     secure: true,
-    maxAge: 24 * 60 * 60 * 1000   // 1 day
+    maxAge: 24 * 60 * 60 * 1000, // 1 day
   });
 
-  res.json(new Response(true, { userID: user._id }, 'Log in successfull', null));
+  res.json(
+    new Response(true, { userID: user._id }, 'Log in successfull', null)
+  );
 });
 
 /**
@@ -107,7 +137,7 @@ exports.check_auth = asyncHandler(async (req, res) => {
 exports.logout = asyncHandler(async (req, res) => {
   const token = req.cookies?.pulse_jwt;
   if (!token) {
-    return res.sendStatus(204)
+    return res.sendStatus(204);
   }
 
   const user = await User.findOne({ token: token }).exec();

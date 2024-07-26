@@ -1,14 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const auth = require('../middlewares/auth');
 
 const {
   signup,
   login,
   check_auth,
-  logout
+  logout,
 } = require('../controllers/authController');
-const { signup_validation, login_validation } = require('../middlewares/validations');
+const {
+  signup_validation,
+  login_validation,
+} = require('../middlewares/validations');
 
 router.post('/signup', signup_validation, signup);
 router.post('/login', login_validation, login);

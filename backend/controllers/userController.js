@@ -12,14 +12,14 @@ const { validationResult } = require('express-validator');
 exports.user_get = asyncHandler(async (req, res) => {
   const { userID } = req.params;
 
-  const user = await User.findById(userID, '-password')
+  const user = await User.findById(userID, '-password -token')
     .populate({
       path: 'friends',
-      select: '-password'
+      select: '-password -token',
     })
     .populate({
       path: 'friendRequests',
-      select: '-password'
+      select: '-password -token',
     })
     .exec();
 
@@ -30,7 +30,7 @@ exports.user_get = asyncHandler(async (req, res) => {
  * GET USERS
  */
 exports.users_get = asyncHandler(async (req, res) => {
-  const users = await User.find({}, '-password').exec();
+  const users = await User.find({}, '-password -token').exec();
 
   res.json(new Response(true, users, 'Users gathered', null));
 });
@@ -44,12 +44,16 @@ exports.user_update = asyncHandler(async (req, res) => {
 
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.json(new Response(false, null, 'Validation error', errors.array()[0].msg));
+    return res.json(
+      new Response(false, null, 'Validation error', errors.array()[0].msg)
+    );
   }
 
   const user = await User.findById(userID);
   if (!user) {
-    return res.status(404).json(new Response(false, null, 'User not found', null));
+    return res
+      .status(404)
+      .json(new Response(false, null, 'User not found', null));
   }
 
   let imageUrl = user.profile.url;
@@ -73,11 +77,13 @@ exports.user_update = asyncHandler(async (req, res) => {
     bio: bio,
     profile: {
       url: imageUrl,
-      publicID: imagePublicID
+      publicID: imagePublicID,
     },
   };
 
-  const result = await User.findByIdAndUpdate(userID, update, { new: true }).exec();
+  const result = await User.findByIdAndUpdate(userID, update, {
+    new: true,
+  }).exec();
 
   res.json(new Response(true, result, 'User updated', null));
 });
@@ -90,7 +96,9 @@ exports.user_update_cover = asyncHandler(async (req, res) => {
 
   const user = await User.findById(userID);
   if (!user) {
-    return res.status(404).json(new Response(false, null, 'User not found', null));
+    return res
+      .status(404)
+      .json(new Response(false, null, 'User not found', null));
   }
 
   let imageUrl = user.cover.url;
@@ -110,11 +118,13 @@ exports.user_update_cover = asyncHandler(async (req, res) => {
   const update = {
     cover: {
       url: imageUrl,
-      publicID: imagePublicID
+      publicID: imagePublicID,
     },
   };
 
-  const result = await User.findByIdAndUpdate(userID, update, { new: true }).exec();
+  const result = await User.findByIdAndUpdate(userID, update, {
+    new: true,
+  }).exec();
 
   res.json(new Response(true, result, 'User cover updated', null));
 });
@@ -125,7 +135,9 @@ exports.user_update_cover = asyncHandler(async (req, res) => {
 exports.user_activity_get = asyncHandler(async (req, res) => {
   const { userID } = req.params;
 
-  const activities = await Activity.find({ for: userID }).sort({ date: -1 }).exec();
+  const activities = await Activity.find({ for: userID })
+    .sort({ date: -1 })
+    .exec();
 
   res.json(new Response(true, activities, 'User activity gathered', null));
 });
@@ -137,7 +149,11 @@ exports.user_activity_update = asyncHandler(async (req, res) => {
   const { activityID } = req.params;
   const { seen } = req.body;
 
-  const result = await Activity.findByIdAndUpdate(activityID, { seen: seen }, { new: true }).exec();
+  const result = await Activity.findByIdAndUpdate(
+    activityID,
+    { seen: seen },
+    { new: true }
+  ).exec();
 
   res.json(new Response(true, result, 'User activity update', null));
 });
@@ -151,7 +167,7 @@ exports.user_request_send = asyncHandler(async (req, res) => {
   const result = await User.findByIdAndUpdate(
     userID,
     {
-      $addToSet: { friendRequests: req.user._id }
+      $addToSet: { friendRequests: req.user._id },
     },
     { new: true }
   ).exec();
@@ -169,7 +185,7 @@ exports.user_request_accept = asyncHandler(async (req, res) => {
     req.user._id,
     {
       $pull: { friendRequests: userID },
-      $addToSet: { friends: userID }
+      $addToSet: { friends: userID },
     },
     { new: true }
   ).exec();
@@ -178,7 +194,7 @@ exports.user_request_accept = asyncHandler(async (req, res) => {
     userID,
     {
       $pull: { friendRequests: req.user._id },
-      $addToSet: { friends: req.user._id }
+      $addToSet: { friends: req.user._id },
     },
     { new: true }
   ).exec();

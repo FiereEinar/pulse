@@ -1,12 +1,12 @@
-const asyncHandler = require("express-async-handler");
+const asyncHandler = require('express-async-handler');
 const Response = require('../utils/response');
 const User = require('../models/user');
 const Post = require('../models/post');
 const Comment = require('../models/comment');
-const { serverlessImageUpload } = require("../utils/uploader");
+const { serverlessImageUpload } = require('../utils/uploader');
 const cloudinary = require('../utils/cloudinary');
-const Activity = require("../models/activity");
-const { validationResult } = require("express-validator");
+const Activity = require('../models/activity');
+const { validationResult } = require('express-validator');
 
 /**
  * get all posts
@@ -15,7 +15,7 @@ exports.posts_get = asyncHandler(async (req, res) => {
   const posts = await Post.find({})
     .populate({
       path: 'creator',
-      select: '-password'
+      select: '-password -token',
     })
     .sort({ dateCreated: -1 })
     .exec();
@@ -30,11 +30,11 @@ exports.user_posts_get = asyncHandler(async (req, res) => {
   const { userID } = req.params;
 
   const posts = await Post.find({
-    $or: [{ creator: userID }, { shares: userID }]
+    $or: [{ creator: userID }, { shares: userID }],
   })
     .populate({
       path: 'creator',
-      select: '-password'
+      select: '-password -token',
     })
     .sort({ dateCreated: -1 })
     .exec();
@@ -51,22 +51,22 @@ exports.post_id_get = asyncHandler(async (req, res) => {
   const post = await Post.findById(postID)
     .populate({
       path: 'creator',
-      select: '-password'
+      select: '-password -token',
     })
     .populate({
       path: 'likes',
-      select: '-password'
+      select: '-password -token',
     })
     .populate({
       path: 'shares',
-      select: '-password'
+      select: '-password -token',
     })
     .populate({
       path: 'comments',
       populate: {
         path: 'commenter',
-        select: '-password'
-      }
+        select: '-password -token',
+      },
     })
     .exec();
 
@@ -81,7 +81,9 @@ exports.post_post = asyncHandler(async (req, res) => {
 
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.json(new Response(false, null, 'Validation error', errors.array()[0].msg));
+    return res.json(
+      new Response(false, null, 'Validation error', errors.array()[0].msg)
+    );
   }
 
   let imgUrl = '';
@@ -99,7 +101,7 @@ exports.post_post = asyncHandler(async (req, res) => {
     content: content,
     image: {
       url: imgUrl,
-      publicID: imgPublicID
+      publicID: imgPublicID,
     },
   });
 
@@ -108,7 +110,7 @@ exports.post_post = asyncHandler(async (req, res) => {
   res.json(new Response(true, post, 'Posts created', null));
 });
 
-/** 
+/**
  * create a comment on a post
  */
 exports.post_comment_create = asyncHandler(async (req, res) => {
@@ -117,12 +119,16 @@ exports.post_comment_create = asyncHandler(async (req, res) => {
 
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.json(new Response(false, null, 'Validation error', errors.array()[0].msg));
+    return res.json(
+      new Response(false, null, 'Validation error', errors.array()[0].msg)
+    );
   }
 
   const commenter = await User.findById(commenterID);
   if (!commenter) {
-    return res.status(404).json(new Response(false, null, 'User not found', null));
+    return res
+      .status(404)
+      .json(new Response(false, null, 'User not found', null));
   }
 
   let imageUrl = '';
@@ -140,7 +146,7 @@ exports.post_comment_create = asyncHandler(async (req, res) => {
     content: content,
     image: {
       url: imageUrl,
-      publicID: imagePublicID
+      publicID: imagePublicID,
     },
   });
 
@@ -157,12 +163,14 @@ exports.post_comment_create = asyncHandler(async (req, res) => {
     associatedID: result._id,
     image: commenter.profile.url,
     type: 'post',
-    for: result.creator
+    for: result.creator,
   });
 
   await activity.save();
 
-  res.json(new Response(true, { comment, result }, 'Comment posted on a post', null));
+  res.json(
+    new Response(true, { comment, result }, 'Comment posted on a post', null)
+  );
 });
 
 /**
@@ -173,7 +181,9 @@ exports.post_like_toggle = asyncHandler(async (req, res) => {
 
   const post = await Post.findById(postID);
   if (!post) {
-    return res.status(404).json(new Response(false, null, 'Post not found', null));
+    return res
+      .status(404)
+      .json(new Response(false, null, 'Post not found', null));
   }
 
   const isLiked = post.likes.includes(req.user._id);
@@ -188,7 +198,7 @@ exports.post_like_toggle = asyncHandler(async (req, res) => {
       associatedID: post._id,
       image: req.user.profile.url,
       type: 'post',
-      for: post.creator
+      for: post.creator,
     });
 
     await activity.save();
@@ -208,7 +218,9 @@ exports.post_comment_like_toggle = asyncHandler(async (req, res) => {
   const post = await Post.findById(postID);
   const comment = await Comment.findById(commentID);
   if (!comment) {
-    return res.status(404).json(new Response(false, null, 'Comment not found', null));
+    return res
+      .status(404)
+      .json(new Response(false, null, 'Comment not found', null));
   }
 
   const isLiked = comment.likes.includes(req.user._id);
@@ -223,7 +235,7 @@ exports.post_comment_like_toggle = asyncHandler(async (req, res) => {
       associatedID: post._id,
       image: req.user.profile.url,
       type: 'post',
-      for: comment.commenter
+      for: comment.commenter,
     });
 
     await activity.save();
@@ -243,7 +255,7 @@ exports.post_comment_delete = asyncHandler(async (req, res) => {
   const result = await Comment.findByIdAndDelete(commentID);
 
   if (result?.image?.publicID) {
-    await cloudinary.uploader.destroy(result.image.publicID)
+    await cloudinary.uploader.destroy(result.image.publicID);
   }
 
   const updatedPost = await Post.findByIdAndUpdate(
@@ -252,7 +264,9 @@ exports.post_comment_delete = asyncHandler(async (req, res) => {
     { new: true }
   ).exec();
 
-  res.json(new Response(true, { result, updatedPost }, 'Comment removed', null));
+  res.json(
+    new Response(true, { result, updatedPost }, 'Comment removed', null)
+  );
 });
 
 /**
@@ -264,8 +278,8 @@ exports.post_comment_update = asyncHandler(async (req, res) => {
 
   const update = {
     content: content,
-    edited: true
-  }
+    edited: true,
+  };
 
   const updatedComment = await Comment.findOneAndUpdate(
     { _id: commentID, commenter: commenterID },
@@ -285,10 +299,12 @@ exports.post_update = asyncHandler(async (req, res) => {
 
   const update = {
     content: content,
-    edited: true
+    edited: true,
   };
 
-  const result = await Post.findByIdAndUpdate(postID, update, { new: true }).exec();
+  const result = await Post.findByIdAndUpdate(postID, update, {
+    new: true,
+  }).exec();
 
   res.json(new Response(true, result, 'Post updated', null));
 });
@@ -301,21 +317,25 @@ exports.post_delete = asyncHandler(async (req, res) => {
 
   const result = await Post.findByIdAndDelete(postID);
   if (!result) {
-    return res.status(404).json(new Response(false, null, 'Post not found', null));
+    return res
+      .status(404)
+      .json(new Response(false, null, 'Post not found', null));
   }
 
   if (result.image?.publicID) {
-    await cloudinary.uploader.destroy(result.image.publicID)
+    await cloudinary.uploader.destroy(result.image.publicID);
   }
 
   if (result.comments?.length) {
-    await Promise.all(result.comments.map(async (commentID) => {
-      const comment = await Comment.findByIdAndDelete(commentID);
+    await Promise.all(
+      result.comments.map(async (commentID) => {
+        const comment = await Comment.findByIdAndDelete(commentID);
 
-      if (comment?.image?.publicID) {
-        await cloudinary.uploader.destroy(comment.image.publicID);
-      }
-    }));
+        if (comment?.image?.publicID) {
+          await cloudinary.uploader.destroy(comment.image.publicID);
+        }
+      })
+    );
   }
 
   res.json(new Response(true, result, 'Post deleted', null));
@@ -329,7 +349,9 @@ exports.post_share_toggle = asyncHandler(async (req, res) => {
 
   const post = await Post.findById(postID);
   if (!post) {
-    return res.status(404).json(new Response(false, null, 'Post not found', null));
+    return res
+      .status(404)
+      .json(new Response(false, null, 'Post not found', null));
   }
 
   const isShared = post.shares.includes(req.user._id);
@@ -344,14 +366,13 @@ exports.post_share_toggle = asyncHandler(async (req, res) => {
       associatedID: post._id,
       image: req.user.profile.url,
       type: 'post',
-      for: post.creator
+      for: post.creator,
     });
 
     await activity.save();
   }
 
   await post.save();
-
 
   res.json(new Response(true, null, 'Post shared', null));
 });
