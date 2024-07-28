@@ -276,6 +276,13 @@ exports.post_comment_update = asyncHandler(async (req, res) => {
   const { commentID } = req.params;
   const { commenterID, content } = req.body;
 
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.json(
+      new Response(false, null, 'Validation error', errors.array()[0].msg)
+    );
+  }
+
   const update = {
     content: content,
     edited: true,
@@ -296,6 +303,13 @@ exports.post_comment_update = asyncHandler(async (req, res) => {
 exports.post_update = asyncHandler(async (req, res) => {
   const { postID } = req.params;
   const { content } = req.body;
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.json(
+      new Response(false, null, 'Validation error', errors.array()[0].msg)
+    );
+  }
 
   const update = {
     content: content,

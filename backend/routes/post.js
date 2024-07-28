@@ -15,24 +15,19 @@ const {
   user_posts_get,
   post_share_toggle,
   post_like_toggle,
-  post_comment_like_toggle
+  post_comment_like_toggle,
 } = require('../controllers/postController');
 const { post_content_validation } = require('../middlewares/validations');
 
 // GET POSTS
-router.get('/',
-  auth,
-  posts_get
-);
+router.get('/', auth, posts_get);
 
 // GET USER POSTS
-router.get('/user/:userID',
-  auth,
-  user_posts_get
-);
+router.get('/user/:userID', auth, user_posts_get);
 
 // CREATE A POST
-router.post('/',
+router.post(
+  '/',
   auth,
   upload.single('image'),
   post_content_validation,
@@ -40,25 +35,17 @@ router.post('/',
 );
 
 // GET POST BY ID
-router.get('/:postID',
-  auth,
-  post_id_get
-);
+router.get('/:postID', auth, post_id_get);
 
 // UPDATE POST BY ID
-router.put('/:postID',
-  auth,
-  post_update
-);
+router.put('/:postID', auth, post_content_validation, post_update);
 
 // DELETE POST BY ID
-router.delete('/:postID',
-  auth,
-  post_delete
-);
+router.delete('/:postID', auth, post_delete);
 
 // CREATE A COMMENT ON A POST
-router.post('/:postID/comment',
+router.post(
+  '/:postID/comment',
   auth,
   upload.single('image'),
   post_content_validation,
@@ -66,33 +53,23 @@ router.post('/:postID/comment',
 );
 
 // SHARE A POST
-router.put('/:postID/share',
-  auth,
-  post_share_toggle
-);
+router.put('/:postID/share', auth, post_share_toggle);
 
 // LIKE A POST
-router.put('/:postID/like',
-  auth,
-  post_like_toggle
-);
+router.put('/:postID/like', auth, post_like_toggle);
 
 // UPDATE A COMMENT ON A POST
-router.put('/:postID/comment/:commentID',
+router.put(
+  '/:postID/comment/:commentID',
   auth,
+  post_content_validation,
   post_comment_update
 );
 
 // DELETE A COMMENT ON A POST
-router.delete('/:postID/comment/:commentID',
-  auth,
-  post_comment_delete
-);
+router.delete('/:postID/comment/:commentID', auth, post_comment_delete);
 
 // SEND A LIKE TO A COMMENT ON A POST
-router.put('/:postID/comment/:commentID/like',
-  auth,
-  post_comment_like_toggle
-);
+router.put('/:postID/comment/:commentID/like', auth, post_comment_like_toggle);
 
 module.exports = router;
