@@ -84,7 +84,10 @@ export default function LoginForm() {
 
 			{/* submit button */}
 			<div className='flex justify-end'>
-				<EnterAsGuestButton isLoading={isLoading} setIsLoading={setIsLoading} />
+				<EnterAsGuestButton
+					isLoading={isSubmitting || isLoading}
+					setIsLoading={setIsLoading}
+				/>
 				<Button disabled={isSubmitting || isLoading}>Submit</Button>
 			</div>
 		</form>
