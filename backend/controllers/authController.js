@@ -103,7 +103,7 @@ exports.login = asyncHandler(async (req, res) => {
 
   res.cookie('pulse_jwt', token, {
     httpOnly: true,
-    sameSite: 'None',
+    sameSite: 'none',
     secure: true,
     maxAge: 24 * 60 * 60 * 1000, // 1 day
   });
@@ -120,6 +120,7 @@ exports.check_auth = asyncHandler(async (req, res) => {
   const token = req.cookies.pulse_jwt;
 
   if (!token) {
+    console.log('No token found')
     return res.sendStatus(401);
   }
 
@@ -127,6 +128,7 @@ exports.check_auth = asyncHandler(async (req, res) => {
     jwt.verify(token, process.env.JWT_SECRET_KEY);
     res.sendStatus(200);
   } catch (error) {
+    console.log('Token not verified')
     res.sendStatus(401);
   }
 });
@@ -144,7 +146,7 @@ exports.logout = asyncHandler(async (req, res) => {
   if (!user) {
     res.clearCookie('pulse_jwt', {
       httpOnly: true,
-      sameSite: 'None',
+      sameSite: 'none',
       secure: true,
     });
 
@@ -156,7 +158,7 @@ exports.logout = asyncHandler(async (req, res) => {
 
   res.clearCookie('pulse_jwt', {
     httpOnly: true,
-    sameSite: 'None',
+    sameSite: 'none',
     secure: true,
   });
 
